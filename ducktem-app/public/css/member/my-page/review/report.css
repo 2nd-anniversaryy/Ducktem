@@ -1,0 +1,44 @@
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-wrap h1 {
+    font-size: var(--font-5);
+}
+
+.main-wrap img {
+    margin: 0 10%;
+    width: 314px;
+    height: 64px;
+    object-fit: cover;
+}
+
+.form-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 50px 10% 0;
+    align-items: center;
+}
+
+.btn-default {
+    width: 150px;
+}
+
+.form-wrap {
+    position: relative
+}
+
+input[type=checkbox] {
+    position: absolute;
+    left: 10px;
+}
+
+.form-wrap label {
+    position: absolute;
+    left: 70px;
+}
+
+

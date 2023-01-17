@@ -1,0 +1,566 @@
+.main {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 20px;
+    */
+}
+
+.background{
+    z-index: 999;
+}
+.background-dark{
+    background-color: rgba(0, 0, 0, 0.355);
+}
+
+
+/* ===================== 위자드 인덱스 부분  ===================== */
+.wizard-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    /* width: 300px; */
+    padding: 10px;
+}
+
+
+.wizard-index{
+    color: var(--color-light);
+    font-size: var(--font-5);
+    font-weight: 900;
+    text-align: center;
+
+}
+
+.wizard {
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    border: 0;
+    border-radius: 25px;
+    background-color: #BBBBBB;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.line {
+    width: 250px;
+    height: 5px;
+    background-color: #BBBBBB;
+    position: absolute;
+    z-index: -1;
+}
+
+
+
+.first {
+    background-color: var(--color-primary);
+}
+
+.second {
+    background-color: var(--color-primary);
+}
+
+.third {
+    background-color: var(--color-primary);
+}
+
+.fourth {
+    background-color: var(--color-primary);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===================== 폼 부분  ===================== */
+
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+/* ===================== 폼시작  ===================== */
+
+.reg-form {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reg {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reg1,.reg2, .reg3, .reg4{
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+    width: 370px;  
+}
+
+
+.reg div {
+    padding: 10px;
+}
+
+
+
+.reg .title{
+    font-size: var(--font-4);
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.reg .input-title{
+    display: block;
+    font-size: var(--font-3);
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+.reg .btn-default, .reg .btn-cancel{
+    padding: 0.5em 4em;
+}
+
+
+
+/* <!-- ==========     input 기본타입 및 util    ========== --> */
+
+.input-default{
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    /* outline: 3px solid var(--color-primary); */
+}
+
+.input-detail {
+    vertical-align: bottom;
+    padding-left: 10px;
+}
+
+
+.d-none {
+    display: none;
+}
+
+
+
+
+
+
+
+/* <!-- ==========     1번 페이지    ========== --> */
+
+.reg1 input[type=text] {
+    width: 90%;
+}
+
+.reg1 input[type=number] {
+    width: 80%;
+}
+.reg1 input[type=number]::-webkit-outer-spin-button,
+.reg1 input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.img-input, .img-input-after {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.reg1 .input-box{
+    display: inline-block;
+    padding: 0;
+}
+
+.reg1 .img-count{
+    font-size: var(--font-2);
+    color: rgb(82, 82, 82);
+}
+
+
+
+
+
+/* <!-- ==========     2번 페이지    ========== --> */
+
+
+.supercategory-select, .subcategory-select{
+   
+    background-color: var(--color-light);
+    width: 100%;
+
+    border: 3px solid black;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+}
+
+.exit{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 1000;
+    color : var(--color-dark);
+    right: 20px;
+    top : 20px;
+    cursor: pointer;
+}
+
+
+.supercategory-select input,.subcategory-select input{
+    display: none;
+}
+
+.supercategory-select label, .subcategory-select label{
+    display: flex;
+
+    cursor: pointer;
+    font-weight: lighter;
+    margin-left: 10%;
+
+}
+
+.supercategory-select label::after, .subcategory-select label::after{
+    content: '';
+    display: inline-block;
+    align-items: flex-end;
+    
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    background-color: var(--color-dark);
+
+    margin-right: 20%;
+
+
+    mask-size: 16px 16px;
+    -webkit-mask-size: 16px 16px;
+    mask-image : url(/image/icon/icon-check.svg);
+    -webkit-mask-image : url(/image/icon/icon-check.svg);
+    
+
+}
+
+.supercategory-select input:checked + label, .subcategory-select input:checked + label{
+    color: var(--color-primary);
+}
+
+.supercategory-select input:checked + label::after, .subcategory-select input:checked + label::after{
+    background-color: var(--color-primary);
+}
+
+.category-supercategory{
+    font-weight: bold;
+    color: var(--color-dark);
+}
+.category-title{
+    font-size: var(--font-4);
+    margin-bottom: 10px;
+}
+.category-select{
+    display: inline-flex;
+    justify-content: space-between; 
+    
+}
+
+
+
+.supercategory-select .next-btn, .subcategory-select .next-btn{
+   width: 150px;
+   align-self: center;
+   margin-top: 20px;
+   margin-bottom: 50px;
+
+}
+
+
+
+
+
+
+
+.input-description{
+    resize: none;
+    width: 90%;
+    height: 100px;
+    font-family: var(--font-main);
+    
+}
+
+
+/* <!-- ==========     3번 페이지    ========== --> */
+
+
+
+.reg3-condition-container input{
+    display: none;
+    margin: 0;
+}
+
+.reg3-condition-container input:checked + label{
+    background-color: var(--color-primary);
+}
+
+
+.reg3-tag-container .btn-default{
+    padding: .5em;
+    
+}
+
+.reg3 .btn-tag{
+    padding: .3em 2em;
+}
+
+/* <!-- ==========     4번 페이지    ========== --> */
+
+.reg4{
+
+    
+}
+
+.reg4 label{
+    display: block;
+    width: 200px;
+    height: 100px;
+
+}
+
+.reg4 label span{
+
+}
+
+
+.reg4 label::before{
+    
+    cursor: pointer;
+    display: inline-block;
+    font-size: 80px;
+    
+}
+
+.general-mail::before{
+    content: "📮";
+}
+
+.semi-post::before{
+    content: "✉️";
+}
+
+.parcel::before{
+    content: "📦";
+}
+
+
+
+
+
+
+
+
+.reg4 input{
+    display: none;
+}
+
+.delivery-label{
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 3px 3px rgba(0 0 0 / 25%);
+    
+}
+
+.reg4 input:checked + .delivery-label {
+    box-shadow: 0 0 4px 4px rgb(190, 167, 255);
+}
+
+.reg4 button{
+    /* -webkit-appearance: none;
+    -moz-appearance: none; */
+    appearance: none;
+    text-decoration: none;
+}
+
+
+.reg4 .btn-default{
+    padding: 0;
+    border: 0;
+    font-size: 1em;
+    padding: .5em 3em;
+    font-family: var(--font-main)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==================== 버튼 및 util================= */
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.btn-cancel {
+    border-radius: 10px;
+    background-color: #bbbbbb;
+    padding: .5em 4em;
+    
+    margin-right: 5px;
+}
+
+.btn-default {
+    font-weight: normal;
+    border-radius: 10px;
+    padding: .5em 4em;
+    font-size: 1em;
+    margin-left: 5px;
+}
+
+
+.reg-btn{       /* -----   reg3 전용   -----*/
+    background-color: #bbbbbb;
+    padding: .3em 1em;
+    border-radius: .8em;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.d-none {
+    display: none;
+}
+
+
+
+/* ================================================================= */
+
+
+
+@media (max-width: 767px) { 
+
+
+
+
+
+}
+
+@media (min-width: 768px)  { 
+
+    /* ----여기를 만들자---- */
+
+.reg1,.reg2, .reg3, .reg4{
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+    width: 600px;  
+}
+
+
+
+.reg .input-title {
+    display: inline-block;
+    font-size: var(--font-3);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+/* <!-- ==========     1번 페이지    ========== --> */
+
+.reg1 input[type=text] {
+    width: 80%;
+}
+
+.reg1 input[type=number] {
+    width: 60%;
+}
+
+/* .img-input {
+    display: none;
+} */
+
+.reg1 .padding-0 {
+    padding: 0;
+    display: inline-block;
+}
+
+.reg1 .img-count{
+    font-size: var(--font-2);
+    color: rgb(82, 82, 82);
+}
+
+/* <!-- ==========     2번 페이지    ========== --> */
+
+.category-select,
+.category-select option {
+    font-weight: 900;
+    border: 0;
+    background-color: var(--color-light);
+}
+
+
+.input-description{
+    resize: none;
+    width: 90%;
+    height: 100px;
+    font-family: var(--font-main);
+    
+}
+
+
+.supercategory-select, .subcategory-select{
+    width: 400px;
+}
+
+
+
+
+}

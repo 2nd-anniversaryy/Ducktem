@@ -1,0 +1,34 @@
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.main-wrap h1 {
+    margin: 50px 0 20px;
+}
+
+.main-wrap span {
+    color: var(--color-secondary-button);
+}
+
+.main-wrap li {
+    font-size: var(--font-4);
+    margin-bottom: 10px;
+}
+
+.main-wrap button {
+    margin: 10px 0;
+    width: 266px;
+}
+
+.main-wrap>div h2 {
+    font-size: var(--font-4);
+}
+
+.main-wrap>div {
+    width: 340px;
+    margin: 50px 0;
+}
+

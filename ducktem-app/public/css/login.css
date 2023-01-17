@@ -1,0 +1,297 @@
+.login-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+
+
+/* <!-- ====================     헤더입니다     ==================== --> */
+.login-header {
+    display: inline-block;
+    /* background-color: antiquewhite; */
+    text-align: center;
+    margin-top: 5%;
+
+}
+
+.login-logo {
+    font-size: 80px;
+    background: -webkit-linear-gradient(91deg, #42d392 25%, #647eff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    letter-spacing: -.5px;
+}
+
+
+/* <!-- ====================     메인입니다     ==================== --> */
+
+.login-form {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-input-container,
+.login-keep {
+    text-align: start;
+}
+
+
+.login-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.login-input-container input,
+.login-input-container label,
+.login-input-container div {
+    margin: 5px
+}
+
+.login-input-container input {
+    width: 300px;
+    height: 35px;
+    border-radius: 5px;
+    vertical-align: bottom;
+    padding: 0 10px 0 10px;
+}
+
+.login-input-container label {
+    display: block;
+}
+
+
+
+
+.login-input-container .required::after {
+    content: "*";
+    display: inline-block;
+    color: red;
+}
+
+
+
+.login-keep input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+
+
+}
+
+.login-keep label {
+    margin-left: 5px;
+    display: inline-block;
+    height: 20px;
+}
+
+
+.find-id-pwd {
+    color: rgb(170, 170, 170);
+
+
+}
+
+
+.find-id-pwd a {
+    color: rgb(170, 170, 170);
+}
+
+
+.login-form-option {
+    width: 320px;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+.signup {
+    color: rgb(170, 170, 170);
+    font-size: var(--font-4);
+}
+
+
+
+
+
+/* =========  로그인 옵션 부분  ========= */
+.login-option {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.login-option div {
+    display: inline-block;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =================로그인페이지 버튼들================== */
+.btn-container {
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.btn {
+    /* width: 100px;
+    border: 0;
+    border-radius: 10px;
+    margin: 5px;
+    box-shadow: 0 0 3px 3px rgba(0 0 0 / 10%);
+    padding: .5em 4em;
+    font-size: 1em; */
+    width: 80%;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--color-primary);
+    text-align: center;
+    transition: background-color .5s;
+    box-shadow: 0 0 3px 3px rgba(0 0 0 / 10%);
+    border: 0;
+    border-radius: 10px;
+    /* padding: .5em 4em; */
+    margin: 5px;
+    font-size: var(--font-3);
+    color: var(--color-light);
+}
+
+.signup-btn {
+    width: 80%;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--color-light);
+    text-align: center;
+    transition: background-color .5s;
+    box-shadow: 0 0 3px 3px rgba(0 0 0 / 10%);
+    border: 0;
+    border-radius: 10px;
+    padding: .5em 0em;
+    margin: 5px;
+    font-size: var(--font-3);
+    color: var(--color-dark);
+}
+
+
+
+
+.login-with {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: var(--font-3);
+    border: 0;
+    padding: 10px;
+    width: 300px;
+    margin: 5px;
+}
+
+
+
+
+
+
+.kakao {
+    background-color: #F8CA45;
+}
+
+.kakao::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(/image/login/kakao.png) no-repeat left center;
+    background-size: 30px 30px;
+}
+
+.naver {
+    background-color: #53B434;
+}
+
+.naver::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(/image/login/naver.png) no-repeat left center;
+    background-size: 30px 30px;
+}
+
+.facebook {
+    background-color: #4868AD;
+}
+
+.facebook::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(/image/login/facebook.png) no-repeat left center;
+    background-size: 30px 30px;
+}
+
+.google {
+    background-color: #CB4F40;
+}
+
+.google::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(/image/login/google.png) no-repeat left center;
+    background-size: 30px 30px;
+}
+
+
+
+
+
+
+/* ===================하이퍼링크 스타일 삭제======== */
+a {
+    text-decoration: none;
+
+}

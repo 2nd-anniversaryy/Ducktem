@@ -1,0 +1,20 @@
+.vector-left,.vector-right{
+    z-index: 3;
+}
+
+.banner{
+    position: absolute;
+}
+
+.card-1th{
+    z-index: 1; 
+}
+.card-2th{
+    z-index: 0;
+}
+
+.card-3th{
+    z-index: 0;
+}
+
+

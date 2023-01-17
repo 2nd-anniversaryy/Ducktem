@@ -1,0 +1,89 @@
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.regist-prof-img-wrap {
+    margin: 30px auto 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.regist-prof-img-wrap img{
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.regist-prof-img-wrap input {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 10px solid gray;
+}
+
+.input-area label {
+    display: block;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 340px;
+}
+
+.input-area>div {
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+}
+
+.input-area>div:nth-child(2) textarea {
+    height: 100px;
+    background-color: var(--color-info);
+    border: 0;
+}
+
+.input-area>span {
+    color: var(--color-secondary-button);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.social-area input{
+    display: none;
+}
+
+.social-area img{
+    width: 35px;
+    height: 35px;
+}
+
+.social-area>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-area>div label{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.btn-cancel {
+    padding: 5px 20px;
+    font-size: var(--font-2);
+}
+
+input[id=kakao]:checked ~ label[for=kakao],
+input[id=naver]:checked ~ label[for=naver],
+input[id=google]:checked ~ label[for=google] {
+    color: var(--color-dark);
+    background-color: var(--color-info);
+    border: 2px solid var(--color-dark);
+}

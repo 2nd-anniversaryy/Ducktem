@@ -1,0 +1,345 @@
+/* ============   메인 전체   ============= */
+.chat-main {
+    display: flex;
+    justify-content: center;
+
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 370px;
+    height: 750px;
+}
+
+
+/* ============   chat-header   ============= */
+.chat-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 4px 4px -4px black;
+}
+
+/* === 멤버 === */
+
+.member-summary {
+    display: grid;
+    width: 180px;
+    grid-template:
+        "img title" 30px
+        "img product-count" 30px/60px 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+
+
+.member-profile-img,
+.my-profile-img {
+    align-self: flex-start;
+    grid-area: img;
+    width: 50px;
+    height: 50px;
+    border: 0;
+    border-radius: 25px;
+    object-fit: cover;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.member-title,
+.member-product-count {
+    display: flex;
+    flex-direction: row;
+    font-size: var(--font-2);
+    color: var(--dark);
+
+}
+.member-title {
+    grid-area: title;
+    display: inline-flex;
+    align-items: flex-end;
+    
+}
+.member-product-count {
+    font-size: 12px;
+}
+
+.member-product-count {
+    grid-area: product-count;
+}
+
+.report{
+    color: #848484;
+    margin-left: 10px;
+    font-size: var(--font-1);
+  
+}
+
+.report::after {
+    content: '';
+    display: inline-block;
+    background: url(/image/icon/icon-alert.svg) no-repeat left ;
+    width: 14px;
+    height: 14px;
+    color: var(--color-dark);
+    background-size: 14px 14px;
+   margin-bottom: -3px;
+   margin-left: 5px;
+
+
+    mask-size: 16px 16px;
+    -webkit-mask-size: 16px 16px;
+}
+
+
+/* === 상품 === */
+
+.product-summary {
+    display: grid;
+    width: 180px;
+    grid-template:
+        "state img" 20px
+        "title img" 20px
+        "price img" 20px/1fr 60px;
+    color: var(--dark);
+    font-size: var(--font-1);
+    justify-items: end;
+    align-items: center;
+}
+
+.product-img {
+    grid-area: img;
+    width: 50px;
+    height: 50px;
+    border: 0;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.product-state {
+    grid-area: state;
+    font-weight: bold;
+
+
+}
+
+.product-title {
+    grid-area: title;
+}
+
+.product-title-container {
+    grid-area: price;
+}
+
+.product-price-nego {
+    font-size: var(--font-1);
+}
+
+
+
+
+/* ============   chat   ============= */
+.chat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.chat-start-date {
+
+    background-color: var(--color-strong);
+    color: var(--color-light);
+    font-size: var(--font-1);
+    align-self: center;
+    text-align: center;
+    line-height: 16px;
+    width: 200px;
+    height: 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.chat-time {
+    grid-area: time;
+    align-self: flex-end;
+    font-size: var(--font-1);
+    color: var(--dark);
+    text-align: center;
+
+}
+
+
+/* content: "";
+position: absolute;
+border-color: transparent transparent #0484f6!important;
+border: 10px solid #000;
+transform-origin: 0 0;
+right: 0;
+top: 0;
+-webkit-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+transform: rotate(-45deg); */
+
+
+
+/* =====  받는메세지 ===== */
+.chat-receive {
+    display: grid;
+    grid-template:
+        "img text time";
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    /* 왼쪽에 붙어있기 */
+
+}
+
+.chat-text {
+    grid-area: text;
+    align-self: flex-end;
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    font-size: var(--font-2);
+    font-weight: lighter;
+    color: var(--dark);
+    padding: 10px;
+    max-width: 195px;
+}
+
+
+.chat-receive::before {
+    content: "";
+    position: absolute;
+    border-color: transparent transparent var(--color-primary) !important;
+    border: 10px solid #000;
+    transform-origin: 0 0;
+    left: 80px;
+    top: 40px;
+    transform: rotate(180deg);
+    align-self: flex-start;
+}
+
+
+
+
+
+/* ===== 보내는 메세지 ===== */
+
+.chat-send {
+    /* 오른쪽에 붙어있기 */
+    display: grid;
+    grid-template:
+        "time text img" /60px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+
+.send {
+    background-color: rgb(218, 227, 255);
+}
+
+
+.chat-send::after {
+
+    content: "";
+    position: absolute;
+    border-color: transparent transparent rgb(218, 227, 255) !important;
+    border: 10px solid #000;
+    transform-origin: 0 0;
+    right: 40px;
+    top: 40px;
+    transform: rotate(180deg);
+    align-self: flex-start;
+}
+
+
+/* ============   chat-input   ============= */
+
+.chat-input-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.chat-input-wrap {
+    margin-top: 5px;
+    border: 3px solid #c2c2c2;
+    width: 340px;
+    height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.chat-input {
+    /* resize: none; */
+    /* border: 3px solid #c2c2c2;
+    background-color: #c2c2c2;; */
+    width: 280px;
+    height: 100px;
+    font-family: var(--font-main);
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    justify-self: center;
+    margin-top: -10px;
+    margin-left: -10px;
+
+}
+
+.file-upload {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+
+}
+
+.filebox input[type=file] {
+    display: none;
+}
+
+
+
+.emoji {
+    width: 25px;
+    height: 25px;
+    border: 0;
+    border-radius: 5px;
+    color: var(--dark);
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    margin: 2.5px;
+
+}
+
+
+
+.chat-send-btn {
+    width: 60px;
+    padding: 8px 3px;
+    background-color: rgb(170, 170, 170);
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    cursor: pointer;
+    border: 0;
+}
+
+/* ============   util   ============= */

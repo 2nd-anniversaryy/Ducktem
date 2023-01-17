@@ -1,0 +1,144 @@
+.update-product-title {
+    margin: 70px 10px 0px;
+    border-bottom: 1px solid #8B898E;
+  }
+  
+  .update-product-title h1 {
+    font-size: var(--font-5);
+  }
+  
+  .update-product-wrap {
+    margin: 10px 2%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+  
+  
+  .update-product-wrap>div:nth-child(1),
+  .update-product-wrap>div:nth-child(2),
+  .update-product-wrap>div:nth-child(3),
+  .update-product-wrap>div:nth-child(4),
+  .update-product-wrap>div:nth-child(5),
+  .update-product-wrap>div:nth-child(6),
+  .update-product-wrap>div:nth-child(7),
+  .update-product-wrap>div:nth-child(8) {
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .check-condition-wrap input {
+    display: none;
+  }
+  
+  .update-product-tag .btn-default {
+    font-weight: 1;
+    border-radius: 10px;
+    padding: .5em 2em;
+    font-size: .5em;
+    margin-left: 10px;
+  }
+  
+  .update-product-condition .btn-cancel {
+    font-weight: 1;
+    border-radius: 10px;
+    padding: .5em 2em;
+    font-size: .5em;
+  }
+  
+  .update-product-titlein input,
+  .update-product-price input,
+  .update-product-explain input {
+    width: 200px;
+    height: 25px;
+    font-size: 100%;
+  }
+  
+  .update-product-tag input {
+    height: 25px;
+    font-size: 100%;
+  }
+  
+  .update-product-tag {
+    grid-row-gap: 15px;
+  }
+  
+  .update-product-tag div:nth-child(2) {
+    /* display: flex; */
+    /* justify-content: space-between; */
+  }
+  
+  .check-condition-wrap input:checked+.btn-cancel {
+    background-color: var(--color-strong);
+  }
+  
+  .update-product-btn {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .update-product-delivery input {
+    display: none;
+  }
+  
+  .update-product-delivery .btn-default {
+    font-weight: 1;
+    border-radius: 10px;
+    padding: 2em .5em;
+    font-size: .8em;
+  }
+  
+  .update-product-delivery label {
+    display: inline-block;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.243);
+    margin-right: 15px;
+  }
+
+  .update-product-delivery label span {
+    display: block;
+    text-align: center;
+  }
+
+  .update-product-delivery label span:nth-child(1) {
+    font-size: 50px;
+  }
+
+  .delivery-img {
+    
+  }
+  
+  @media (min-width:720px) {
+  
+    .update-product-title {
+      margin: 70px 50px 0px;
+    }
+  
+    .update-product-wrap {
+      margin: 10px 20%;
+    }
+  
+  }
+  
+  @media (min-width:1000px) {
+    .update-product-title {
+      margin: 70px 80px 0px;
+    }
+  
+    .update-product-wrap {
+      margin: 10px 150px;
+    }
+  }
+  
+  @media(min-width:1500px) {
+    .update-product-title {
+      margin: 70px 200px 0px;
+    }
+  
+    .update-product-wrap {
+      margin: 10px 500px;
+    }
+  }

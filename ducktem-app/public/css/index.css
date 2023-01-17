@@ -1,0 +1,269 @@
+.banner-container {
+  overflow: hidden;
+  margin-top: 70px;
+  position: relative;
+}
+
+.banner-wrap {
+  width: 300vw;
+  transition: transform 1s;
+}
+
+.banner-wrap .inner{
+  width: 100vw;
+  float: left;
+}
+
+.inner img {
+  width: 100%;
+  min-height: 350px;
+  object-fit: cover;
+  max-height: 450px;
+}
+
+.vector-left {
+  position: absolute;
+  transform: rotate(180deg);
+  left: 1%;
+  top: 43%;
+  width: 40px;
+  height: 40px;
+  z-index: 4;
+  cursor: pointer;
+}
+
+.vector-right {
+  position: absolute;
+  left: 88%;
+  top: 43%;
+  width: 40px;
+  height: 40px;
+  z-index: 4;
+  cursor: pointer;
+
+}
+
+
+
+/* ---------- 카테고리 이미지 ----------  */
+
+.category-image-wrap {
+  margin: 100px 20px;
+  display: grid;
+  grid-template-rows: repeat(3, 320px);
+  grid-gap: 10px;
+  cursor: pointer;
+}
+
+.category-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-transition: -webkit-transform .4s ease-in;
+}
+
+.category-image img:hover {
+  filter: brightness(70%);
+  object-fit: cover;
+  transform: scale(1.09);
+}
+
+
+
+.category-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.category-text span {
+  display: block;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: var(--font-5);
+}
+
+.category-text span:nth-child(2) {
+  font-size: var(--font-2);
+  text-align: center;
+}
+
+/* ---------- 키워드 버튼 ----------  */
+
+#title1::after {
+  content: ' ✨';
+}
+
+#title1,
+#title2 {
+  margin: 30px 10px;
+}
+
+.tag-sort {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 15px;
+  justify-content: space-between;
+}
+
+.tag-sort>div {
+  height: 120px;
+  width: 160px;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.tag-sort>div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: .5s;
+  border-radius: 15px;
+  filter: brightness(80%);
+}
+
+.tag-sort>div span {
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tag-sort>div span::before {
+  content: '# ';
+  font-weight: bold;
+  background: white;
+  /* background: linear-gradient(180deg, #A9A9FF 0%, #A9D3D5 100%); */
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+.tag-sort>div img:hover {
+  filter: brightness(50%);
+}
+/* .tag-sort {
+  display: grid;
+  grid-template-columns: repeat(4, 85px);
+  justify-content: space-between;
+  margin: 0 10px;
+} */
+
+/* .tag-sort .btn {
+  margin-bottom: 10px;
+} */
+
+/* ---------- 상품 이미지 ----------  */
+
+#title2::after {
+  content: ' 🛒';
+}
+
+
+@media(min-width: 768px) {
+
+  
+  .vector-left {
+    position: absolute;
+    transform: rotate(180deg);
+    left: 1%;
+    top: 43%;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .vector-right {
+    position: absolute;
+    left: 93%;
+    top: 43%;
+    width: 40px;
+    height: 40px;
+  }
+
+  .category-image-wrap {
+    display: grid;
+    grid-template-rows: 300px 300px;
+    grid-gap: 10px;
+    cursor: pointer;
+    margin: 100px 30px;
+  }
+
+  /* .tag-sort {
+    display: grid;
+    grid-template-columns: repeat(4, 85px);
+    justify-content: space-between;
+    margin: 0 60px;
+  } */
+
+  #title1,
+  #title2 {
+    margin: 30px 30px;
+  }
+
+  .category-image:nth-child(3) {
+    grid-column-start: -3;
+    grid-column-end: -1;
+
+  }
+
+  .tag-sort>div {
+    height: 130px;
+    width: 170px;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+  }
+
+}
+
+@media(min-width: 1400px) {
+
+
+  .vector-left {
+    position: absolute;
+    transform: rotate(180deg);
+    left: 1%;
+    top: 45%;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .vector-right {
+    position: absolute;
+    left: 96%;
+    top: 45%;
+    width: 40px;
+    height: 40px;
+  }
+
+  .category-image-wrap {
+    margin: 100px 400px;
+  }
+
+
+  .tag-sort {
+    margin: 0 300px;
+  }
+  /* .tag-sort {
+    display: grid;
+    grid-template-columns: repeat(4, 85px);
+    justify-content: space-between;
+    margin: 0 300px;
+  } */
+
+  #title1,
+  #title2 {
+    margin: 30px 300px;
+  }
+}

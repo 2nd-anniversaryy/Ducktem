@@ -1,0 +1,110 @@
+/* =================== default button =================== */
+
+/* 기본 버튼 양식 */
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--color-primary);
+  text-align: center;
+  color: var(--color-light);
+  transition: background-color .5s;
+}
+
+.btn:hover {
+  color: var(--color-light);
+  background-color: var(--color-strong);
+}
+
+/* 기본버튼 */
+.btn-default {
+  font-weight: bold;
+  border-radius: 10px;
+  padding: .5em 2em;
+  font-size: 1em;
+}
+
+/* 취소버튼 */
+.btn-cancel {
+  border-radius: 10px;
+  background-color: var(--color-secondary-button);
+  padding: .5em 2em;
+  font-size: 1em;
+}
+
+/* 태그버튼  */
+
+.btn-tag {
+  background-color: var(--color-light);
+  box-shadow: 0 2px 3px rgba(0 0 0 / 15%);
+  color: var(--color-dark);
+  border-radius: 20px;
+  padding: .2em 1.3em;
+  font-size: var(--font-2);
+}
+
+.btn-tag::before {
+  content: '# ';
+  font-weight: bold;
+  background: linear-gradient(180deg, #A9A9FF 0%, #A9D3D5 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+
+/* =================== toggle button =================== */
+
+/* 스위치 박스 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: calc(var(--toggle-size) * 2);
+  height: var(--toggle-size);
+}
+
+/* 기본으로 있는 체크박스 지우기 */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 슬라이더 */
+.slider {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  cursor: pointer;
+  /* 마우스 모양 바꾸기 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-secondary-button);
+  transition: .4s;
+  border-radius: var(--toggle-size);
+
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  left: calc(var(--toggle-size)/10);
+  width: calc(var(--toggle-size) - (var(--toggle-size)/5));
+  height: calc(var(--toggle-size) - (var(--toggle-size)/5));
+  /* bottom: 4px; */
+  background-color: var(--color-dark);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+
+/* 체크됐을 때 배경색 변경 */
+input:checked+.slider {
+  background-color: var(--color-primary);
+}
+
+/* 체크됐을 때 버튼 오른쪽으로 */
+input:checked+.slider::before {
+  left: calc(var(--toggle-size) * 2 - (var(--toggle-size) - (var(--toggle-size)/5)) - (var(--toggle-size)/10));
+}

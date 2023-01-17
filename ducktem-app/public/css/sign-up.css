@@ -1,0 +1,132 @@
+.login-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.login-header {
+    display: inline-block;
+    /* background-color: antiquewhite; */
+    text-align: center;
+    margin-top: 5%;
+
+}
+
+.login-logo {
+    font-size: 80px;
+    background: -webkit-linear-gradient(91deg, #42d392 25%, #647eff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    letter-spacing: -.5px;
+}
+
+
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: start;
+
+}
+
+
+
+.signup-container label,
+.signup-container input,
+.signup-container div {
+    display: block;
+    margin: 5px;
+
+}
+
+
+
+
+.signup-container input {
+    width: 300px;
+    height: 35px;
+    border-radius: 5px;
+    vertical-align: bottom;
+    padding: 0 10px 0 10px;
+    background-color: rgb(244, 240, 255);
+
+}
+
+
+.signup-container .required::after {
+    content: "*";
+    display: inline-block;
+    color: red;
+}
+
+
+.signup-container .detail {
+    width: 300px;
+    height: 100px;
+    padding: 10PX;
+    background-color: rgb(244, 240, 255);
+    border-radius: 10px;
+    font-size: var(--font-1);
+    font-weight: lighter;
+    overflow: auto;
+
+}
+
+.signup-container .signup-agree {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    vertical-align: bottom;
+
+}
+
+.signup-container .signup-agree .check {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+
+.btn-margin {
+    margin: 30px;
+    margin-bottom: 100px;
+}
+
+
+
+/* ===============    축하페이지   ================ */
+
+.sign-up-ending {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    color: var(--color-dark);
+}
+
+.sign-up-ending .strong {
+    font-size: xx-large;
+    font-weight: 900;
+
+}
+
+.sign-up-ending .light div {
+    margin: 5px;
+}
+
+
+.btn1 {
+    display: flex;
+    justify-content: center;
+
+}

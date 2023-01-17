@@ -1,0 +1,150 @@
+/* ---------------검색결과 css------------ */
+.search-result-wrap{
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+.search-result{
+    color: red;
+    font-weight: bold;
+}
+
+
+/* ==================== 카테고리 */
+
+
+/* .category{
+
+    position : fixed;
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
+    z-index: 1000;
+} */
+
+
+
+
+/* .subcategory span{
+    font-size: var(--font-4);
+    border: 1px solid var(--color-dark);
+    border-radius: 0.6em;
+    padding: 0.1em 0.5em 0.1em 0.5em;
+    margin: 10px;
+} */
+
+
+
+/* ---------------수퍼 카테고리 css------------ */
+
+.supercategory {
+    padding-left: 1em;
+    font-size: var(--font-4);
+
+    padding-bottom: 1em;
+    padding-top: 1em;
+
+    /* text-align: center; */
+}
+
+.supercategory span {
+    margin: .4em;
+    font-weight: 900;
+
+}
+
+.supercategory span:hover {
+
+    border-bottom: 3px solid var(--color-dark);
+    transition: border-bottom .5s step-start;
+}
+
+/* .supercategory span::after{
+    display: block;
+    width: inherit;
+    content: '';
+    border-bottom: 3px solid var(--color-dark); 
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------서브 카테고리 css------------ */
+
+.subcategory {
+    padding-left: 1em;
+}
+
+
+.subcategory input {
+    display: none;
+}
+
+.subcategory label {
+    margin: 0.2em 0.05em 0.2em 0.05em;
+}
+
+.subcategory input:che {
+    display: none;
+}
+
+.subcategory input:checked+.btn-default {
+    background-color: var(--color-primary);
+    color: var(--color-light);
+}
+
+.aaa {
+    font-size: var(--font-2);
+    font-weight: normal;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 0.5em 1em;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+
+
+}
+
+
+
+
+/* ==================== 정렬 콤보박스 */
+.option {
+    display: flex;
+    justify-content: flex-end;
+    padding: 40px 20px 20px 20px;
+}
+
+.option select {
+    /* appearance: none; */
+    font-weight: 900;
+    border: 0;
+    background-color: var(--color-light);
+
+
+}
+
+.option select option {
+    background-color: var(--color-light);
+    /* border: 0; */
+    font-weight: 900;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 80%);
+
+}
