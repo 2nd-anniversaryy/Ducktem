@@ -7,7 +7,7 @@
 
             <section class="profile-container">
                 <img class="profile-img" src="/image/prof-img.jpg" alt="">
-                <h1>미지123</h1>
+                <h1>미지13</h1>
                 <span class="product-count">판매상품 6</span>
 
                 <span class="review-info">★★★★★(2)</span>
