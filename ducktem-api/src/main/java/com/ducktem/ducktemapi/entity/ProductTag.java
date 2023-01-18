@@ -22,9 +22,9 @@ import lombok.ToString;
 public class ProductTag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Integer id;
-	 private String name;
-	 @ManyToOne
-	 private Product productId;
-	 private byte ban;
+	private Long id;
+	private String name;
+	@ManyToOne
+	private Product product;
+	private byte ban;
 }

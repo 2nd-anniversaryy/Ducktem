@@ -1,65 +1,57 @@
 package com.ducktem.ducktemapi.entity;
 
-import jakarta.validation.constraints.NotNull;
+import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Builder
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
-// @ToString
-// @Getter
+@Getter
+@Setter
+@Builder
+@ToString
+@Entity
+@Table(name = "Product")
 public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private String price;
+	@Column(nullable = false)
+	private String description;
+	@Column(nullable = false)
+	private String condition;
+	private String deliveryType;
+	private int hit;
 
-    private int id;
-    @NotNull(message = "name 속성 null일 수 없다 ;;")
-    private String name;
-    private int price;
-
-    // public Product(int id, String name, int price) {
-    //     this.id = id;
-    //     this.name = name;
-    //     this.price = price;
-    // }
-
-
-    // public int getId() {
-    //     return id;
-    // }
-
-
-    // public String getName() {
-    //     return name;
-    // }
-
-
-    // public int getPrice() {
-    //     return price;
-    // }
-
-
-    // public void setId(int id) {
-    //     this.id = id;
-    // }
-
-
-    // public void setName(String name) {
-    //     this.name = name;
-    // }
-
-
-    // public void setPrice(int price) {
-    //     this.price = price;
-    // }
-
-
-    // @Override
-    // public String toString() {
-    //     return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
-    // }
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date regDate;
+	@ManyToOne
+	private Category category;
+	@ManyToOne
+	private Member member;
+	@Enumerated(EnumType.STRING)
+	private SalesStatus salesStatus;
 
 }
 

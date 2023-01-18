@@ -1,6 +1,5 @@
 package com.ducktem.ducktemapi.controller;
 
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberService;
 
-	@PostMapping("/users/join")
+	@PostMapping("/members/join")
 	public Member join(@RequestBody Member member) {
 
 		return memberService.join(member);
