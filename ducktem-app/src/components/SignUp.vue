@@ -101,5 +101,5 @@ export default {
 </script>
 
 <style scoped>
-    @import '/css/sign-up.css';
+@import '/css/sign-up.css';
 </style>

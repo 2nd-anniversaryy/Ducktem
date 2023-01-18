@@ -238,5 +238,5 @@ export default {
 </script>
 
 <style scoped>
-    @import '/css/member/my-page/index.css'
+@import '/css/member/my-page/index.css'
 </style>

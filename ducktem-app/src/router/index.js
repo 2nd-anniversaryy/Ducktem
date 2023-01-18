@@ -6,7 +6,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/', redirect: '/index', component: Layout, children: [
+      path: '/',
+      redirect: '/index',
+      component: Layout,
+      children: [
         { path: 'index', component: Index },
         { path: 'detail', component: () => import('../components/Detail.vue') },
         { path: 'list', component: () => import('../components/List.vue') },
@@ -17,26 +20,42 @@ const router = createRouter({
 
         // member
         { path: 'sell', component: () => import('../components/member/Sell.vue') },
-        { path: 'update-product', component: () => import('../components/member/UpdateProduct.vue') },
+        {
+          path: 'update-product',
+          component: () => import('../components/member/UpdateProduct.vue'),
+        },
 
         // member/my-page
         { path: 'my-page', component: () => import('../components/member/my-page/index.vue') },
         { path: 'my-info', component: () => import('../components/member/my-page/MyInfo.vue') },
 
         // member/find-account
-        { path: 'find-id', component: () => import('../components/member/find-account/FindId.vue') },
-        { path: 'find-pwd', component: () => import('../components/member/find-account/FindPwd.vue') },
+        {
+          path: 'find-id',
+          component: () => import('../components/member/find-account/FindId.vue'),
+        },
+        {
+          path: 'find-pwd',
+          component: () => import('../components/member/find-account/FindPwd.vue'),
+        },
 
         // member/my-page/leave
         { path: 'leave', component: () => import('../components/member/my-page/leave/Index.vue') },
-        { path: 'final-check', component: () => import('../components/member/my-page/leave/FinalCheck.vue') },
-        { path: 'survey', component: () => import('../components/member/my-page/leave/Survey.vue') },
-      ]
+        {
+          path: 'final-check',
+          component: () => import('../components/member/my-page/leave/FinalCheck.vue'),
+        },
+        {
+          path: 'survey',
+          component: () => import('../components/member/my-page/leave/Survey.vue'),
+        },
+      ],
     },
     {
       // member/  == 채팅 페이지만 헤더푸터 달라서 따로 빼놧음~~ㅎㅎ
-      path: '/chatting', component: () => import('../components/member/Chatting.vue')
-    }
+      path: '/chatting',
+      component: () => import('../components/member/Chatting.vue'),
+    },
 
     // }
     // {
@@ -47,7 +66,7 @@ const router = createRouter({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import('../views/AboutView.vue')
     // }
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

@@ -61,5 +61,5 @@ export default {
 </script>
 
 <style scoped>
-    @import '/css/member/my-page/my-info.css'
+@import '/css/member/my-page/my-info.css';
 </style>
