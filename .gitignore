@@ -27,4 +27,7 @@ coverage
 *.sln
 *.sw?
 
+# database정보
 application-jpa.yml
+# 로컬 h2 데이터베이스 파일
+*.mv.db
