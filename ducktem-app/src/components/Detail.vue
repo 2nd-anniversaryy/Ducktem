@@ -186,5 +186,5 @@ export default {
 </script>
 
 <style scoped>
-@import '/css/detail.css'
+@import '/css/detail.css';
 </style>
