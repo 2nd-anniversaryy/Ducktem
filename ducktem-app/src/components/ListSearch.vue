@@ -88,5 +88,5 @@ export default {
 </script>
 
 <style scoped>
-    @import '/css/list.css';
+@import '/css/list.css';
 </style>
