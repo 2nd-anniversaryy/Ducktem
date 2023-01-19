@@ -1,7 +1,7 @@
 <template>
-    <footer>
-        푸터다
-    </footer>
+  <footer>
+    푸터다
+  </footer>
 </template>
 
 <script>
