@@ -4,9 +4,9 @@
     <section class="header-wrap">
       <section class="menu">
         <nav class="menu-bar">
-          <label @click="sideBarOpen()" class="burger-icon" for="burger-check">
-            <span class="burger-sticks"></span>
-          </label>
+          <div class="burger-icon" @click="sideBarOpen()">
+            <img class="menu-img" src="/image/icon/menu-black.svg" alt="">
+          </div>
 
           <div class="menu-bar-category active" v-if="sideBarWrap == true">
             <div class="category-login">
@@ -44,15 +44,15 @@
           </div>
         </nav>
 
-        <img class="logo" src="/image/logo.png" alt="로고" />
+        <img class="logo" src="/image/logo.png" alt="로고" @click="goMain" />
       </section>
 
       <div class="half-middle-category">
-        <a href="">공식 굿즈</a>
-        <a href="">비공식 굿즈</a>
-        <a href="">대리 티켓팅</a>
-        <a href="">헬프센터</a>
-        <a href="">1:1 문의하기</a>
+        <a @click.prevent="goListPage">공식 굿즈</a>
+        <a @click.prevent="goListPage">비공식 굿즈</a>
+        <a @click.prevent="goListPage">대리 티켓팅</a>
+        <a @click.prevent="goHelpCenter">헬프센터</a>
+        <a>1:1 문의하기</a>
       </div>
 
       <div class="header-icon">
@@ -196,6 +196,18 @@ export default {
         this.alarmWrap = false;
       }
     }
+  },
+  computed: {
+    goMain() {
+      this.$router.push('/')
+    },
+    goListPage() {
+      this.$router.push('/list');
+    },
+    goHelpCenter() {
+      this.$router.push('/help-center')
+    }
+
   }
 }
 </script>
