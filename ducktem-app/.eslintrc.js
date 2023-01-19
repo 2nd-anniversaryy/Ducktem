@@ -11,5 +11,6 @@ module.exports = {
     'vue/max-attributes-per-line': 0,
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
+    
   },
 };
