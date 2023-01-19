@@ -36,7 +36,7 @@ public class ProductController {
 	})
 	public ResponseEntity<Product> get(@PathVariable int id) {
 
-		Product product = Product.builder().name("러브다이브 미공포").price(80000).build();
+		Product product = Product.builder().name("러브다이브 미공포").price("80000").build();
 
 		return new ResponseEntity<Product>(HttpStatus.OK);
 	}

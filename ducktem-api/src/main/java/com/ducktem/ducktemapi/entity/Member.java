@@ -47,8 +47,8 @@ public class Member {
 	private String intro;
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime regDate;
-	@Enumerated(EnumType.STRING)
-	private MemberRole role;
+	// @Enumerated(EnumType.STRING)
+	// private MemberRole role;
 	private float level;
 	private Country country;
 	private MemberStatus status;

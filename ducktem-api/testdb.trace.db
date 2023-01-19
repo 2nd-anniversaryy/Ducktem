@@ -1,0 +1,3 @@
+2023-01-18 17:38:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found (this database is empty); SQL statement:
+insert into member (id, country, email, intro, level, name, nick_name, phone_number, profile_img, pwd, reg_date, role, status, user_id) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [42104-214]
