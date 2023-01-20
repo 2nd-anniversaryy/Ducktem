@@ -1,3 +1,7 @@
+
+
+
+
 <template>
     <main>
 
@@ -75,7 +79,23 @@
 
 <script>
 export default {
+  data(){
+    return{
+      products: [],
+      superCategorys: [],
+      categorys: []
+    };
+  },
 
+  methods: {
+
+    async fetchSuperCategory(){
+
+      const response = await fetch("http://localhost:8080/")
+
+    }
+
+  }
 }
 </script>
 
