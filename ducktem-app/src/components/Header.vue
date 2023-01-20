@@ -14,31 +14,30 @@
             </div>
 
             <ul class="my-list">
-              <li>내 상점</li>
+              <li @click="goMyPage">내 상점</li>
               <li>굿즈 판매하기</li>
             </ul>
 
             <div class="middle-line"><span>카테고리</span></div>
 
             <div class="category-goods-wrap">
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">공식
                   굿즈</label>
               </div>
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">비공식
                   굿즈</label>
               </div>
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">대리
                   티켓팅</label>
               </div>
             </div>
 
             <ul class="menu-extra">
-              <li>헬프센터</li>
+              <li @click="goHelpCenter">헬프센터</li>
               <li>1:1문의하기</li>
-              <li>다크모드</li>
             </ul>
 
           </div>
@@ -199,13 +198,16 @@ export default {
   },
   computed: {
     goMain() {
-      this.$router.push('/')
+      this.$router.push('/');
     },
     goListPage() {
       this.$router.push('/list');
     },
     goHelpCenter() {
-      this.$router.push('/help-center')
+      this.$router.push('/help-center');
+    },
+    goMyPage() {
+      this.$router.push('/my-page');
     }
 
   }

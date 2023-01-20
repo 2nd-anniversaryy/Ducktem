@@ -107,6 +107,15 @@
   white-space: nowrap;
   gap: 30px;
   min-width: 100vw;
+  align-items: center;
+}
+
+.tag-sort {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .tag-sort::-webkit-scrollbar {
@@ -116,9 +125,11 @@
 .tag-sort > li {
   height: 120px;
   width: 160px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   position: relative;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 10px 20px rgba(0, 0, 0, 0.23);
+  border-radius: 15px;
 }
 
 .wrap-vertical::-webkit-scrollbar {

@@ -108,6 +108,7 @@ header {
   padding: 60px 40px;
   overflow: scroll;
   box-sizing: border-box;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .burger-icon {
@@ -173,6 +174,7 @@ header {
   margin: 20px 0;
   font-size: var(--font-4);
   position: relative;
+  cursor: pointer;
 }
 
 .my-list li:nth-child(1)::after {
@@ -233,11 +235,13 @@ header {
 
 .category-goods {
   padding: 15px 0;
+  cursor: pointer;
 }
 
 .category-goods label {
   font-weight: bold;
   font-size: var(--font-4);
+  cursor: pointer;
 }
 
 .category-goods label::after {
@@ -248,12 +252,14 @@ header {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 20px 20px;
   background-color: var(--color-dark);
+  cursor: pointer;
 }
 
 .menu-extra li {
   margin: 20px 0;
   font-size: clac(var(--font-2) + 2);
   position: relative;
+  cursor: pointer;
 }
 
 .menu-extra li:first-child {
@@ -286,6 +292,7 @@ header {
   background-color: white;
   height: 300px;
   overflow: scroll;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .search-input-wrap {
