@@ -23,13 +23,6 @@
                         <img src="/image/icon/icon-eye-fill.svg" alt="">
                         <span>6</span>
                     </div>
-                    <div>
-                        <img onclick="location.href='/member/my-page/review/report.html'"
-                            src="/image/icon/icon-alert.svg" alt="">
-                    </div>
-                    <div>
-                        <img src="/image/icon/icon-share.svg" alt="">
-                    </div>
                 </div>
                 <p>다니엘해린눌린자국있으나나머지멤찍힘스크래치없슴니다빛번짐인증가넝</p>
 
@@ -70,93 +63,6 @@
                                 0일 전
                             </div>
                         </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </section>
@@ -170,7 +76,7 @@
                         <span>5000원</span>
                     </div>
                     <div>
-                        <button class="btn btn-default">덕템톡</button>
+                        <button class="btn btn-default" @click="goChattingPage">덕템톡</button>
                     </div>
                 </div>
             </section>
@@ -181,7 +87,11 @@
 
 <script>
 export default {
-
+    computed: {
+        goChattingPage() {
+            this.$router.push('/chatting');
+        }
+    }
 }
 </script>
 

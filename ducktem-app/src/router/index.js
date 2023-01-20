@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Layout from '/src/components/Layout.vue';
-import Index from '/src/components/Index.vue';
+import Layout from "/src/components/Layout.vue";
+import Index from "/src/components/Index.vue";
+import HelpCenter from '/src/components/help-center/HelpCenter.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +18,13 @@ const router = createRouter({
         { path: 'login', component: () => import('/src/components/Login.vue') },
         { path: 'sign-up', component: () => import('/src/components/SignUp.vue') },
         { path: 'sign-up-ending', component: () => import('/src/components/SignUpEnding.vue') },
-        { path: 'help-center', component: () => import('/src/components/HelpCenter.vue') },
+        {
+          path: 'help-center',
+          component: HelpCenter,
+          children: [
+            { path: '/faq', component: () => import('/src/components/help-center/FaqPage.vue') },
+          ]
+        },
 
 
         // member
