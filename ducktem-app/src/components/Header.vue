@@ -194,7 +194,7 @@ export default {
       else if (this.alarmWrap) {
         this.alarmWrap = false;
       }
-    }
+    },
   },
   computed: {
     goMain() {
