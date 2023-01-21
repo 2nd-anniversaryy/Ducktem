@@ -29,5 +29,7 @@ coverage
 
 # database정보
 application-jpa.yml
+application-trace.yml
 # 로컬 h2 데이터베이스 파일
 *.mv.db
+*.trace.db
