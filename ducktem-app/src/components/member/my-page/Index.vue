@@ -6,28 +6,28 @@
 
                 <section class="profile">
                     <div>
-                        <img src="/image/profile-img.png" alt="">
+                        <img src="/image/icon/account-human.svg" alt="">
                     </div>
                     <div>
                         <span>Nickname</span>
                     </div>
                     <div>
-                        <a class="btn btn-default" href="">내 정보</a>
+                        <a class="btn btn-default" @click.prevent="goMyInfo">내 정보</a>
                     </div>
                     <div>
-                        <span>소개말</span>
+                        <span>안녕하세요~</span>
                     </div>
                     <div>
-                        <a class="btn btn-default keyword-alert-btn" href="">키워드 알림</a>
+                        <a class="btn btn-default keyword-alert-btn" @click.prevent="">키워드 알림</a>
                     </div>
                 </section>
 
                 <section class="title">
                     <div class="selling-btn">
-                        <span>판매중</span><span> 0</span>
+                        판매중 0
                     </div>
                     <div class="wish-list-btn">
-                        <span>찜 상품</span><span> 0</span>
+                        찜 상품 0
                     </div>
 
                 </section>
@@ -51,7 +51,6 @@
                                 0일 전
                             </div>
                         </div>
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -68,7 +67,6 @@
                                 0일 전
                             </div>
                         </div>
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -85,7 +83,6 @@
                                 0일 전
                             </div>
                         </div>
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -102,7 +99,6 @@
                                 0일 전
                             </div>
                         </div>
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -119,7 +115,6 @@
                                 0일 전
                             </div>
                         </div>
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -136,13 +131,6 @@
                                 0일 전
                             </div>
                         </div>
-
-                    </section>
-                </div>
-
-                <div class="product-flex">
-                    <section class="d-none product-wrap wishList-page">
-
                         <div class="product-container">
                             <div><img src="/image/example-image0.png" alt="product-img"></div>
 
@@ -152,24 +140,7 @@
                             </div>
 
                             <div class="name">
-                                러브다이브미공포 WISH TEST
-                            </div>
-
-                            <div class="time">
-                                0일 전
-                            </div>
-                        </div>
-
-                        <div class="product-container">
-                            <div><img src="/image/example-image0.png" alt="product-img"></div>
-
-                            <div class="price-wish">
-                                <span> 80,000원</span>
-                                <img src="/image/icon/heart.svg" alt="찜">
-                            </div>
-
-                            <div class="name">
-                                러브다이브미공포 WISH TEST
+                                러브다이브미공포
                             </div>
 
                             <div class="time">
@@ -233,10 +204,22 @@
 
 <script>
 export default {
+    data() {
+        return {
 
+        }
+    },
+    methods: {
+
+    },
+    computed: {
+        goMyInfo() {
+            this.$router.push('/my-info');
+        }
+    }
 }
 </script>
 
 <style scoped>
-@import '/css/member/my-page/index.css'
+@import '/css/member/my-page/index.css';
 </style>
