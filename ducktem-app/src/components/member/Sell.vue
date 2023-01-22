@@ -31,27 +31,28 @@
                 <div class="input-title">상품 이미지</div>
 
                 <div class="input-box-container">
-                  <div class="input-box">
+                  <div class="input-box" v-for="i in thumbNailImageInputs">
                     <span class="thumbNail-title">대표 이미지</span>
                     <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="fileChange"/>
                     <img class="img-input thumbNail" src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
                     <span class="img-delete thumbNail d-none" @click="imageDelete"></span>
                   </div>
-                  <div class="input-box">
+                  <div class="input-box" v-for="i in imageInputs">
                     <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">
                     <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
                     <span class="img-delete d-none" @click="imageDelete"></span>
                   </div>
-                  <div class="input-box">
-                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">
-                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                    <span class="img-delete d-none" @click="imageDelete"></span>
-                  </div>
-                  <div class="input-box">
-                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">
-                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                    <span class="img-delete d-none" @click="imageDelete"></span>
-                  </div>
+<!--                  <div class="input-box">-->
+<!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">-->
+<!--                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
+<!--                    <span class="img-delete d-none" @click="imageDelete"></span>-->
+<!--                  </div>-->
+<!--                  <div class="input-box">-->
+<!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">-->
+<!--                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
+<!--                    <span class="img-delete d-none" @click="imageDelete"></span>-->
+<!--                  </div>-->
+
                 </div>
 
                 <div class="img-count">
@@ -411,6 +412,8 @@ export default {
 
       //REG1
       imageCount: 0,
+      imageInputs : 3,
+      thumbNailImageInputs: 1,
       //REG2
       //--카테고리 선택을 위한 변수
       category: "카테고리를 선택해주세요.",
@@ -502,18 +505,9 @@ export default {
       const imgInputBoxContainer = document.querySelector(".input-box-container");
       let imgDelete = e.target;
 
-      let FileInput=`
-      <div class="input-box">
-                            <input class="d-none file-input" id="img" name="files" type="file" accept="image/*">
-                            <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                            <span class="img-delete d-none" @click="imageDelete"></span>
-                          </div>
-      `
-
-
-
       imgDelete.parentElement.remove();
-      imgInputBoxContainer.insertAdjacentHTML("beforeend", FileInput);
+      this.imageInputs++;
+      // imgInputBoxContainer.insertAdjacentHTML("beforeend", FileInput);
 
 
 
