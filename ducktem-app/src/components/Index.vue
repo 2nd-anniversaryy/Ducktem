@@ -21,7 +21,7 @@
       <section>
         <div class="category-image-wrap">
 
-          <div class="category-image">
+          <div class="category-image" @click="goListPage">
             <img class="gong" src="/image/categ-gong-goods.jpg">
             <div class=" category-text">
               <span>공식 굿즈</span>
@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="category-image">
+          <div class="category-image" @click="goListPage">
             <img class="bigong" src="/image/categ-bigong-goods.jpg">
             <div class=" category-text">
               <span>비공식 굿즈</span>
@@ -37,7 +37,7 @@
             </div>
           </div>
 
-          <div class="category-image">
+          <div class="category-image" @click="goListPage">
             <img class="dari" src="/image/categ-dari.jpg">
             <div class=" category-text">
               <span>대리 티켓팅</span>
@@ -52,21 +52,53 @@
         <h3 id="title1">최근 인기 키워드</h3>
         <ul class="tag-sort">
 
-          <div>
+          <li>
             <img src="/image/아이브.webp" alt=""><span>아이브</span>
-          </div>
+          </li>
 
-          <div>
+          <li>
             <img src="/image/방탄소년단.jpg" alt=""><span>BTS</span>
-          </div>
+          </li>
 
-          <div>
+          <li>
             <img src="/image/르세라핌.jpg" alt=""><span>르세라핌</span>
-          </div>
+          </li>
 
-          <div>
+          <li>
             <img src="/image/뉴진스.jpg" alt=""><span>뉴진스</span>
-          </div>
+          </li>
+
+          <li>
+            <img src="/image/아이브.webp" alt=""><span>아이브</span>
+          </li>
+
+          <li>
+            <img src="/image/방탄소년단.jpg" alt=""><span>BTS</span>
+          </li>
+
+          <li>
+            <img src="/image/르세라핌.jpg" alt=""><span>르세라핌</span>
+          </li>
+
+          <li>
+            <img src="/image/뉴진스.jpg" alt=""><span>뉴진스</span>
+          </li>
+
+          <li>
+            <img src="/image/아이브.webp" alt=""><span>아이브</span>
+          </li>
+
+          <li>
+            <img src="/image/방탄소년단.jpg" alt=""><span>BTS</span>
+          </li>
+
+          <li>
+            <img src="/image/르세라핌.jpg" alt=""><span>르세라핌</span>
+          </li>
+
+          <li>
+            <img src="/image/뉴진스.jpg" alt=""><span>뉴진스</span>
+          </li>
 
         </ul>
       </section>
@@ -77,7 +109,7 @@
         <div class="product-flex">
           <div class="product-wrap">
 
-            <div class="product-container">
+            <div class="product-container" @click="goDetailPage">
               <div><img src="/image/example-image0.png" alt="product-img"></div>
 
               <div class="price-wish">
@@ -106,7 +138,14 @@
 
 <script>
 export default {
-
+  computed: {
+    goListPage() {
+      this.$router.push('/list');
+    },
+    goDetailPage() {
+      this.$router.push('/detail');
+    }
+  }
 }
 </script>
 

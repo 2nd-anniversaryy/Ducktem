@@ -37,10 +37,6 @@
             </select>
         </div>
 
-
-
-
-
         <section class="product-list">
             <h1 class="d-none">상품목록</h1>
 

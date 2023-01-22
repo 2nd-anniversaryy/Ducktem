@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Layout from '../components/Layout.vue';
-import Index from '../components/Index.vue';
+import Layout from "/src/components/Layout.vue";
+import Index from "/src/components/Index.vue";
+import HelpCenter from '/src/components/help-center/HelpCenter.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,50 +12,55 @@ const router = createRouter({
       component: Layout,
       children: [
         { path: 'index', component: Index },
-        { path: 'detail', component: () => import('../components/Detail.vue') },
-        { path: 'list', component: () => import('../components/List.vue') },
-        { path: 'list-search', component: () => import('../components/ListSearch.vue') },
-        { path: 'login', component: () => import('../components/Login.vue') },
-        { path: 'sign-up', component: () => import('../components/SignUp.vue') },
-        { path: 'sign-up-ending', component: () => import('../components/SignUpEnding.vue') },
+        { path: 'detail', component: () => import('/src/components/Detail.vue') },
+        { path: 'list', component: () => import('/src/components/List.vue') },
+        { path: 'list-search', component: () => import('/src/components/ListSearch.vue') },
+        { path: 'login', component: () => import('/src/components/Login.vue') },
+        { path: 'sign-up', component: () => import('/src/components/SignUp.vue') },
+        { path: 'sign-up-ending', component: () => import('/src/components/SignUpEnding.vue') },
+        {
+          path: 'help-center',
+          component: HelpCenter,
+        },
+
 
         // member
-        { path: 'sell', component: () => import('../components/member/Sell.vue') },
+        { path: 'sell', component: () => import('/src/components/member/Sell.vue') },
         {
           path: 'update-product',
-          component: () => import('../components/member/UpdateProduct.vue'),
+          component: () => import('/src/components/member/UpdateProduct.vue'),
         },
 
         // member/my-page
-        { path: 'my-page', component: () => import('../components/member/my-page/index.vue') },
-        { path: 'my-info', component: () => import('../components/member/my-page/MyInfo.vue') },
+        { path: 'my-page', component: () => import('/src/components/member/my-page/index.vue') },
+        { path: 'my-info', component: () => import('/src/components/member/my-page/MyInfo.vue') },
 
         // member/find-account
         {
           path: 'find-id',
-          component: () => import('../components/member/find-account/FindId.vue'),
+          component: () => import('/src/components/member/find-account/FindId.vue'),
         },
         {
           path: 'find-pwd',
-          component: () => import('../components/member/find-account/FindPwd.vue'),
+          component: () => import('/src/components/member/find-account/FindPwd.vue'),
         },
 
         // member/my-page/leave
-        { path: 'leave', component: () => import('../components/member/my-page/leave/Index.vue') },
+        { path: 'leave', component: () => import('/src/components/member/my-page/leave/Index.vue') },
         {
           path: 'final-check',
-          component: () => import('../components/member/my-page/leave/FinalCheck.vue'),
+          component: () => import('/src/components/member/my-page/leave/FinalCheck.vue'),
         },
         {
           path: 'survey',
-          component: () => import('../components/member/my-page/leave/Survey.vue'),
+          component: () => import('/src/components/member/my-page/leave/Survey.vue'),
         },
       ],
     },
     {
       // member/  == 채팅 페이지만 헤더푸터 달라서 따로 빼놧음~~ㅎㅎ
       path: '/chatting',
-      component: () => import('../components/member/Chatting.vue'),
+      component: () => import('/src/components/member/Chatting.vue'),
     },
 
     // }

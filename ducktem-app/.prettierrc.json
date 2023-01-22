@@ -1,7 +1,7 @@
 {
   "singleQuote": true,
 
-  "printWidth": 100,
+  "printWidth": 150,
 
   "tabWidth": 2,
 
@@ -9,9 +9,7 @@
 
   "semi": true,
 
-  "quoteProps": "as-needed",
-
-  "jsxSingleQuote": false,
+  "quoteProps": "consistent",
 
   "trailingComma": "es5",
 
@@ -20,8 +18,6 @@
   "endOfLine": "lf",
 
   "bracketSpacing": true,
-
-  "jsxBracketSameLine": false,
 
   "requirePragma": false,
 

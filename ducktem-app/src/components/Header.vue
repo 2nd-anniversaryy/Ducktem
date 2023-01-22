@@ -4,9 +4,9 @@
     <section class="header-wrap">
       <section class="menu">
         <nav class="menu-bar">
-          <label @click="sideBarOpen()" class="burger-icon" for="burger-check">
-            <span class="burger-sticks"></span>
-          </label>
+          <div class="burger-icon" @click="sideBarOpen()">
+            <img class="menu-img" src="/image/icon/menu-black.svg" alt="">
+          </div>
 
           <div class="menu-bar-category active" v-if="sideBarWrap == true">
             <div class="category-login">
@@ -14,45 +14,44 @@
             </div>
 
             <ul class="my-list">
-              <li>내 상점</li>
+              <li @click="goMyPage">내 상점</li>
               <li>굿즈 판매하기</li>
             </ul>
 
             <div class="middle-line"><span>카테고리</span></div>
 
             <div class="category-goods-wrap">
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">공식
                   굿즈</label>
               </div>
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">비공식
                   굿즈</label>
               </div>
-              <div class="category-goods">
+              <div class="category-goods" @click.prevent="goListPage">
                 <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">대리
                   티켓팅</label>
               </div>
             </div>
 
             <ul class="menu-extra">
-              <li>헬프센터</li>
+              <li @click="goHelpCenter">헬프센터</li>
               <li>1:1문의하기</li>
-              <li>다크모드</li>
             </ul>
 
           </div>
         </nav>
 
-        <img class="logo" src="/image/logo.png" alt="로고" />
+        <img class="logo" src="/image/logo.png" alt="로고" @click="goMain" />
       </section>
 
       <div class="half-middle-category">
-        <a href="">공식 굿즈</a>
-        <a href="">비공식 굿즈</a>
-        <a href="">대리 티켓팅</a>
-        <a href="">헬프센터</a>
-        <a href="">1:1 문의하기</a>
+        <a @click.prevent="goListPage">공식 굿즈</a>
+        <a @click.prevent="goListPage">비공식 굿즈</a>
+        <a @click.prevent="goListPage">대리 티켓팅</a>
+        <a @click.prevent="goHelpCenter">헬프센터</a>
+        <a>1:1 문의하기</a>
       </div>
 
       <div class="header-icon">
@@ -195,7 +194,22 @@ export default {
       else if (this.alarmWrap) {
         this.alarmWrap = false;
       }
+    },
+  },
+  computed: {
+    goMain() {
+      this.$router.push('/');
+    },
+    goListPage() {
+      this.$router.push('/list');
+    },
+    goHelpCenter() {
+      this.$router.push('/help-center');
+    },
+    goMyPage() {
+      this.$router.push('/my-page');
     }
+
   }
 }
 </script>

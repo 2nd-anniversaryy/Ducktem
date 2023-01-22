@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="signup">
-                            <a class="btn signup-btn" href="sign-up.html">회원가입</a>
+                            <a class="btn signup-btn" href="">회원가입</a>
                         </div>
 
                     </div>
