@@ -1,3 +1,7 @@
+
+
+
+
 <template>
     <main>
 
@@ -14,6 +18,7 @@
 
             <section class="subcategory">
                 <h1 class="d-none">소분류</h1>
+                <span class="btn btn-default aaa" v-bind:class="{'category-checked' : isCategoryChecked }" @click="categoryBtnHandler">전체보기</span>
                 <input type="checkbox" name="" id="1-btn"><label class="btn btn-default aaa" for="1-btn">전체보기</label>
                 <input type="checkbox" name="" id="2-btn"><label class="btn btn-default aaa" for="2-btn">음반/영상물</label>
                 <input type="checkbox" name="" id="3-btn"><label class="btn btn-default aaa" for="3-btn">응원도구</label>
@@ -75,7 +80,45 @@
 
 <script>
 export default {
+  data(){
+    return{
+      products: [],
+      superCategorys: [],
+      categorys: [],
 
+      isCategoryChecked: false
+    };
+  },
+
+  methods: {
+
+    async fetchProducts(){
+      const response = await fetch("http://localhost:8080/");
+      const json = await response.json();
+      this.products = json;
+    },
+
+    async fetchSuperCategory(){
+      const response = await fetch("http://localhost:8080/");
+      const json = await response.json();
+      this.superCategorys = json;
+    },
+
+    async fetchCategory(){
+      const response = await fetch("http://localhost:8080/");
+      const json = await response.json();
+      this.categorys = json;
+    },
+  // -----카테고리 소분류 토글 -----
+    categoryBtnHandler(){
+      this.isCategoryChecked = !this.isCategoryChecked;
+      console.log(this.isCategoryChecked)
+
+    }
+
+
+
+  }
 }
 </script>
 

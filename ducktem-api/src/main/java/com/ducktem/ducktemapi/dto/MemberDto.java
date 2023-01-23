@@ -1,4 +1,4 @@
-package com.ducktem.ducktemapi.entity;
+package com.ducktem.ducktemapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
