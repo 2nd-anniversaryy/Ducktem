@@ -1,0 +1,3 @@
+jwt:
+  secret: spring.boot.ducktem.newlecture.rrr
+  expiredMs: 3600000

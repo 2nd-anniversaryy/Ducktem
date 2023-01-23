@@ -74,7 +74,7 @@
   margin: 0.2em 0.05em 0.2em 0.05em;
 }
 
-.subcategory input:che {
+.subcategory input:checked {
   display: none;
 }
 
@@ -91,6 +91,12 @@
   padding: 0.5em 1em;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
   margin: 20px;
+  margin: 0.2em 0.05em 0.2em 0.05em;
+}
+
+.category-checked{
+  background-color: var(--color-primary);
+  color: var(--color-light);
 }
 
 /* ==================== 정렬 콤보박스 */

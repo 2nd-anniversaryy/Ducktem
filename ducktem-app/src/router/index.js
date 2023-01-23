@@ -21,9 +21,6 @@ const router = createRouter({
         {
           path: 'help-center',
           component: HelpCenter,
-          children: [
-            { path: '/faq', component: () => import('/src/components/help-center/FaqPage.vue') },
-          ]
         },
 
 
