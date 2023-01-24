@@ -1,5 +1,7 @@
 package com.ducktem.ducktemapi.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestBody MemberDto memberDto) {
+	public Map<String,String> login(@RequestBody MemberDto memberDto) {
 		return memberService.login(memberDto);
 	}
 

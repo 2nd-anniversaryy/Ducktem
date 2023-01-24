@@ -9,7 +9,5 @@ import com.ducktem.ducktemapi.entity.Member;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 	Optional<Member> findByUserId(String userId);
 
-	Optional<Member> findByUserIdAndPwd(String userId, String pwd);
-
 	Optional<Member> findByNickName(String nickName);
 }

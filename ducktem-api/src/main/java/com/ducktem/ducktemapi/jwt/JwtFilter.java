@@ -1,7 +1,6 @@
 package com.ducktem.ducktemapi.jwt;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
@@ -9,12 +8,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ducktem.ducktemapi.entity.Member;
-import com.ducktem.ducktemapi.service.MemberService;
-
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,55 +19,50 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Component
 public class JwtFilter extends OncePerRequestFilter {
 
-	private final MemberService memberService;
+	private final JwtProvider jwtProvider;
 
-	private final String secretKey;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
 
+		// request Header에서 토큰 값 가져오기.
+		String token = getAccessToken(request);
+
+		if(token != null) {
+			// 권한 부여
+			UsernamePasswordAuthenticationToken authenticationToken = createAuthentication(token);
+			// userDetail 작성
+			authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+		}
+		filterChain.doFilter(request, response);
+	}
+
+	public String getAccessToken(HttpServletRequest request) {
 		String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-		// 토큰이 없거나 잘못된 토큰은 거부
-		if(authorization == null || !authorization.startsWith("Bearer ")) {
-			filterChain.doFilter(request,response);
-			return;
+		// 토큰 구조를 확인 후 잘못된 구조라면 null 반환.
+		if (authorization == null || !authorization.startsWith("Bearer ")) {
+			return null;
 		}
-		// Token 꺼내기
 		String token = authorization.split(" ")[1];
-		System.out.println(token);
-		//토큰 유효시간 검사
-		Boolean isExpired = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getExpiration().before(new Date());
-		if(isExpired) {
-			filterChain.doFilter(request,response);
-			return;
-		}
 
+		// 가져온 토큰값이 널이 아니라면 유효성 검증. 유효성 문제가 있을 경우 예외처리.
+		if (token != null)
+			jwtProvider.validOf(token);
 
-		//UserName Token에서 꺼내기
-		String userId = Jwts.parser()
-			.setSigningKey(secretKey)
-			.parseClaimsJws(token)
-			.getBody()
-			.get("userId", String.class);
-		Member member = memberService.get(userId);
-		String member_ = null;
-		if(member != null) {
-			member_ = member.getUserId();
+		return token;
+	}
 
-			if(member_.equals(userId)) {
-				// 권한 부여
-				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,
-					null, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
-				// userDetail 작성
-				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-			}
-		}
+	public UsernamePasswordAuthenticationToken createAuthentication(String token) {
+		Claims payload = jwtProvider.getClaims(token);
+		String userId = payload.get("userId", String.class);
 
-		filterChain.doFilter(request,response);
+		return new UsernamePasswordAuthenticationToken(userId,
+			null, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
 	}
 }
