@@ -57,10 +57,9 @@ public class MemberServiceImpl implements MemberService {
 		String refreshJwt = jwtProvider.createRefreshJwt();
 		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
 		Optional<RefreshToken> existingMember = refreshTokenRepository.findByMember(member);
+		System.out.println(existingMember);
 		if (existingMember.isEmpty()) {
-			RefreshToken refreshToken = refreshTokenRepository.save(
-				RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
-			member.setRefreshToken(refreshToken);
+			refreshTokenRepository.save(RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
 		} else {
 			existingMember.get().setRefreshToken(refreshJwt);
 		}
