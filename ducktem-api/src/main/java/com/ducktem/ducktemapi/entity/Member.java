@@ -1,11 +1,7 @@
 package com.ducktem.ducktemapi.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,7 +42,7 @@ public class Member {
 	private String profileImg;
 	private String intro;
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime regDate;
+	private String regDate;
 	// @Enumerated(EnumType.STRING)
 	// private MemberRole role;
 	private float level;

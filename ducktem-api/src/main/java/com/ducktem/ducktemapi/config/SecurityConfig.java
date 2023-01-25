@@ -1,28 +1,27 @@
 package com.ducktem.ducktemapi.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ducktem.ducktemapi.jwt.JwtFilter;
-import com.ducktem.ducktemapi.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-	private final MemberService memberService;
-	@Value("${jwt.secret}")
-	private String secretKey;
+	private final JwtFilter jwtFilter;
+
+	private final ExceptionHandlerFilter exceptionHandlerFilter;
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
 
 		return http
 			.csrf().disable()
@@ -38,7 +37,13 @@ public class SecurityConfig {
 			.anyRequest().permitAll()
 			.and()
 			// username,password로 인증하지않고, token 방식으로 하기위해 JwtFilter를 usernamepassword 필터 이전에 실행.
-			.addFilterBefore(new JwtFilter(memberService,secretKey), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(exceptionHandlerFilter, JwtFilter.class)
 			.build();
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }
