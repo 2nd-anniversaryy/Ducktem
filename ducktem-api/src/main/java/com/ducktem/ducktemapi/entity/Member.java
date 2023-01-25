@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -43,9 +44,10 @@ public class Member {
 	private String intro;
 	@Temporal(TemporalType.TIMESTAMP)
 	private String regDate;
-	// @Enumerated(EnumType.STRING)
-	// private MemberRole role;
 	private float level;
 	private Country country;
 	private MemberStatus status;
+	@OneToOne
+	private RefreshToken refreshToken;
+
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ducktem.ducktemapi.dto.MemberDto;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.MemberStatus;
+import com.ducktem.ducktemapi.entity.RefreshToken;
 import com.ducktem.ducktemapi.exception.MemberException;
 import com.ducktem.ducktemapi.jwt.JwtProvider;
 import com.ducktem.ducktemapi.repository.MemberRepository;
@@ -55,6 +56,14 @@ public class MemberServiceImpl implements MemberService {
 		Member member = valid(memberDto);
 		String refreshJwt = jwtProvider.createRefreshJwt();
 		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
+		Optional<RefreshToken> existingMember = refreshTokenRepository.findByMember(member);
+		if (existingMember.isEmpty()) {
+			RefreshToken refreshToken = refreshTokenRepository.save(
+				RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
+			member.setRefreshToken(refreshToken);
+		} else {
+			existingMember.get().setRefreshToken(refreshJwt);
+		}
 
 		return Map.of("refreshJwt", refreshJwt, "accessJwt", accessJwt);
 	}
