@@ -33,7 +33,7 @@ public class SecurityConfig {
 			.and()
 			.authorizeHttpRequests()
 			.requestMatchers("/members/test").authenticated()
-			.requestMatchers("/products").authenticated()
+			// .requestMatchers("/products").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			// username,password로 인증하지않고, token 방식으로 하기위해 JwtFilter를 usernamepassword 필터 이전에 실행.

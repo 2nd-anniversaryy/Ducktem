@@ -189,3 +189,15 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/IntelliJ-Work
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 58 more
+2023-01-25 15:58:13 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "insert into product (name, price, description, hit)\000d\000avalues\000d\000a('aaa'[*]. '200', 'ssss', 1),\000d\000a('BB'. '200', 'ssss', 1),"; expected "[, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+insert into product (name, price, description, hit)
+values
+('aaa'. '200', 'ssss', 1),
+('BB'. '200', 'ssss', 1), [42001-214]
+2023-01-25 15:58:27 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "insert into product (name, price, description, hit)\000d\000avalues\000d\000a('aaa'[*]. '200', 'ssss', 1),\000d\000a('BB'. '200', 'ssss', 1)"; expected "[, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+insert into product (name, price, description, hit)
+values
+('aaa'. '200', 'ssss', 1),
+('BB'. '200', 'ssss', 1) [42001-214]
