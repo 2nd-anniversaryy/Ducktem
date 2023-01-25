@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.entity.Member;
@@ -13,7 +12,7 @@ import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ducktem.ducktemapi.util.TimeFormatter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,43 +25,40 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private final MemberRepository memberRepository;
 
-  @Override
-  public Product get(Long id) {
-
-    Product product = null; 
-
-    Optional<Product> opt = productRepository.findById(id);
-    if(opt.isPresent())
-      product = opt.get();
-    
-    return product;
-  }
-	
 	@Override
-  public List<Product> getList() {
+	public Product get(Long id) {
 
-    List<Product> list = productRepository.findAll();
+		Product product = null;
 
-    return list;
-  }
+		Optional<Product> opt = productRepository.findById(id);
+		if (opt.isPresent())
+			product = opt.get();
+
+		return product;
+	}
+
+	@Override
+	public List<Product> getList() {
+
+		List<Product> list = productRepository.findAll();
+
+		return list;
+	}
 
 	@Override
 	@Transactional
-	public Product add(Product product,String regMemberId) {
+	public Product add(Product product, String regMemberId) {
 		Optional<Member> member = memberRepository.findByUserId(regMemberId);
-
-		Product newProduct = null;
-
-		if(member.isPresent()) {
-			// String regMember = member.get().getUserId();
+		System.out.println("product = " + product);
+		if (member.isPresent()) {
 			Member regMember = member.get();
 			product.setMember(regMember);
-			// product.setSalesStatus(SalesStatus.ON);
-			newProduct = productRepository.save(product);
-			System.out.println(newProduct.getMember());
+			product.setRegDate(TimeFormatter.NOW());
+			product.setUpdateDate(TimeFormatter.NOW());
+			product.setSalesStatus(SalesStatus.ON);
+			product = productRepository.save(product);
 		}
-		return newProduct;
+		return product;
 	}
-
 
 }
