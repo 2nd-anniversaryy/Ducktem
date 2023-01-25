@@ -1,11 +1,5 @@
 package com.ducktem.ducktemapi.entity;
 
-import java.util.Date;
-
-import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -44,24 +37,26 @@ public class Product {
 	private String price;
 	@Column(nullable = false)
 	private String description;
-	// @Column(nullable = false)
-	// private String condition;
+	@Column(nullable = false, name = "conditionName")
+	private String condition;
 	@Column(name = "deliveryType")
 	private String deliveryType;
 	private int hit;
-	// private String tag;
-	// @Temporal(TemporalType.TIMESTAMP)
-	// @Column(nullable = true)
-	// private Date regDate;
+	private String tag;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "regDate")
+	private String regDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updateDate")
+	private String updateDate;
 	// @ManyToOne
 	// @JoinColumn(name = "categoryId")
 	// private Category category;
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "userId", name = "regMemberId")
-	@JsonBackReference
 	private Member member;
-	// @Enumerated(EnumType.STRING)
-	// private SalesStatus salesStatus;
- 
- }
+	@Enumerated(EnumType.STRING)
+	private SalesStatus salesStatus;
+
+}
 
