@@ -10,25 +10,6 @@
 }
 
 /* ==================== 카테고리 */
-
-/* .category{
-
-    position : fixed;
-    width: 100%;
-    height: fit-content;
-    background-color: white;
-    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
-    z-index: 1000;
-} */
-
-/* .subcategory span{
-    font-size: var(--font-4);
-    border: 1px solid var(--color-dark);
-    border-radius: 0.6em;
-    padding: 0.1em 0.5em 0.1em 0.5em;
-    margin: 10px;
-} */
-
 /* ---------------수퍼 카테고리 css------------ */
 
 .supercategory {
@@ -37,8 +18,11 @@
 
   padding-bottom: 1em;
   padding-top: 1em;
+}
 
-  /* text-align: center; */
+
+.supercategory input{
+  display: none;
 }
 
 .supercategory span {
@@ -51,14 +35,11 @@
   transition: border-bottom 0.5s step-start;
 }
 
-/* .supercategory span::after{
-    display: block;
-    width: inherit;
-    content: '';
-    border-bottom: 3px solid var(--color-dark); 
-    transform: scaleX(0);
-    transition: transform 250ms ease-in-out;
-} */
+.supercategory input:checked + label{
+  border-bottom: 3px solid var(--color-dark);
+  transition: border-bottom 0.5s step-start;
+}
+
 
 /* ---------------서브 카테고리 css------------ */
 
