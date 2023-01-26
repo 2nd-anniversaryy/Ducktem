@@ -25,29 +25,29 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private final MemberRepository memberRepository;
 
-  @Override
-  public Product get(Long id) {
-
-    Product product = null; 
-
-    Optional<Product> opt = productRepository.findById(id);
-    if(opt.isPresent())
-      product = opt.get();
-    
-    return product;
-  }
-	
 	@Override
-  public List<Product> getList() {
+	public Product get(Long id) {
 
-    List<Product> list = productRepository.findAll();
+		Product product = null;
 
-    return list;
-  }
+		Optional<Product> opt = productRepository.findById(id);
+		if (opt.isPresent())
+			product = opt.get();
+
+		return product;
+	}
+
+	@Override
+	public List<Product> getList() {
+
+		List<Product> list = productRepository.findAll();
+
+		return list;
+	}
 
 	@Override
 	@Transactional
-	public Product add(Product product,String regMemberId) {
+	public Product add(Product product, String regMemberId) {
 		Optional<Member> member = memberRepository.findByUserId(regMemberId);
 
 		Product newProduct = null;
@@ -55,13 +55,12 @@ public class ProductServiceImpl implements ProductService {
 		if(member.isPresent()) {
 			Member regMember = member.get();
 			product.setMember(regMember);
-			product.setSalesStatus(SalesStatus.ON);
 			product.setRegDate(TimeFormatter.NOW());
+			product.setUpdateDate(TimeFormatter.NOW());
+			product.setSalesStatus(SalesStatus.ON);
 			newProduct = productRepository.save(product);
-			// System.out.println(newProduct.getMember());
 		}
 		return newProduct;
 	}
-
 
 }

@@ -27,23 +27,21 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(unique = true, nullable = false, name = "userId")
+	@Column(unique = true, nullable = false)
 	private String userId;
-	@Column(unique = true, nullable = false, name = "nickName")
+	@Column(unique = true, nullable = false)
 	private String nickName;
 	@Column(nullable = false)
 	private String name;
 	@Column(nullable = false)
 	private String pwd;
-	@Column(nullable = false, name = "phoneNumber")
+	@Column(nullable = false)
 	private String phoneNumber;
 	@Column(nullable = false)
 	private String email;
-	@Column(name = "profileImg")
 	private String profileImg;
 	private String intro;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "regDate")
 	private String regDate;
 	private float level;
 	private MemberStatus status;
