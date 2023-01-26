@@ -21,7 +21,10 @@ public class ProductDetailResponse {
 	private String condition;
 	private int hit;
 	private String updateDate;
-	private List<ProductImageResponse> productImageList;
+	private List<ProductImageResponse> imgNames;
+	private List<ProductTagResponse> tags;
+	private String subCategory;
+	private String superCategory;
 	private String regMemberId;
 	private SalesStatus salesStatus;
 
@@ -33,7 +36,10 @@ public class ProductDetailResponse {
 			.condition(product.getCondition())
 			.hit(product.getHit())
 			.updateDate(product.getUpdateDate())
-			.productImageList(ProductImageResponse.from(product.getProductImageList()))
+			.imgNames(ProductImageResponse.from(product.getProductImageList()))
+			.superCategory(product.getCategory().getSuperCategory().getName())
+			.subCategory(product.getCategory().getName())
+			.tags(ProductTagResponse.from(product.getTag()))
 			.regMemberId(product.getMember().getUserId())
 			.salesStatus(product.getSalesStatus())
 			.build();
