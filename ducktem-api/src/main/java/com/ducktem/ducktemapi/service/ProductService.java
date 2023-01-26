@@ -10,5 +10,4 @@ public interface ProductService {
 	Product add(Product product, String regMemberId);
 
 	List<Product> getList();
-
 }
