@@ -1,9 +1,9 @@
 package com.ducktem.ducktemapi.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.ducktem.ducktemapi.dto.MemberDto;
+import com.ducktem.ducktemapi.dto.response.TokenResponse;
 import com.ducktem.ducktemapi.entity.Member;
 
 public interface MemberService {
@@ -11,7 +11,7 @@ public interface MemberService {
 
 	Member join(Member member);
 
-	Map<String,String> login(MemberDto memberDto);
+	TokenResponse login(MemberDto memberDto);
 
 	List<Member> getList();
 

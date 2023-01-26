@@ -26,6 +26,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
 	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		return request.getRequestURI().endsWith("token") && request.getMethod().equalsIgnoreCase("POST");
+	}
+
+	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
 
