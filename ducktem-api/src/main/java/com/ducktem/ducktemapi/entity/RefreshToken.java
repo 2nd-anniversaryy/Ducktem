@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class RefreshToken {
 	@Column
 	private String refreshToken;
 	@OneToOne
+	@JoinColumn(referencedColumnName = "userId",name = "memberId")
 	private Member member;
 
 	public void setRefreshToken(String refreshToken) {

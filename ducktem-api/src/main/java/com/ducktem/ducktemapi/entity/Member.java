@@ -44,7 +44,6 @@ public class Member {
 	@Temporal(TemporalType.TIMESTAMP)
 	private String regDate;
 	private float level;
-	private Country country;
 	private MemberStatus status;
 
 }
