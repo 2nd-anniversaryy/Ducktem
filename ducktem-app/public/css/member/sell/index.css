@@ -29,6 +29,7 @@
 
 
 .wizard-index{
+
     color: var(--color-light);
     font-size: var(--font-5);
     font-weight: 900;
@@ -45,7 +46,7 @@
     background-color: #BBBBBB;
     justify-content: center;
     align-items: center;
-    
+
 
 }
 
@@ -114,7 +115,7 @@
     display: flex;
     flex-direction: column;
     gap : 20px;
-    width: 370px;  
+    width: 370px;
 }
 
 
@@ -184,21 +185,75 @@
     -webkit-appearance: none;
 }
 
-.img-input, .img-input-after {
+.thumbNail-title{
+    display: block;
+    font-size: var(--font-1);
+    color : var(--color-dark);
+    font-weight: bold;
     width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
+    text-align: center;
 }
+
+.img-input.thumbNail{
+    border: 3px solid #545454;
+}
+
+.input-box-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 0;
+}
+
+.img-input{
+    /* background: url(../../../image/icon/icon-image.svg)no-repeat center;
+    background-size: 40px 40px; */
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border: 2px solid #BBBBBB;
+    border-radius: 10px;
+    position : relative;
+    cursor: pointer;
+}
+.img-input:hover{
+
+    background-size: 42px 42px;
+    background-color: #eae9e9;
+    transition: .7s;
+}
+
+
 
 .reg1 .input-box{
     display: inline-block;
+    margin-right: 3px;
     padding: 0;
+
 }
 
 .reg1 .img-count{
     font-size: var(--font-2);
     color: rgb(82, 82, 82);
+    padding-top: 0;
+}
+
+.img-delete{
+    display: inline-block;
+    background: url(../../../image/icon/icon-close.svg) no-repeat;
+    background-size : 20px 20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top : -55px;
+    right : 25px;
+    margin-right:-20px;
+}
+
+.img-delete:hover{
+    cursor: pointer;
+    background: url(../../../image/icon/icon-close-hover.svg) no-repeat;
+    transition: .3s;
 }
 
 
@@ -207,13 +262,45 @@
 
 /* <!-- ==========     2번 페이지    ========== --> */
 
+.category-select,
+.category-select option {
+    font-weight: 900;
+    border: 0;
+    background-color: var(--color-light);
+}
 
+
+.input-description{
+    resize: none;
+    width: 90%;
+    height: 100px;
+    font-family: var(--font-main);
+
+}
+
+.reg2 .category-input{
+    background-color: #ececec;
+    color:#757575;
+    font-weight: lighter;
+    align-items: center;
+    width:90%;
+    height: 30px;
+    padding: 5px 10px;
+    font-size: var(--font-2);
+}
+
+
+
+
+/* -----------------------------------  다시  ----------------------------------- */
 .supercategory-select, .subcategory-select{
-   
+
     background-color: var(--color-light);
     width: 100%;
+    /* height: 500px; */
 
-    border: 3px solid black;
+
+    box-shadow : 0px -1px 4px black;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 
@@ -225,7 +312,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+
 }
 
 .exit{
@@ -257,20 +344,20 @@
     content: '';
     display: inline-block;
     align-items: flex-end;
-    
+
     width: 16px;
     height: 16px;
     background-size: 16px 16px;
     background-color: var(--color-dark);
 
-    margin-right: 20%;
+    margin-right: 15%;
 
 
     mask-size: 16px 16px;
     -webkit-mask-size: 16px 16px;
     mask-image : url(/image/icon/icon-check.svg);
     -webkit-mask-image : url(/image/icon/icon-check.svg);
-    
+
 
 }
 
@@ -292,17 +379,18 @@
 }
 .category-select{
     display: inline-flex;
-    justify-content: space-between; 
-    
+    justify-content: space-between;
+
 }
 
 
 
 .supercategory-select .next-btn, .subcategory-select .next-btn{
-   width: 150px;
-   align-self: center;
-   margin-top: 20px;
-   margin-bottom: 50px;
+    width: 75%;
+    align-self: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding : .5em 0;
 
 }
 
@@ -317,7 +405,7 @@
     width: 90%;
     height: 100px;
     font-family: var(--font-main);
-    
+
 }
 
 
@@ -337,50 +425,79 @@
 
 .reg3-tag-container .btn-default{
     padding: .5em;
-    
+
 }
 
 .reg3 .btn-tag{
-    padding: .3em 2em;
+    padding: .3em 1.5em .3em 1em;
+    box-shadow : none;
+    border : 2px solid #e2e2e2;
+    position: relative;
+}
+
+.btn-tag::before {
+    font-size : var(--font-4);
+}
+
+
+.btn-tag::after{
+    display: inline-block;
+    /* background: url(../../image/icon/icon-close.svg) no-repeat; */
+    background:url(../../../image/icon/icon-close.svg);
+    background-size : 20px 20px;
+    width: 20px;
+    height: 20px;
+    top : -55px;
+    right : 25px;
+    margin-right:-20px;
+    /* position: absolute; */
+}
+
+
+.reg-btn{       /* -----   reg3 전용   -----*/
+    background-color: #bbbbbb;
+    padding: .3em 1em;
+    border-radius: .8em;
+    margin-bottom: 5px;
+    font-size: var(--font-2);
+    margin: 1px 2px;
 }
 
 /* <!-- ==========     4번 페이지    ========== --> */
 
 .reg4{
-
-    
+    display: flex;
+    align-items: center;
 }
 
 .reg4 label{
-    display: block;
-    width: 200px;
-    height: 100px;
+    display: inline-block;
+
 
 }
 
-.reg4 label span{
+.label-box{
+    display: flex;
+    width: 150px;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    gap : 10px;
 
 }
 
-
-.reg4 label::before{
-    
+.delivery-icon{
     cursor: pointer;
     display: inline-block;
-    font-size: 80px;
-    
+    font-size: 50px;
 }
 
-.general-mail::before{
-    content: "📮";
-}
-
-.semi-post::before{
-    content: "✉️";
-}
-
-.parcel::before{
-    content: "📦";
+.delivery-name{
+    font-size: var(--font-2);
+    font-weight: bold;
+    align-self: flex-end;
+    padding-bottom: 30px;
+    color :rgb(61, 61, 61)
 }
 
 
@@ -397,17 +514,17 @@
 .delivery-label{
     background-color: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 3px 3px rgba(0 0 0 / 25%);
-    
+
+    box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
+
 }
 
 .reg4 input:checked + .delivery-label {
-    box-shadow: 0 0 4px 4px rgb(190, 167, 255);
+    box-shadow: 0 0 2px 2px #A9A9FF;
 }
 
 .reg4 button{
-    /* -webkit-appearance: none;
-    -moz-appearance: none; */
+
     appearance: none;
     text-decoration: none;
 }
@@ -437,14 +554,14 @@
 .btn-container {
     display: flex;
     justify-content: center;
-    
+
 }
 
 .btn-cancel {
     border-radius: 10px;
     background-color: #bbbbbb;
     padding: .5em 4em;
-    
+
     margin-right: 5px;
 }
 
@@ -483,7 +600,7 @@
 
 
 
-@media (max-width: 767px) { 
+@media (max-width: 767px) {
 
 
 
@@ -491,74 +608,74 @@
 
 }
 
-@media (min-width: 768px)  { 
+@media (min-width: 768px)  {
 
     /* ----여기를 만들자---- */
 
-.reg1,.reg2, .reg3, .reg4{
-    display: flex;
-    flex-direction: column;
-    gap : 20px;
-    width: 600px;  
-}
+    .reg1,.reg2, .reg3, .reg4{
+        display: flex;
+        flex-direction: column;
+        gap : 20px;
+        width: 600px;
+    }
 
 
 
-.reg .input-title {
-    display: inline-block;
-    font-size: var(--font-3);
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    font-weight: 700;
-}
+    .reg .input-title {
+        display: inline-block;
+        font-size: var(--font-3);
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        font-weight: 700;
+    }
 
-/* <!-- ==========     1번 페이지    ========== --> */
+    /* <!-- ==========     1번 페이지    ========== --> */
 
-.reg1 input[type=text] {
-    width: 80%;
-}
+    .reg1 input[type=text] {
+        width: 80%;
+    }
 
-.reg1 input[type=number] {
-    width: 60%;
-}
+    .reg1 input[type=number] {
+        width: 60%;
+    }
 
-/* .img-input {
-    display: none;
-} */
+    /* .img-input {
+        display: none;
+    } */
 
-.reg1 .padding-0 {
-    padding: 0;
-    display: inline-block;
-}
+    .reg1 .padding-0 {
+        padding: 0;
+        display: inline-block;
+    }
 
-.reg1 .img-count{
-    font-size: var(--font-2);
-    color: rgb(82, 82, 82);
-}
+    .reg1 .img-count{
+        font-size: var(--font-2);
+        color: rgb(82, 82, 82);
+    }
 
-/* <!-- ==========     2번 페이지    ========== --> */
+    /* <!-- ==========     2번 페이지    ========== --> */
 
-.category-select,
-.category-select option {
-    font-weight: 900;
-    border: 0;
-    background-color: var(--color-light);
-}
-
-
-.input-description{
-    resize: none;
-    width: 90%;
-    height: 100px;
-    font-family: var(--font-main);
-    
-}
+    .category-select,
+    .category-select option {
+        font-weight: 900;
+        border: 0;
+        background-color: var(--color-light);
+    }
 
 
-.supercategory-select, .subcategory-select{
-    width: 400px;
-}
+    .input-description{
+        resize: none;
+        width: 90%;
+        height: 100px;
+        font-family: var(--font-main);
+
+    }
+
+
+    .supercategory-select, .subcategory-select{
+        width: 400px;
+    }
 
 
 

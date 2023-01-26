@@ -25,6 +25,7 @@ public class SecurityConfig {
 
 		return http
 			.csrf().disable()
+			.headers().frameOptions().disable().and() //h2-console 접속을 위해 임시 설정. 추후에 데이터베이스 변경시 삭제 예정
 			.formLogin().disable()  //formLogin 페이지를 사용하지 않음.
 			.httpBasic().disable()  //http 기본 검증을 사용하지 않음. Bearer 사용
 			.cors().and()  // cors 설정
@@ -32,6 +33,7 @@ public class SecurityConfig {
 			.and()
 			.authorizeHttpRequests()
 			.requestMatchers("/members/test").authenticated()
+			// .requestMatchers("/products").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			// username,password로 인증하지않고, token 방식으로 하기위해 JwtFilter를 usernamepassword 필터 이전에 실행.
