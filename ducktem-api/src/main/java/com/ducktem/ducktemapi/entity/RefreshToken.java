@@ -26,7 +26,7 @@ public class RefreshToken {
 	@Column
 	private String refreshToken;
 	@OneToOne
-	@JoinColumn(name = "memberId", referencedColumnName = "userId")
+	@JoinColumn(referencedColumnName = "userId",name = "memberId")
 	private Member member;
 
 	public void setRefreshToken(String refreshToken) {

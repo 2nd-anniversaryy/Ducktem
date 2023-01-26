@@ -57,13 +57,12 @@ public class MemberServiceImpl implements MemberService {
 		String refreshJwt = jwtProvider.createRefreshJwt();
 		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
 		Optional<RefreshToken> existingMember = refreshTokenRepository.findByMember(member);
-		// if (existingMember.isEmpty()) {
-		// 	// RefreshToken refreshToken = refreshTokenRepository.save(
-		// 	// 	RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
-		// 	// member.setRefreshToken(refreshToken);
-		// } else {
-		// 	existingMember.get().setRefreshToken(refreshJwt);
-		// }
+		System.out.println(existingMember);
+		if (existingMember.isEmpty()) {
+			refreshTokenRepository.save(RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
+		} else {
+			existingMember.get().setRefreshToken(refreshJwt);
+		}
 
 		return Map.of("refreshJwt", refreshJwt, "accessJwt", accessJwt);
 	}
