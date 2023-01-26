@@ -21,8 +21,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-@Table(name = "ProductImg")
-public class ProductImg {
+@Table(name = "Product_image")
+public class ProductImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

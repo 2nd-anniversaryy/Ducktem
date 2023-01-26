@@ -2,21 +2,20 @@ package com.ducktem.ducktemapi.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.entity.Product;
+import com.ducktem.ducktemapi.entity.ProductImage;
+import com.ducktem.ducktemapi.service.ProductImageService;
 import com.ducktem.ducktemapi.service.ProductService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,16 +23,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("products")
 public class ProductController {
 
-	@Autowired
-	private ProductService productservice;
-
+	private final ProductService productservice;
+	private final ProductImageService productImageService;
 	// /products?p=1&s=15
-	@GetMapping
-	public List<Product> getList() {
+	@GetMapping("img/test")
+	public List<ProductImage> getList() {
 
-			List<Product> list = productservice.getList();
-			
-		return list;
+		return productImageService.getThumbNailList();
 	}
 
 	// /products/2
