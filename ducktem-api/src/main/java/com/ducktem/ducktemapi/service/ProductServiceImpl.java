@@ -3,10 +3,11 @@ package com.ducktem.ducktemapi.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ducktem.ducktemapi.dto.response.ProductPreview;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
@@ -20,9 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 
 public class ProductServiceImpl implements ProductService {
-	@Autowired
 	private final ProductRepository productRepository;
-	@Autowired
 	private final MemberRepository memberRepository;
 
 	@Override
@@ -37,12 +36,12 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+
+	// 상품 레포지토리에서 paging 이후 productPreview로 바꿔서 반환.
 	@Override
-	public List<Product> getList() {
+	public List<ProductPreview> getList(Pageable pageable) {
 
-		List<Product> list = productRepository.findAll();
-
-		return list;
+		return productRepository.findAll(pageable).map(ProductPreview::from).toList();
 	}
 
 	@Override
