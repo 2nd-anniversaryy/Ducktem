@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.entity.Member;
@@ -13,7 +12,7 @@ import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ducktem.ducktemapi.util.TimeFormatter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,12 +53,12 @@ public class ProductServiceImpl implements ProductService {
 		Product newProduct = null;
 
 		if(member.isPresent()) {
-			// String regMember = member.get().getUserId();
 			Member regMember = member.get();
 			product.setMember(regMember);
-			// product.setSalesStatus(SalesStatus.ON);
+			product.setSalesStatus(SalesStatus.ON);
+			product.setRegDate(TimeFormatter.NOW());
 			newProduct = productRepository.save(product);
-			System.out.println(newProduct.getMember());
+			// System.out.println(newProduct.getMember());
 		}
 		return newProduct;
 	}

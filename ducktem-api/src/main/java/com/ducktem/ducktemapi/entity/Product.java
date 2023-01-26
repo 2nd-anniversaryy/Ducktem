@@ -44,15 +44,15 @@ public class Product {
 	private String price;
 	@Column(nullable = false)
 	private String description;
-	// @Column(nullable = false)
-	// private String condition;
+	@Column(nullable = false, name = "conditionName")
+	private String condition;
 	@Column(name = "deliveryType")
 	private String deliveryType;
 	private int hit;
-	// private String tag;
-	// @Temporal(TemporalType.TIMESTAMP)
-	// @Column(nullable = true)
-	// private Date regDate;
+	private String tag;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "regDate")
+	private String regDate;
 	// @ManyToOne
 	// @JoinColumn(name = "categoryId")
 	// private Category category;
@@ -60,8 +60,8 @@ public class Product {
 	@JoinColumn(referencedColumnName = "userId", name = "regMemberId")
 	@JsonBackReference
 	private Member member;
-	// @Enumerated(EnumType.STRING)
-	// private SalesStatus salesStatus;
+	@Enumerated(EnumType.STRING)
+	private SalesStatus salesStatus;
  
  }
 
