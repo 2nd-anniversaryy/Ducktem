@@ -1,7 +1,6 @@
 package com.ducktem.ducktemapi.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.dto.MemberDto;
+import com.ducktem.ducktemapi.dto.response.TokenResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.MemberStatus;
 import com.ducktem.ducktemapi.entity.RefreshToken;
@@ -52,19 +52,18 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public Map<String, String> login(MemberDto memberDto) {
+	public TokenResponse login(MemberDto memberDto) {
 		Member member = valid(memberDto);
 		String refreshJwt = jwtProvider.createRefreshJwt();
 		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
 		Optional<RefreshToken> existingMember = refreshTokenRepository.findByMember(member);
-		System.out.println(existingMember);
 		if (existingMember.isEmpty()) {
 			refreshTokenRepository.save(RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
 		} else {
 			existingMember.get().setRefreshToken(refreshJwt);
 		}
 
-		return Map.of("refreshJwt", refreshJwt, "accessJwt", accessJwt);
+		return TokenResponse.from(accessJwt, refreshJwt);
 	}
 
 	@Override
