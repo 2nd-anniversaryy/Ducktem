@@ -2,6 +2,8 @@ package com.ducktem.ducktemapi.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ducktem.ducktemapi.dto.response.ProductPreview;
 import com.ducktem.ducktemapi.entity.Product;
-import com.ducktem.ducktemapi.entity.ProductImage;
-import com.ducktem.ducktemapi.service.ProductImageService;
 import com.ducktem.ducktemapi.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,10 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
 
 	private final ProductService productservice;
-	private final ProductImageService productImageService;
 	// /products?p=1&s=15
-	@GetMapping("img/test")
-	public List<ProductImage> getList() {
-
-		return productImageService.getThumbNailList();
+	@GetMapping
+	public List<ProductPreview> getList(@PageableDefault(size = 3) Pageable pageable) {
+		return productservice.getList(pageable);
 	}
 
 	// /products/2
