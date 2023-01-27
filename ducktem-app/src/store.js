@@ -25,8 +25,8 @@ const mutations = {
     state.nickname = item.nickName;
   },
   logout(state) {
-    state.access = null;
-    state.refresh = null;
+    state.tokenResponse.access = null;
+    state.tokenResponse.refresh = null;
     state.id = null;
     state.nickname = null;
   },
