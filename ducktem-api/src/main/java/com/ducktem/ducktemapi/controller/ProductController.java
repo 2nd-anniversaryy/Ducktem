@@ -16,7 +16,9 @@ import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.service.ProductService;
+import com.ducktem.ducktemapi.service.TagService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
 
 	private final ProductService productservice;
+	private final TagService tagService;
+
 	// /products?p=1&s=15
 	@GetMapping
 	public List<ProductPreviewResponse> getList(@PageableDefault(size = 3) Pageable pageable) {
@@ -42,4 +46,15 @@ public class ProductController {
 		String regMemberId = authentication.getName();
 		return productservice.add(product,regMemberId);
 	}
+
+	@PostMapping("test")
+	public Product addTest(@RequestBody Product product, Authentication authentication) {
+		String regMemberId = authentication.getName();
+		Product newOne = productservice.add(product,regMemberId);
+		Long productId = newOne.getId();
+		String tag = newOne.getTag();
+		tagService.add(tag, productId, (byte) 0);
+		
+		return productservice.add(product,regMemberId);
+	}	
 }

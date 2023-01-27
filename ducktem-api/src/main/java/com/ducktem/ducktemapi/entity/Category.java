@@ -28,6 +28,4 @@ public class Category {
 	@JoinColumn(name = "superCategoryId")
     private SuperCategory superCategory; //대분류 ID
     private String name;//소분류 이름
-
-
 }
