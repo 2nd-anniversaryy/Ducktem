@@ -104,5 +104,5 @@ export default {
 </script>
 
 <style scoped>
-@import '/css/member/update-product/index.css';
+@import '/css/member/update-product/index.css'
 </style>
