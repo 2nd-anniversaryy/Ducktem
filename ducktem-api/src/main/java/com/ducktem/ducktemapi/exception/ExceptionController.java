@@ -24,4 +24,9 @@ public class ExceptionController {
 	public ResponseEntity<String> handleJwtExpiredException(JwtException e) {
 		return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED);
 	}
+
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<String> handlerProductNullException(ProductException e) {
+		return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+	}
 }

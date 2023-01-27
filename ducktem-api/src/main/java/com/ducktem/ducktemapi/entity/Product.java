@@ -1,14 +1,19 @@
 package com.ducktem.ducktemapi.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -42,16 +47,20 @@ public class Product {
 	@Column(name = "deliveryType")
 	private String deliveryType;
 	private int hit;
-	private String tag;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "regDate")
 	private String regDate;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateDate")
 	private String updateDate;
-	// @ManyToOne
-	// @JoinColumn(name = "categoryId")
-	// private Category category;
+	@OneToMany(mappedBy = "product")
+	List<Tag> tag = new ArrayList<>();
+	//프로덕트 이미지와 양방향 관계 설정.
+	@OneToMany(mappedBy = "product")
+	private List<ProductImage> productImageList;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoryId")
+	private Category category;
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "userId", name = "regMemberId")
 	private Member member;
