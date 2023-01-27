@@ -4,27 +4,29 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 const state = {
-  refresh: null,
-  access: null,
+  tockenResponse: {
+    refresh: null,
+    access: null,
+  },
   id: null,
   nickname: null,
 };
 const getters = {
-  refreshJwt: (state) => state.refresh,
-  accessJwt: (state) => state.access,
+  refresh: (state) => state.tockenResponse.refresh,
+  access: (state) => state.tockenResponse.access,
   id: (state) => state.id,
   nickname: (state) => state.nickname,
 };
 const mutations = {
   login(state, item) {
-    state.refresh = item.headers['refreshJwt'];
-    state.access = item.headers['access'];
-    state.id = item.data['id'];
-    state.nickname = item.data['nickname'];
+    state.tockenResponse.access = item.access;
+    state.tockenResponse.refresh = item.refresh;
+    state.id = item.id;
+    state.nickname = item.nickname;
   },
   logout(state) {
-    state.refresh = null;
     state.access = null;
+    state.refresh = null;
     state.id = null;
     state.nickname = null;
   },
@@ -48,19 +50,25 @@ const actions = {
         return response.json();
       })
       .then((result) => {
-        this.$router.push('/index');
+        if (result) {
+          commit('login', result);
+          router.push('/index');
+        } else {
+          console.log('로그인에 실패하였습니다.');
+        }
       })
-      .catch(() => {
-        console.log('에러발생 안돼');
+      .catch((e) => {
+        console.log(e);
+        console.log('로그인 서버 에러발생');
       });
   },
-  logout() {
-    mutations.logout();
+  logout({ commit }) {
+    commit('logout');
   },
 };
 
 const persistedState = createPersistedState({
-  paths: ['refresh', 'access', 'id', 'nickname'],
+  paths: ['access', 'refresh', 'id', 'nickname'],
 });
 
 const store = createStore({
