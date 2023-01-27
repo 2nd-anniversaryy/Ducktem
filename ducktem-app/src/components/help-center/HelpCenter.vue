@@ -299,7 +299,7 @@ window.addEventListener("load", function () {
             current = e.target;
 
             e.target.classList.add("active");
-            for (i = 0; i < titleList.length; i++) {
+            for (let i = 0; i < titleList.length; i++) {
                 if (current != null) {
                     current.classList.remove("active");
                     crampsList[i].classList.remove("active");
