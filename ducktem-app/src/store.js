@@ -68,7 +68,7 @@ const actions = {
 };
 
 const persistedState = createPersistedState({
-  paths: ['access', 'refresh', 'id', 'nickname'],
+  paths: ['tokenResponse.access', 'tokenResponse.refresh', 'id', 'nickname'],
 });
 
 const store = createStore({
