@@ -4,27 +4,27 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 const state = {
-  refreshJwt: null,
-  accessJwt: null,
+  refresh: null,
+  access: null,
   id: null,
   nickname: null,
 };
 const getters = {
-  refreshJwt: (state) => state.refreshJwt,
-  accessJwt: (state) => state.accessJwt,
+  refreshJwt: (state) => state.refresh,
+  accessJwt: (state) => state.access,
   id: (state) => state.id,
   nickname: (state) => state.nickname,
 };
 const mutations = {
   login(state, item) {
-    state.refreshJwt = item.headers['refreshJwt'];
-    state.accessJwt = item.headers['accessJwt'];
+    state.refresh = item.headers['refreshJwt'];
+    state.access = item.headers['access'];
     state.id = item.data['id'];
     state.nickname = item.data['nickname'];
   },
   logout(state) {
-    state.refreshJwt = null;
-    state.accessJwt = null;
+    state.refresh = null;
+    state.access = null;
     state.id = null;
     state.nickname = null;
   },
@@ -45,11 +45,9 @@ const actions = {
       body: JSON.stringify(params),
     })
       .then((response) => {
-        response.json();
-        console.log(response);
+        return response.json();
       })
       .then((result) => {
-        console.log(result);
         this.$router.push('/index');
       })
       .catch(() => {
@@ -62,7 +60,7 @@ const actions = {
 };
 
 const persistedState = createPersistedState({
-  paths: ['refreshJwt', 'accessJwt', 'id', 'nickname'],
+  paths: ['refresh', 'access', 'id', 'nickname'],
 });
 
 const store = createStore({
