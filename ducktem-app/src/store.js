@@ -4,25 +4,25 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 const state = {
-  tockenResponse: {
+  tokenResponse: {
     refresh: null,
     access: null,
   },
   id: null,
-  nickname: null,
+  nickName: null,
 };
 const getters = {
-  refresh: (state) => state.tockenResponse.refresh,
-  access: (state) => state.tockenResponse.access,
-  id: (state) => state.id,
-  nickname: (state) => state.nickname,
+  refresh: (state) => state.tokenResponse.refresh,
+  access: (state) => state.tokenResponse.access,
+  id: (state) => state.userId,
+  nickname: (state) => state.nickName,
 };
 const mutations = {
   login(state, item) {
-    state.tockenResponse.access = item.access;
-    state.tockenResponse.refresh = item.refresh;
-    state.id = item.id;
-    state.nickname = item.nickname;
+    state.tokenResponse.refresh = item.tokenResponse.refresh;
+    state.tokenResponse.access = item.tokenResponse.access;
+    state.id = item.userId;
+    state.nickname = item.nickName;
   },
   logout(state) {
     state.access = null;
