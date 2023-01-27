@@ -11,7 +11,7 @@
             <div class="category-login">
               <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
               <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
-              <a v-if="$store.state.id" class="log-out" style="display: block" href="/logout">로그아웃</a>
+              <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
             <ul class="my-list" v-if="$store.state.id">
               <li @click="goMyPage">내 상점</li>
@@ -181,6 +181,9 @@ export default {
   computed: {
     goLogin() {
       this.$router.push('/login');
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
     goMain() {
       this.$router.push('/');
