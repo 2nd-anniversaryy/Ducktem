@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 		return LoginResponse
 			.builder()
 			.nickName(member.getNickName())
-			.userId(member.getNickName())
+			.userId(member.getUserId())
 			.tokenResponse(token).build();
 	}
 
