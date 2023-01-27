@@ -22,23 +22,29 @@
         <input type="checkbox" name="selectAll" v-model="this.selectAll" id="selectAll" @change="superCategorySelected"><label
           class="btn btn-default aaa" for="selectAll">전체보기</label>
 
-        <span v-for="category in this.categoryList1" v-if="this.isOfficialGoods">
+        <span v-for="category in this.categoryList" >
                 <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
                        v-bind:id="category.id" @change="categorySelected">
                 <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
               </span>
 
-        <span v-for="category in this.categoryList2" v-if="this.isUnOfficialGoods">
-                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
-                       v-bind:id="category.id" @change="categorySelected">
-                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
-              </span>
+<!--        <span v-for="category in this.categoryList1" v-if="this.isOfficialGoods">-->
+<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
+<!--                       v-bind:id="category.id" @change="categorySelected">-->
+<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
+<!--              </span>-->
 
-        <span v-for="category in this.categoryList3" v-if="this.isTicketing">
-                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
-                       v-bind:id="category.id" @change="categorySelected">
-                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
-              </span>
+<!--        <span v-for="category in this.categoryList2" v-if="this.isUnOfficialGoods">-->
+<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
+<!--                       v-bind:id="category.id" @change="categorySelected">-->
+<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
+<!--              </span>-->
+
+<!--        <span v-for="category in this.categoryList3" v-if="this.isTicketing">-->
+<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
+<!--                       v-bind:id="category.id" @change="categorySelected">-->
+<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
+<!--              </span>-->
 
 
       </section>
@@ -96,7 +102,8 @@ export default {
   data() {
     return {
       //DB에서 받으면 수정할 예정.
-      superCategoryList: [{name: "공식굿즈", id: 1}, {name: "비공식굿즈", id: 2}, {name: "대리티켓팅", id: 3}],
+      superCategoryList: [],
+      categoryList:[],
       categoryList1: [{name: "음반/영상물", id: 1}, {name: "응원도구", id: 2}, {name: "포토카드", id: 3}, {
         name: "포스터/포토북",
         id: 4
@@ -112,9 +119,7 @@ export default {
       productCategoryValue: [],
 
       // //--------------데이터 받아오기=========================================
-      products: 10,
-      // superCategorys: [],
-      // categorys: [],
+      products: [],
       // //--------------데이터 받아오기=========================================
       isCategoryChecked: false,
 
@@ -133,6 +138,8 @@ export default {
 
   mounted() {
     this.fetchProducts();
+    this.fetchSuperCategory();
+    this.fetchCategory();
   },
 
   methods: {
@@ -141,54 +148,57 @@ export default {
       const response = await fetch(`http://localhost:8080/products`);
       const json = await response.json();
       this.products = json;
-      console.log(this.products);
+
     },
 
     async fetchProductsByCategory() {
       const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
       const json = await response.json();
       this.products = json;
-      console.log(this.products);
+
     },
 
-    // async fetchSuperCategory(){
-    //   const response = await fetch("http://localhost:8080/");
-    //   const json = await response.json();
-    //   this.superCategorys = json;
-    // },
-    //
-    // async fetchCategory(){
-    //   const response = await fetch("http://localhost:8080/");
-    //   const json = await response.json();
-    //   this.categorys = json;
-    // },
+    async fetchSuperCategory(){
+      const response = await fetch("http://localhost:8080/categorys/super");
+      const json = await response.json();
+      this.superCategoryList = json;
+      console.log(this.superCategoryList);
+    },
+
+    async fetchCategory(){
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
+      const json = await response.json();
+      this.categoryList = json;
+    },
 
 
     //----- 카테고리 대분류 선택 시 소분류 보여지는 함수
     superCategorySelected() {
       this.productCategoryValue = [];
+      this.fetchCategory();
 
-      switch (this.productSuperCategoryValue) {
 
-        case 1:
-          this.isOfficialGoods = true;
-          this.isUnOfficialGoods = false;
-          this.isTicketing = false;
-          break;
-
-        case 2:
-          this.isOfficialGoods = false;
-          this.isUnOfficialGoods = true;
-          this.isTicketing = false;
-          break;
-
-        case 3:
-          this.isOfficialGoods = false;
-          this.isUnOfficialGoods = false;
-          this.isTicketing = true;
-          break;
-
-      }
+      // switch (this.productSuperCategoryValue) {
+      //
+      //   case 1:
+      //     this.isOfficialGoods = true;
+      //     this.isUnOfficialGoods = false;
+      //     this.isTicketing = false;
+      //     break;
+      //
+      //   case 2:
+      //     this.isOfficialGoods = false;
+      //     this.isUnOfficialGoods = true;
+      //     this.isTicketing = false;
+      //     break;
+      //
+      //   case 3:
+      //     this.isOfficialGoods = false;
+      //     this.isUnOfficialGoods = false;
+      //     this.isTicketing = true;
+      //     break;
+      //
+      // }
     },
 
     categorySelected() {

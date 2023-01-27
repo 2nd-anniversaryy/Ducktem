@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, int categoryId) {
+	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer categoryId) {
 
 		Category category = categoryRepository.findById(categoryId)
 			  .orElseThrow(()-> new RuntimeException());
