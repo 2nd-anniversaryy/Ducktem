@@ -3,13 +3,16 @@ package com.ducktem.ducktemapi.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
+import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
+import com.ducktem.ducktemapi.exception.ProductException;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.util.TimeFormatter;
@@ -18,31 +21,25 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-
 public class ProductServiceImpl implements ProductService {
-	@Autowired
 	private final ProductRepository productRepository;
-	@Autowired
 	private final MemberRepository memberRepository;
 
 	@Override
-	public Product get(Long id) {
+	@Transactional
+	public ProductDetailResponse get(Long id) {
+		Product product = productRepository.findById(id).orElseThrow(()->new ProductException("상품이 존재하지 않습니다."));
 
-		Product product = null;
-
-		Optional<Product> opt = productRepository.findById(id);
-		if (opt.isPresent())
-			product = opt.get();
-
-		return product;
+		return ProductDetailResponse.from(product);
 	}
 
+
+	// 상품 레포지토리에서 paging 이후 productPreview로 바꿔서 반환.
 	@Override
-	public List<Product> getList() {
+	@Transactional
+	public List<ProductPreviewResponse> getList(Pageable pageable) {
 
-		List<Product> list = productRepository.findAll();
-
-		return list;
+		return productRepository.findAll(pageable).map(ProductPreviewResponse::from).toList();
 	}
 
 	@Override

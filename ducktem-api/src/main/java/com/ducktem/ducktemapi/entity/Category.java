@@ -25,6 +25,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;	// 대분류+소분류 전체 ID
 	@ManyToOne
+	@JoinColumn(name = "superCategoryId")
     private SuperCategory superCategory; //대분류 ID
     private String name;//소분류 이름
 
