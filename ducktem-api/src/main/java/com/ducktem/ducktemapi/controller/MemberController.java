@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.dto.MemberDto;
-import com.ducktem.ducktemapi.dto.response.TokenResponse;
+import com.ducktem.ducktemapi.dto.response.LoginResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.service.MemberService;
 
@@ -25,7 +25,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<TokenResponse> login(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<LoginResponse> login(@RequestBody MemberDto memberDto) {
 		return new ResponseEntity<>(memberService.login(memberDto), HttpStatus.OK);
 	}
 
