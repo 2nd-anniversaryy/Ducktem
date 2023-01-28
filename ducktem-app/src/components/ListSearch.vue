@@ -83,7 +83,7 @@
               </div>
 
               <div class="time">
-                0일 전
+                {{ product.regDate }}
               </div>
             </div>
 

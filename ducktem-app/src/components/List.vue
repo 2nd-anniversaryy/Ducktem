@@ -64,7 +64,7 @@
         <div class="product-wrap">
 
           <div class="product-container" v-for="product in this.products">
-            <div><img src="/image/example-image0.png" alt="product-img"></div>
+            <div><img v-bind:src="product.thumbNail" alt="product-img"></div>
 
             <div class="price-wish">
               <span> {{ product.price }}원</span>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="time">
-              0일 전
+              {{ product.regDate }}
             </div>
           </div>
 
