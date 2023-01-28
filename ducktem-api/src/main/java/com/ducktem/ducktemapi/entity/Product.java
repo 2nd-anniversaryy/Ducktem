@@ -58,7 +58,7 @@ public class Product {
 	//프로덕트 이미지와 양방향 관계 설정.
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImageList;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
 	private Category category;
 	@ManyToOne
