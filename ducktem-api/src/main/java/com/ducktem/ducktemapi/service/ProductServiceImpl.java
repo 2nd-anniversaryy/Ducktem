@@ -53,18 +53,18 @@ public class ProductServiceImpl implements ProductService {
 
 		String newQuery = "%"+query+"%";
 
-		return productRepository.findByNameQuery(pageable, newQuery)
+		return productRepository.findByNameQueryOrderByIdDesc(pageable, newQuery)
 								.map(ProductPreviewResponse::from)
 								.toList();
 	}
 
 	@Override
-	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer categoryId) {
+	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] categoryId) {
 
-		Category category = categoryRepository.findById(categoryId)
-			  .orElseThrow(()-> new RuntimeException());
 
-		return productRepository.findByCategoryOrderByIdDesc(pageable, category)
+		 List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
+
+		return productRepository.findByCategoryInOrderByIdDesc(pageable, category)
 								.map(ProductPreviewResponse::from)
 								.toList();
 	}

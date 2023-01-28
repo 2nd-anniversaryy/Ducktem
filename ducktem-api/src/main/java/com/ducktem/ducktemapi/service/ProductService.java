@@ -19,7 +19,7 @@ public interface ProductService {
 
 	List<ProductPreviewResponse> getListByQuery(Pageable pageable, String query);
 
-	List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer category);
+	List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] category);
 
 
 }

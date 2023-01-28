@@ -17,9 +17,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 	Page<Product> findAll(Pageable pageable);
 
 	@Query("from Product p where p.name like :query order by p.id desc")
-	Page<Product> findByNameQuery(Pageable pageable, String query);
-
-	Page<Product> findByCategoryOrderByIdDesc(Pageable pageable, Category category);
+	Page<Product> findByNameQueryOrderByIdDesc(Pageable pageable, String query);
 
 	Page<Product> findByCategoryInOrderByIdDesc(Pageable pageable, List<Category> category);
 

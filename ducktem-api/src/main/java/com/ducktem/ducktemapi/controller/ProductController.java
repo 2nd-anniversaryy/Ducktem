@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.service.ProductService;
 
@@ -58,7 +59,7 @@ public class ProductController {
 	@GetMapping("/category")
 	public List<ProductPreviewResponse> getListByCategory(
 												@PageableDefault(size = 200) Pageable pageable,
-												@RequestParam(name = "c", defaultValue = "")int category
+												@RequestParam(name = "c", defaultValue = "")Integer[] category
 												){
 		return productservice.getListByCategory(pageable, category);
 	}
