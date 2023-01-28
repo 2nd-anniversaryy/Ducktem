@@ -27,7 +27,6 @@ public class CategoryController {
 
 	@GetMapping
 	public List<Category> getList(@RequestParam(name="s", defaultValue = "1") Integer superCategoryId){
-
 		return categoryService.getList(superCategoryId);
 	}
 }
