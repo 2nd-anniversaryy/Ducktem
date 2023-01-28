@@ -18,7 +18,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
 	@Query("from Product p where p.name like :query order by p.id desc")
 	Page<Product> findByNameQueryOrderByIdDesc(Pageable pageable, String query);
-
+	@Query("SELECT count(p) from Product p where p.name like :query ")
+	Long countProductByNameLikeQuery(String query);
 	Page<Product> findByCategoryInOrderByIdDesc(Pageable pageable, List<Category> category);
 
 

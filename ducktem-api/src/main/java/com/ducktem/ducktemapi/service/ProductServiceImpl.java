@@ -59,6 +59,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Long getCountByQuery(String query) {
+
+		String newQuery = "%"+query+"%";
+		System.out.println(productRepository.countProductByNameLikeQuery(newQuery));
+
+		return productRepository.countProductByNameLikeQuery(newQuery);
+	}
+
+	@Override
 	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] categoryId) {
 
 

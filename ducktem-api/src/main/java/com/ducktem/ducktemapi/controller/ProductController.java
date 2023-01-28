@@ -1,6 +1,7 @@
 package com.ducktem.ducktemapi.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -48,11 +49,14 @@ public class ProductController {
 
 
 	@GetMapping("/search")
-	public List<ProductPreviewResponse> getList(
+	public Long getList(
 											@PageableDefault(size = 20) Pageable pageable,
 											@RequestParam(name = "q", defaultValue = "") String query
 											){
-		return productservice.getListByQuery(pageable, query);
+
+		List<ProductPreviewResponse> ProductPreviewResponse = productservice.getListByQuery(pageable, query);
+		Long searchCount = productservice.getCountByQuery(query);
+		return searchCount;
 	}
 
 
