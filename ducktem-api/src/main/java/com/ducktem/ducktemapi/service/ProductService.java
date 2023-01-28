@@ -17,7 +17,7 @@ public interface ProductService {
 
 	List<ProductPreviewResponse> getList(Pageable pageable);
 
-	List<ProductPreviewResponse> getListByQuery(Pageable pageable, String query);
+	List<ProductPreviewResponse> getListBySearch(Pageable pageable, String query);
 
 	Long getCountByQuery(String query, Integer[] category);
 
