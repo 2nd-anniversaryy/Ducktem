@@ -112,7 +112,7 @@ export default {
       const response = await fetch("http://localhost:8080/categorys/super");
       const json = await response.json();
       this.superCategoryList = json;
-      await this.fetchCategory()
+      await this.fetchCategory();
     },
 
     async fetchCategory(){
@@ -120,7 +120,7 @@ export default {
       const json = await response.json();
       this.categoryList = json;
       for (let i = 0; i < this.categoryList.length; i++)
-        this.productCategoryValue.push(this.categoryList[i].id)
+        this.productCategoryValue.push(this.categoryList[i].id);
       await this.fetchProductsByCategory();
     },
 
@@ -142,33 +142,31 @@ export default {
 
 
 
-    //----- 카테고리 대분류 선택 시 소분류 보여지는 함수
+    //----- 카테고리 대분류 선택 시 소분류목록 반환
     superCategorySelected() {
       this.productCategoryValue = [];
       this.selectAll=true;
       this.fetchCategory();
 
     },
-
+    //----- 카테고리 소분류 선택 시 상품 목록 반환
     categorySelected() {
       if (this.productCategoryValue)
         this.selectAll = false;
-      this.fetchProductsByCategory()
+      this.fetchProductsByCategory();
     },
-
+    //----- 전체선택시 상품 목록 반환
      selectAllSelected(){
       console.log(this.categoryList);
       if(this.selectAll) {
         this.productCategoryValue=[];
         for (let i = 0; i < this.categoryList.length; i++)
-          this.productCategoryValue.push(this.categoryList[i].id)
-         this.fetchProductsByCategory()
+          this.productCategoryValue.push(this.categoryList[i].id);
+         this.fetchProductsByCategory();
       }
       else
         this.productCategoryValue=[];
-       this.fetchProductsByCategory()
-
-
+       this.fetchProductsByCategory();
     }
 
 
