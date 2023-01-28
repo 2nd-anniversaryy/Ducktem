@@ -1,5 +1,6 @@
 package com.ducktem.ducktemapi.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,14 +50,18 @@ public class ProductController {
 
 
 	@GetMapping("/search")
-	public Long getList(
-											@PageableDefault(size = 20) Pageable pageable,
-											@RequestParam(name = "q", defaultValue = "") String query
+	public Map<String,Object> getList(
+		@PageableDefault(size = 20) Pageable pageable,
+		@RequestParam(name = "q", defaultValue = "") String query,
+		@RequestParam(name = "c", defaultValue = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")Integer[] category
 											){
+		Map<String,Object> searchResult = new HashMap<>();
+		List<ProductPreviewResponse> productResult = productservice.getListByQuery(pageable, query);
+		Long countResult = productservice.getCountByQuery(query,category);
+		searchResult.put("productResult",productResult);
+		searchResult.put("countResult",countResult);
 
-		List<ProductPreviewResponse> ProductPreviewResponse = productservice.getListByQuery(pageable, query);
-		Long searchCount = productservice.getCountByQuery(query);
-		return searchCount;
+		return searchResult;
 	}
 
 
@@ -66,6 +71,21 @@ public class ProductController {
 												@RequestParam(name = "c", defaultValue = "")Integer[] category
 												){
 		return productservice.getListByCategory(pageable, category);
+	}
+
+	@GetMapping("/searchByCategory")
+	public Map<String,Object> getListByCategoryAndSearch(
+		@PageableDefault(size = 200) Pageable pageable,
+		@RequestParam(name = "q", defaultValue = "") String query,
+		@RequestParam(name = "c", defaultValue = "")Integer[] category
+	){
+		Map<String ,Object> searchResultByCategory =new HashMap<>();
+		List<ProductPreviewResponse> productResult= productservice.getListByCategoryAndSearch(pageable, query, category);
+		Long countResult = productservice.getCountByQuery(query,category);
+		searchResultByCategory.put("productResult",productResult);
+		searchResultByCategory.put("countResult",countResult);
+
+		return searchResultByCategory;
 	}
 
 

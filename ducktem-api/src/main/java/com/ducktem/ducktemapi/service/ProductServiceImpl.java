@@ -59,12 +59,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Long getCountByQuery(String query) {
-
+	public Long getCountByQuery(String query, Integer[] categoryId) {
+		List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
 		String newQuery = "%"+query+"%";
-		System.out.println(productRepository.countProductByNameLikeQuery(newQuery));
 
-		return productRepository.countProductByNameLikeQuery(newQuery);
+		return productRepository.countProductByNameLikeQuery(newQuery,category);
 	}
 
 	@Override
@@ -78,7 +77,16 @@ public class ProductServiceImpl implements ProductService {
 								.toList();
 	}
 
+	@Override
+	public List<ProductPreviewResponse> getListByCategoryAndSearch(
+					Pageable pageable, String query, Integer[] categoryId) {
 
+		List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
+		String newQuery = "%"+query+"%";
+		return productRepository.findByNameQueryAndCategoryInOrderByIdDesc(pageable,newQuery, category)
+								.map(ProductPreviewResponse::from)
+								.toList();
+	}
 
 	@Override
 	@Transactional

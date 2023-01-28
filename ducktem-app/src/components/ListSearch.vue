@@ -123,10 +123,13 @@ export default {
     // },
 
     async fetchProductsBySearch() {
-      const response = await fetch(`http://localhost:8080/products/search?q=${this.query}`);
+      const response = await fetch(`http://localhost:8080/products/searchByCategory?q=${this.query}&c=${this.productCategoryValue}`);
+
       const json = await response.json();
-      this.products = json;
-      console.log(this.products);
+
+      this.products = json['productResult'];
+      this.searchQueryCount = json['countResult'];
+      console.log();
     },
 
 
@@ -171,7 +174,7 @@ export default {
     categorySelected() {
       if (this.productCategoryValue)
         this.selectAll = false;
-      this.fetchProductsByCategory();
+      this.fetchProductsBySearch();
     },
     //----- 전체선택시 상품 목록 반환
     selectAllSelected(){
@@ -180,11 +183,11 @@ export default {
         this.productCategoryValue=[];
         for (let i = 0; i < this.categoryList.length; i++)
           this.productCategoryValue.push(this.categoryList[i].id);
-        this.fetchProductsByCategory();
+        this.fetchProductsBySearch();
       }
       else
         this.productCategoryValue=[];
-      this.fetchProductsByCategory();
+      this.fetchProductsBySearch();
     }
 
   }
