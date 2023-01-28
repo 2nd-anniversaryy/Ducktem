@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.dto.MemberDto;
+import com.ducktem.ducktemapi.dto.response.LoginResponse;
 import com.ducktem.ducktemapi.dto.response.TokenResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.MemberStatus;
@@ -52,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public TokenResponse login(MemberDto memberDto) {
+	public LoginResponse login(MemberDto memberDto) {
 		Member member = valid(memberDto);
 		String refreshJwt = jwtProvider.createRefreshJwt();
 		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
@@ -62,8 +63,12 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			existingMember.get().setRefreshToken(refreshJwt);
 		}
-
-		return TokenResponse.from(accessJwt, refreshJwt);
+		TokenResponse token = TokenResponse.from(accessJwt, refreshJwt);
+		return LoginResponse
+			.builder()
+			.nickName(member.getNickName())
+			.userId(member.getUserId())
+			.tokenResponse(token).build();
 	}
 
 	@Override

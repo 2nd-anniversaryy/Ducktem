@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
 import com.ducktem.ducktemapi.exception.ProductException;
+import com.ducktem.ducktemapi.repository.CategoryRepository;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.util.TimeFormatter;
@@ -24,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class ProductServiceImpl implements ProductService {
 	private final ProductRepository productRepository;
 	private final MemberRepository memberRepository;
+	private final CategoryRepository categoryRepository;
+
 
 	@Override
 	@Transactional
@@ -39,8 +43,33 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public List<ProductPreviewResponse> getList(Pageable pageable) {
 
-		return productRepository.findAll(pageable).map(ProductPreviewResponse::from).toList();
+		return productRepository.findAll(pageable)
+			.map(ProductPreviewResponse::from)
+			.toList();
 	}
+
+	@Override
+	public List<ProductPreviewResponse> getListByQuery(Pageable pageable, String query) {
+
+		String newQuery = "%"+query+"%";
+
+		return productRepository.findByNameQueryOrderByIdDesc(pageable, newQuery)
+								.map(ProductPreviewResponse::from)
+								.toList();
+	}
+
+	@Override
+	public List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] categoryId) {
+
+
+		 List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
+
+		return productRepository.findByCategoryInOrderByIdDesc(pageable, category)
+								.map(ProductPreviewResponse::from)
+								.toList();
+	}
+
+
 
 	@Override
 	@Transactional

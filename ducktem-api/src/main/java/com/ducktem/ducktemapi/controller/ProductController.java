@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.service.ProductService;
 
@@ -27,7 +29,8 @@ public class ProductController {
 	private final ProductService productservice;
 	// /products?p=1&s=15
 	@GetMapping
-	public List<ProductPreviewResponse> getList(@PageableDefault(size = 3) Pageable pageable) {
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable)
+	{
 		return productservice.getList(pageable);
 	}
 
@@ -40,6 +43,26 @@ public class ProductController {
 	@PostMapping
 	public Product add(@RequestBody Product product, Authentication authentication) {
 		String regMemberId = authentication.getName();
-		return productservice.add(product,regMemberId);
+		return productservice.add(product, regMemberId);
 	}
+
+
+	@GetMapping("/search")
+	public List<ProductPreviewResponse> getList(
+											@PageableDefault(size = 20) Pageable pageable,
+											@RequestParam(name = "q", defaultValue = "") String query
+											){
+		return productservice.getListByQuery(pageable, query);
+	}
+
+
+	@GetMapping("/category")
+	public List<ProductPreviewResponse> getListByCategory(
+												@PageableDefault(size = 200) Pageable pageable,
+												@RequestParam(name = "c", defaultValue = "")Integer[] category
+												){
+		return productservice.getListByCategory(pageable, category);
+	}
+
+
 }

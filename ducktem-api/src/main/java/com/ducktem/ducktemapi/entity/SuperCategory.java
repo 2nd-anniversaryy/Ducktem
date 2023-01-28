@@ -22,7 +22,7 @@ public class SuperCategory {
 	//대분류
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String name;
 
 }
