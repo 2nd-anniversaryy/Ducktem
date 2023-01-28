@@ -2,6 +2,8 @@ package com.ducktem.ducktemapi.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,6 +46,7 @@ public class Member {
 	@Temporal(TemporalType.TIMESTAMP)
 	private String regDate;
 	private float level;
+	@Enumerated(EnumType.STRING)
 	private MemberStatus status;
 
 }
