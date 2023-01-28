@@ -11,41 +11,24 @@
         <span v-for="s in this.superCategoryList">
                 <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory"
                        v-bind:id="s.name" @change="superCategorySelected">
-                <label v-bind:for="s.name">{{ s.name }}</label>
+                <label v-bind:for="s.name" >{{ s.name }}</label>
               </span>
       </section>
       <div>{{ this.productSuperCategoryValue }} : 구현끝나면삭제</div>
 
+
+
       <section class="subcategory">
         <h1 class="d-none">소분류</h1>
 
-        <input type="checkbox" name="selectAll" v-model="this.selectAll" id="selectAll" @change="superCategorySelected"><label
-          class="btn btn-default aaa" for="selectAll">전체보기</label>
+        <input type="checkbox" name="selectAll" v-model="this.selectAll" id="All" @change="this.selectAllSelected">
+        <label class="btn btn-default aaa" for="All" >전체보기</label>
 
         <span v-for="category in this.categoryList" >
                 <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
                        v-bind:id="category.id" @change="categorySelected">
                 <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
               </span>
-
-<!--        <span v-for="category in this.categoryList1" v-if="this.isOfficialGoods">-->
-<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
-<!--                       v-bind:id="category.id" @change="categorySelected">-->
-<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
-<!--              </span>-->
-
-<!--        <span v-for="category in this.categoryList2" v-if="this.isUnOfficialGoods">-->
-<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
-<!--                       v-bind:id="category.id" @change="categorySelected">-->
-<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
-<!--              </span>-->
-
-<!--        <span v-for="category in this.categoryList3" v-if="this.isTicketing">-->
-<!--                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"-->
-<!--                       v-bind:id="category.id" @change="categorySelected">-->
-<!--                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>-->
-<!--              </span>-->
-
 
       </section>
       <div>{{ this.productCategoryValue }} : 구현끝나면삭제</div>
@@ -101,110 +84,91 @@
 export default {
   data() {
     return {
-      //DB에서 받으면 수정할 예정.
       superCategoryList: [],
       categoryList:[],
-      categoryList1: [{name: "음반/영상물", id: 1}, {name: "응원도구", id: 2}, {name: "포토카드", id: 3}, {
-        name: "포스터/포토북",
-        id: 4
-      }, {name: "문구류", id: 5}, {name: "기타잡화", id: 6}],
-      categoryList2: [{name: "영상물", id: 7}, {name: "응원도구", id: 8}, {name: "인형", id: 9}, {
-        name: "포토카드",
-        id: 10
-      }, {name: "포스터/포토북", id: 11}, {name: "문구류", id: 12}, {name: "기타잡화", id: 13}],
-      categoryList3: [{name: "능력을 사요", id: 14}, {name: "능력을 팔아요", id: 15}],
-
+      products: [],
       // ----- 카테고리 inputValue(id로 전송)
       productSuperCategoryValue: "1",
       productCategoryValue: [],
-
-      // //--------------데이터 받아오기=========================================
-      products: [],
-      // //--------------데이터 받아오기=========================================
-      isCategoryChecked: false,
-
-
-      isOfficialGoods: true,
-      isUnOfficialGoods: false,
-      isTicketing: false,
-
-
-      //--임시
       selectAll: true,
-      query:"",
 
     };
   },
 
+
   mounted() {
-    this.fetchProducts();
     this.fetchSuperCategory();
-    this.fetchCategory();
+    // this.fetchCategory();
+    // this.fetchProducts();
+    //this.selectAllSelected();
+    // this.fetchProductsByCategory();
+
   },
 
+
   methods: {
-
-    async fetchProducts() {
-      const response = await fetch(`http://localhost:8080/products`);
-      const json = await response.json();
-      this.products = json;
-
-    },
-
-    async fetchProductsByCategory() {
-      const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
-      const json = await response.json();
-      this.products = json;
-
-    },
 
     async fetchSuperCategory(){
       const response = await fetch("http://localhost:8080/categorys/super");
       const json = await response.json();
       this.superCategoryList = json;
-      console.log(this.superCategoryList);
+      await this.fetchCategory()
     },
 
     async fetchCategory(){
       const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
       const json = await response.json();
       this.categoryList = json;
+      for (let i = 0; i < this.categoryList.length; i++)
+        this.productCategoryValue.push(this.categoryList[i].id)
+      await this.fetchProductsByCategory();
     },
+
+    // async fetchProducts() {
+    //   const response = await fetch(`http://localhost:8080/products`);
+    //   const json = await response.json();
+    //   this.products = json;
+    //
+    // },
+
+    async fetchProductsByCategory() {
+
+      const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
+      const json = await response.json();
+      this.products = json;
+
+    },
+
+
 
 
     //----- 카테고리 대분류 선택 시 소분류 보여지는 함수
     superCategorySelected() {
       this.productCategoryValue = [];
+      this.selectAll=true;
       this.fetchCategory();
 
-
-      // switch (this.productSuperCategoryValue) {
-      //
-      //   case 1:
-      //     this.isOfficialGoods = true;
-      //     this.isUnOfficialGoods = false;
-      //     this.isTicketing = false;
-      //     break;
-      //
-      //   case 2:
-      //     this.isOfficialGoods = false;
-      //     this.isUnOfficialGoods = true;
-      //     this.isTicketing = false;
-      //     break;
-      //
-      //   case 3:
-      //     this.isOfficialGoods = false;
-      //     this.isUnOfficialGoods = false;
-      //     this.isTicketing = true;
-      //     break;
-      //
-      // }
     },
 
     categorySelected() {
       if (this.productCategoryValue)
         this.selectAll = false;
       this.fetchProductsByCategory()
+    },
+
+     selectAllSelected(){
+      console.log(this.categoryList);
+      if(this.selectAll) {
+        this.productCategoryValue=[];
+        for (let i = 0; i < this.categoryList.length; i++)
+          this.productCategoryValue.push(this.categoryList[i].id)
+         this.fetchProductsByCategory()
+      }
+      else
+        this.productCategoryValue=[];
+       this.fetchProductsByCategory()
+
+
     }
 
 
