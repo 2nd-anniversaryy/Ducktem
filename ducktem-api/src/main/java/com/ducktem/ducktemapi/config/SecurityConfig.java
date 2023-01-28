@@ -42,6 +42,7 @@ public class SecurityConfig {
 			.requestMatchers("/members/me").authenticated()
 			.requestMatchers(HttpMethod.PUT,"/members").authenticated()
 			.requestMatchers(HttpMethod.POST,"/products").authenticated()
+			.requestMatchers("/mypage/**").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			// username,password로 인증하지않고, token 방식으로 하기위해 JwtFilter를 usernamepassword 필터 이전에 실행.
