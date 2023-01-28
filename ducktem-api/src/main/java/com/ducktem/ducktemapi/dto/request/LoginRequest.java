@@ -1,4 +1,4 @@
-package com.ducktem.ducktemapi.dto;
+package com.ducktem.ducktemapi.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberDto {
+public class LoginRequest {
 	private String userId;
 	private String pwd;
 }
