@@ -14,7 +14,6 @@
                 <label v-bind:for="s.name" >{{ s.name }}</label>
               </span>
       </section>
-      <div>{{ this.productSuperCategoryValue }} : 구현끝나면삭제</div>
 
 
 
@@ -31,9 +30,19 @@
               </span>
 
       </section>
-      <div>{{ this.productCategoryValue }} : 구현끝나면삭제</div>
 
     </section>
+
+    <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
+    <section style="border: 1px solid black; background-color: white; border-radius: 20px; width: 300px; padding: 10px;
+      position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
+      <div style="text-align: center">구현끝나면삭제예정</div>
+      <div>
+        <div>대분류 : {{ this.productSuperCategoryValue }} </div>
+        <div>소분류 : {{ this.productCategoryValue }} </div>
+      </div>
+    </section>
+    <!-- =========================================================================== -->
 
 
 
@@ -95,26 +104,20 @@ export default {
     };
   },
 
-
   mounted() {
     this.fetchSuperCategory();
-    // this.fetchCategory();
-    // this.fetchProducts();
-    //this.selectAllSelected();
-    // this.fetchProductsByCategory();
-
   },
 
 
   methods: {
-
+    //----- 카테고리 대분류 반환.(아래 카테고리 소분류 반환실행)
     async fetchSuperCategory(){
       const response = await fetch("http://localhost:8080/categorys/super");
       const json = await response.json();
       this.superCategoryList = json;
       await this.fetchCategory();
     },
-
+    //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
     async fetchCategory(){
       const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
       const json = await response.json();
@@ -123,24 +126,12 @@ export default {
         this.productCategoryValue.push(this.categoryList[i].id);
       await this.fetchProductsByCategory();
     },
-
-    // async fetchProducts() {
-    //   const response = await fetch(`http://localhost:8080/products`);
-    //   const json = await response.json();
-    //   this.products = json;
-    //
-    // },
-
+    //----- 카테고리별 상품목록 반환.
     async fetchProductsByCategory() {
-
       const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
       const json = await response.json();
       this.products = json;
-
     },
-
-
-
 
     //----- 카테고리 대분류 선택 시 소분류목록 반환
     superCategorySelected() {

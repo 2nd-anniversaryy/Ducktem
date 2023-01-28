@@ -18,7 +18,7 @@
                 <label v-bind:for="s.name" >{{ s.name }}</label>
           </span>
         </section>
-        <div>{{ this.productSuperCategoryValue }} : 구현끝나면삭제</div>
+
 
         <section class="subcategory">
           <h1 class="d-none">소분류</h1>
@@ -33,11 +33,23 @@
               </span>
 
         </section>
-        <div>{{ this.productCategoryValue }} : 구현끝나면삭제</div>
+
 
         </section>
-
-
+      <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
+      <section style="border: 1px solid black; background-color: white; border-radius: 20px; width: 300px; padding: 10px;
+      position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
+        <div style="text-align: center">구현끝나면삭제예정</div>
+        <div>
+          <div>대분류 : {{ this.productSuperCategoryValue }} </div>
+          <div>소분류 : {{ this.productCategoryValue }} </div>
+          <div>
+            <input placeholder="임시검색창" v-model="this.query"/>
+            <input class="btn btn-default aaa" type="button" value="검색하기" @click.prevent="this.onSearch"/>
+          </div>
+        </div>
+      </section>
+      <!-- =========================================================================== -->
 
         <div class="option">
 
@@ -49,11 +61,7 @@
             </select>
         </div>
 
-      <div>
-        임시검색창<br>
-        <input v-model="this.query"/>
-        <input type="button" value="검색하기" @click.prevent="this.onSearch"/>
-      </div>
+
 
       <section class="product-list">
         <h1 class="d-none">상품목록</h1>
@@ -109,19 +117,26 @@ export default {
 
   mounted() {
     this.fetchSuperCategory();
-    this.fetchProductsBySearch();
-    // this.fetchProducts();
   },
 
   methods: {
-
-    // async fetchProducts() {
-    //   const response = await fetch(`http://localhost:8080/products`);
-    //   const json = await response.json();
-    //   this.products = json;
-    //
-    // },
-
+    //----- 카테고리 대분류 반환.(아래 카테고리 소분류 반환실행)
+    async fetchSuperCategory(){
+      const response = await fetch("http://localhost:8080/categorys/super");
+      const json = await response.json();
+      this.superCategoryList = json;
+      await this.fetchCategory();
+    },
+  //----- 카테고리 소분류 반환.(아래 검색결과 상품목록 반환함수 실행)
+    async fetchCategory(){
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
+      const json = await response.json();
+      this.categoryList = json;
+      for (let i = 0; i < this.categoryList.length; i++)
+        this.productCategoryValue.push(this.categoryList[i].id);
+      await this.fetchProductsBySearch();
+    },
+  //----- 검색결과 상품목록 반환
     async fetchProductsBySearch() {
       const response = await fetch(`http://localhost:8080/products/searchByCategory?q=${this.query}&c=${this.productCategoryValue}`);
 
@@ -130,31 +145,6 @@ export default {
       this.products = json['productResult'];
       this.searchQueryCount = json['countResult'];
       console.log();
-    },
-
-
-    async fetchSuperCategory(){
-      const response = await fetch("http://localhost:8080/categorys/super");
-      const json = await response.json();
-      this.superCategoryList = json;
-      await this.fetchCategory();
-    },
-
-    async fetchCategory(){
-      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
-      const json = await response.json();
-      this.categoryList = json;
-      for (let i = 0; i < this.categoryList.length; i++)
-        this.productCategoryValue.push(this.categoryList[i].id);
-      // await this.fetchProductsByCategory();
-    },
-
-    async fetchProductsByCategory() {
-
-      const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
-      const json = await response.json();
-      this.products = json;
-
     },
 
     onSearch(){
