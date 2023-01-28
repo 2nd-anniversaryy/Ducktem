@@ -58,7 +58,7 @@ public class ProductController {
 
 	@GetMapping("/searchByCategory")
 	public Map<String,Object> getListByCategoryAndSearch(
-		@PageableDefault(size = 200) Pageable pageable,
+		@PageableDefault(size = 20) Pageable pageable,
 		@RequestParam(name = "q", defaultValue = "") String query,
 		@RequestParam(name = "c", defaultValue = "")Integer[] category
 	){
