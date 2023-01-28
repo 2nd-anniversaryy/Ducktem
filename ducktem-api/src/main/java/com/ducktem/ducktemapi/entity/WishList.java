@@ -1,53 +1,27 @@
 package com.ducktem.ducktemapi.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Date;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "WishList")
 public class WishList {
-	private Long productId;
-	private String memberId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id", name = "productId")
+	private Product product;
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "userId", name = "memberId")
+	private Member member;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date regDate;
-	/**
-	 * @return the memberId
-	 */
-	public String getMemberId() {
-		return memberId;
-	}
-	/**
-	 * @param memberId the memberId to set
-	 */
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	/**
-	 * @return the productId
-	 */
-	public Long getProductId() {
-		return productId;
-	}
-	/**
-	 * @param productId the productId to set
-	 */
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-	
-	/**
-	 * @return the regDate
-	 */
-	public Date getRegDate() {
-		return regDate;
-	}
-	/**
-	 * @param regDate the regDate to set
-	 */
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-	public WishList(Long productId, String memberId) {
-		this.productId = productId;
-		this.memberId = memberId;
-	}
-	
-	
 }

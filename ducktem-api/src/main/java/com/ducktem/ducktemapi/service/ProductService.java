@@ -1,14 +1,15 @@
 package com.ducktem.ducktemapi.service;
 
 
-import java.util.List;
-
-import org.springframework.data.domain.Pageable;
-
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Product;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public interface ProductService {
 	ProductDetailResponse get(Long id);
 
