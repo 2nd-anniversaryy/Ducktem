@@ -72,13 +72,22 @@ header {
     display: inline-block;
     font-weight: bold;
     font-size: var(--font-3);
-    padding: 0 10px;
+    padding: 14.6px 10px;
     color: var(--color-secondary-button);
     transition: color 1s;
+    background-position: center;
+    transition: background 0.8s;
   }
 
   .half-middle-category a:hover {
-    color: var(--color-strong);
+    color: white;
+    background: var(--color-strong) radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  }
+
+  .half-middle-category a:active {
+    background-color: #292d3e;
+    background-size: 100%;
+    transition: background 0s;
   }
 }
 
@@ -109,6 +118,10 @@ header {
   overflow: scroll;
   box-sizing: border-box;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.menu-bar-category::-webkit-scrollbar {
+  display: none;
 }
 
 .burger-icon {
@@ -168,6 +181,7 @@ header {
   font-weight: bold;
   font-size: var(--font-5);
   padding-right: 40%;
+  cursor: pointer;
 }
 
 .my-list li {
@@ -305,24 +319,56 @@ header {
 .search-input-back {
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .search-input-icon {
   width: 25px;
   height: 25px;
-  margin-left: 20px;
+  cursor: pointer;
 }
 
-.search-input-text {
+/* .search-input-text {
   width: 300px;
   height: 30 px;
   background-color: #fff;
   font-size: var(--font-3);
   margin-left: 10px;
+} */
+
+.input-container {
+  position: relative;
+  width: 50%;
+  height: 25px;
 }
 
-.search-input-icon {
-  margin-right: 40px;
+.effect-1 {
+  border-bottom: 2px solid black;
+  color: black;
+  box-sizing: border-box;
+  background-color: white;
+  width: 100%;
+  border: none;
+  height: 100%;
+}
+
+.effect-1 {
+  border-bottom: 2px solid black;
+}
+
+.effect-1 ~ .focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3.5px;
+  background-color: var(--color-strong);
+  transition: 0.4s;
+}
+
+.effect-1:focus ~ .focus-border {
+  width: 100%;
+  transition: 0.4s;
 }
 
 .latest-world-list-wrap-title-delete {
@@ -351,6 +397,16 @@ header {
 .latest-word-deletekey {
   width: 12px;
   height: 12px;
+}
+
+@media (min-width: 1400px) {
+  .search-input-back {
+    padding-left: 20px;
+  }
+
+  .search-input-icon {
+    padding-right: 20px;
+  }
 }
 
 /* =================== 알람 버튼 ============================= */

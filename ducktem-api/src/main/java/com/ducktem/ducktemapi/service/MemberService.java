@@ -3,6 +3,8 @@ package com.ducktem.ducktemapi.service;
 import java.util.List;
 
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
+import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
+import com.ducktem.ducktemapi.dto.response.MemberInfoResponse;
 import com.ducktem.ducktemapi.entity.Member;
 
 public interface MemberService {
@@ -14,4 +16,7 @@ public interface MemberService {
 
 	List<Member> getList();
 
+	MemberInfoResponse getInfo(String name);
+
+	MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest);
 }

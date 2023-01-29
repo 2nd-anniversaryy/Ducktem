@@ -110,14 +110,6 @@
   align-items: center;
 }
 
-.tag-sort {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .tag-sort::-webkit-scrollbar {
   display: none;
 }
@@ -132,8 +124,9 @@
   border-radius: 15px;
 }
 
-.wrap-vertical::-webkit-scrollbar {
-  display: none;
+.tag-sort > li:active {
+  position: relative;
+  top: 3px;
 }
 
 .tag-sort > li img {

@@ -43,7 +43,7 @@
             </div>
 
             <div class="signup">
-              <a class="btn signup-btn" href="">회원가입</a>
+              <a class="btn signup-btn" @click.prevent="goSignUpPage">회원가입</a>
             </div>
           </div>
         </form>
@@ -91,6 +91,11 @@ export default {
       }
     },
   },
+  computed: {
+    goSignUpPage() {
+      this.$router.push('/sign-up');
+    }
+  }
 };
 </script>
 
