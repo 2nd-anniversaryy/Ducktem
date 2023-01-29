@@ -1,6 +1,8 @@
 package com.ducktem.ducktemapi.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -46,22 +48,42 @@ public class ProductController {
 		return productservice.add(product, regMemberId);
 	}
 
-
-	@GetMapping("/search")
-	public List<ProductPreviewResponse> getList(
-											@PageableDefault(size = 20) Pageable pageable,
-											@RequestParam(name = "q", defaultValue = "") String query
-											){
-		return productservice.getListByQuery(pageable, query);
-	}
-
-
 	@GetMapping("/category")
 	public List<ProductPreviewResponse> getListByCategory(
 												@PageableDefault(size = 200) Pageable pageable,
 												@RequestParam(name = "c", defaultValue = "")Integer[] category
 												){
 		return productservice.getListByCategory(pageable, category);
+	}
+
+	@GetMapping("/searchByCategory")
+	public Map<String,Object> getListByCategoryAndSearch(
+		@PageableDefault(size = 20) Pageable pageable,
+		@RequestParam(name = "q", defaultValue = "") String query,
+		@RequestParam(name = "c", defaultValue = "")Integer[] category
+	){
+		Map<String ,Object> searchResultByCategory =new HashMap<>();
+		List<ProductPreviewResponse> productResult= productservice.getListByCategoryAndSearch(pageable, query, category);
+		Long countResult = productservice.getCountByQuery(query,category);
+		searchResultByCategory.put("productResult",productResult);
+		searchResultByCategory.put("countResult",countResult);
+
+		return searchResultByCategory;
+	}
+
+	@GetMapping("/search")
+	public Map<String,Object> getListBySearch(
+		@PageableDefault(size = 20) Pageable pageable,
+		@RequestParam(name = "q", defaultValue = "") String query,
+		@RequestParam(name = "c", defaultValue = "")Integer[] category
+	){
+		Map<String,Object> searchResult = new HashMap<>();
+		List<ProductPreviewResponse> productResult = productservice.getListBySearch(pageable, query);
+		Long countResult = productservice.getCountByQuery(query,category);
+		searchResult.put("productResult",productResult);
+		searchResult.put("countResult",countResult);
+
+		return searchResult;
 	}
 
 
