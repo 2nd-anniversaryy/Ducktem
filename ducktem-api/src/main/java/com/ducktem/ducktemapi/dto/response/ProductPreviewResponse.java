@@ -29,11 +29,12 @@ public class ProductPreviewResponse {
 	@Builder
 	public static ProductPreviewResponse from (Product product) {
 		return ProductPreviewResponse.builder()
-			.productId(product.getId())
-			.name(product.getName())
-			.price(product.getPrice())
-			.regDate(product.getRegDate())
-			.thumbNail(product
+
+				.productId(product.getId())
+				.name(product.getName())
+				.price(product.getPrice())
+				.regDate(product.getRegDate())
+				.thumbNail(product
 				.getProductImageList()
 				.stream()
 				.filter(image -> image.getThumbNail() == (byte)1)
