@@ -1,11 +1,9 @@
 package com.ducktem.ducktemapi.dto.response;
 
-import com.ducktem.ducktemapi.entity.Category;
+import com.ducktem.ducktemapi.dto.WishStatusDto;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.ProductImage;
 import com.ducktem.ducktemapi.entity.SalesStatus;
-import com.ducktem.ducktemapi.exception.ProductException;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +20,7 @@ public class ProductPreviewResponse {
 	private String regDate;
 	private SalesStatus salesStatus;
 	private String thumbNail;
-
+	private int wishStatus;
 
 
 
@@ -44,6 +42,7 @@ public class ProductPreviewResponse {
 				// .orElseThrow(() -> new ProductException("데이터 오륲"))
 				.getName())
 			.salesStatus(product.getSalesStatus())
+			.wishStatus(new WishStatusDto().getWishStatus())
 			.build();
 	}
 

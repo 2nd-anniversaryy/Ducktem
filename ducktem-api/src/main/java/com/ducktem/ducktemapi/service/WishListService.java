@@ -1,12 +1,13 @@
 package com.ducktem.ducktemapi.service;
 
-import com.ducktem.ducktemapi.dto.response.WishListResponse;
+import com.ducktem.ducktemapi.entity.WishList;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface WishListService {
-    List<WishListResponse> getList(String memberId);
+    List<WishList> getList(String memberId);
 
+    int confirmWishStatus(Long productId, String memberId);
 }
