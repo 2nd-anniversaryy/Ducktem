@@ -1,5 +1,5 @@
 <template>
-  <div class="product-container" v-for="product in this.products" @click="goDetailPage">
+  <div class="product-container" v-for="product in this.products" @click="goDetailPage" v-bind:src="product.productId">
     <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
 
     <div class="price-wish">
