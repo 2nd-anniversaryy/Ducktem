@@ -68,5 +68,11 @@ public class Product {
 	@Enumerated(EnumType.STRING)
 	private SalesStatus salesStatus;
 
+	public void setMember(Member member) {
+		this.member = member;
+		if(!member.getProductList().contains(this)) {
+			member.getProductList().add(this);
+		}
+	}
 }
 
