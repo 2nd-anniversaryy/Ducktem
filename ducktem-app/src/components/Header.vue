@@ -61,7 +61,10 @@
     <section class="search-wrap" v-if="searchBarWrap == true">
       <div class="search-input-wrap">
         <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기" />
-        <input class="search-input-text" type="text" placeholder="어떤 상품을 찾으시나요?" value="" />
+        <div class="input-container">
+          <input class="effect-1" type="text" placeholder="상품을 검색해주세요.">
+          <span class="focus-border"></span>
+        </div>
         <img class="search-input-icon" src="/image/icon/search.svg" alt="검색" />
       </div>
 
@@ -204,4 +207,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

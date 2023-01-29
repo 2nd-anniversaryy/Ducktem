@@ -81,6 +81,7 @@
             <product-component :products="productList" />
           </div>
         </div>
+
       </section>
     </section>
   </main>

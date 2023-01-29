@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
+import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
+import com.ducktem.ducktemapi.dto.response.MemberInfoResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.MemberStatus;
 import com.ducktem.ducktemapi.exception.MemberException;
@@ -62,7 +64,29 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	@Override
+	public MemberInfoResponse getInfo(String userId) {
+		return memberRepository.findByUserId(userId)
+			.map(MemberInfoResponse::from)
+			.orElseThrow(() -> new MemberException("잘못된 접근입니다."));
+	}
 
+	@Override
+	@Transactional
+	public MemberInfoResponse updateInfo(String userId,MemberInfoRequest memberInfoRequest) {
+		Member member = memberRepository.findByUserId(userId)
+			.orElseThrow(() -> new MemberException("잘못된 접근입니다."));
+
+		Optional.ofNullable(memberInfoRequest.getEmail())
+			.ifPresent(member::setEmail);
+		Optional.ofNullable(memberInfoRequest.getNickName())
+			.ifPresent(member::setNickName);
+		Optional.ofNullable(memberInfoRequest.getIntro())
+			.ifPresent(member::setIntro);
+
+		return MemberInfoResponse.from(member);
+
+	}
 
 	// 회원가입시 id,nickname을 확인 한 후 기존 아이디가 존재한다면 예외를 발생시킴
 	@Transactional
