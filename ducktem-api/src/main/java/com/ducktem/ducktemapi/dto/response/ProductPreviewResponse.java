@@ -2,6 +2,7 @@ package com.ducktem.ducktemapi.dto.response;
 
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.exception.ProductException;
+import com.ducktem.ducktemapi.util.TimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class ProductPreviewResponse {
 			.productId(product.getId())
 			.name(product.getName())
 			.price(product.getPrice())
-			.regDate(product.getRegDate())
+			.regDate(TimeFormatter.nTimeAgo(product.getRegDate()))
 			.thumbNail(product
 				.getProductImageList()
 				.stream()

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
+import com.ducktem.ducktemapi.util.TimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +36,7 @@ public class ProductDetailResponse {
 			.description(product.getDescription())
 			.condition(product.getCondition())
 			.hit(product.getHit())
-			.updateDate(product.getUpdateDate())
+			.updateDate(TimeFormatter.nTimeAgo(product.getUpdateDate()))
 			.imgNames(ProductImageResponse.from(product.getProductImageList()))
 			.superCategory(product.getCategory().getSuperCategory().getName())
 			.subCategory(product.getCategory().getName())
