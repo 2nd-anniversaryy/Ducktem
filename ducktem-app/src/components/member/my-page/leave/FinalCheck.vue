@@ -26,7 +26,7 @@
         <div class="d-none modal-background">
             <div class="modal-box">
                 <h1>회원탈퇴가 완료되었습니다.</h1>
-                <button onclick="location.href='/index.html'" class="btn btn-cancel">확인</button>
+                <button class="btn btn-cancel">확인</button>
             </div>
         </div>
     </main>
@@ -39,5 +39,5 @@ export default {
 </script>
 
 <style scoped>
-    @import '/css/member/my-page/leave/final-check.css';
+@import '/css/member/my-page/leave/final-check.css';
 </style>

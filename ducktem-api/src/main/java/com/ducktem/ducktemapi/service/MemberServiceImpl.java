@@ -1,19 +1,16 @@
 package com.ducktem.ducktemapi.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ducktem.ducktemapi.dto.MemberDto;
+import com.ducktem.ducktemapi.dto.request.LoginRequest;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.MemberStatus;
-import com.ducktem.ducktemapi.entity.RefreshToken;
 import com.ducktem.ducktemapi.exception.MemberException;
-import com.ducktem.ducktemapi.jwt.JwtProvider;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.RefreshTokenRepository;
 import com.ducktem.ducktemapi.util.TimeFormatter;
@@ -24,20 +21,21 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class MemberServiceImpl implements MemberService {
 	private final MemberRepository memberRepository;
-
 	private final PasswordEncoder passwordEncoder;
-	private final JwtProvider jwtProvider;
 	private final RefreshTokenRepository refreshTokenRepository;
 
 	@Override
-	public Member get(String userId) {
+	public Member get(LoginRequest loginRequest) {
+		Member member = memberRepository.findByUserId(loginRequest.getUserId())
+			.orElseThrow(() -> new MemberException("회원아이디가 존재하지 않습니다."));
 
-		Optional<Member> member = memberRepository.findByUserId(userId);
-		if (member.isEmpty()) {
-			throw new MemberException("존재하지 않는 회원입니다.");
+		if (member.getStatus() == MemberStatus.DISABLE) {
+			throw new MemberException("이미 탈퇴한 회원입니다.");
 		}
 
-		return member.get();
+		return Optional.of(member)
+			.filter(current -> passwordEncoder.matches(loginRequest.getPwd(), current.getPwd()))
+			.orElseThrow(() -> new MemberException("비밀번호가 다릅니다."));
 	}
 
 	@Transactional
@@ -50,21 +48,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.save(member);
 	}
 
-	@Override
 	@Transactional
-	public Map<String, String> login(MemberDto memberDto) {
-		Member member = valid(memberDto);
-		String refreshJwt = jwtProvider.createRefreshJwt();
-		String accessJwt = jwtProvider.createAccessJwt(member.getUserId());
-		Optional<RefreshToken> existingMember = refreshTokenRepository.findByMember(member);
-		System.out.println(existingMember);
-		if (existingMember.isEmpty()) {
-			refreshTokenRepository.save(RefreshToken.builder().refreshToken(refreshJwt).member(member).build());
-		} else {
-			existingMember.get().setRefreshToken(refreshJwt);
-		}
+	@Override
+	public void withDraw(LoginRequest loginRequest) {
 
-		return Map.of("refreshJwt", refreshJwt, "accessJwt", accessJwt);
+		Member member = get(loginRequest);
+		refreshTokenRepository.findByMember(member).ifPresent(refreshToken -> refreshToken.setRefreshToken("N/A"));
+		member.setStatus(MemberStatus.DISABLE);
 	}
 
 	@Override
@@ -72,27 +62,18 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
-	// 아이디,패스워드 별로 예외를 나눔.
-	private Member valid(MemberDto memberDto) {
-		Optional<Member> member = memberRepository.findByUserId(memberDto.getUserId());
-		if (member.isPresent()) {
-			if (!passwordEncoder.matches(memberDto.getPwd(), member.get().getPwd()))
-				throw new MemberException("비밀번호가 다릅니다.");
-		} else {
-			throw new MemberException("회원아이디가 존재하지 않습니다.");
-		}
-		return member.get();
-	}
+
 
 	// 회원가입시 id,nickname을 확인 한 후 기존 아이디가 존재한다면 예외를 발생시킴
+	@Transactional
 	public void duplicateCheck(Member member) {
-		Optional<Member> userId = memberRepository.findByUserId(member.getUserId());
-		Optional<Member> nickName = memberRepository.findByNickName(member.getNickName());
-
-		if (userId.isPresent()) {
+		memberRepository.findByUserId(member.getUserId()).ifPresent(m -> {
 			throw new MemberException("아이디가 중복되었습니다.");
-		} else if (nickName.isPresent()) {
-			throw new MemberException("닉네임이 중복되었습니다.");
-		}
+		});
+		memberRepository.findByNickName(member.getNickName()).ifPresent(m -> {
+			throw new MemberException("아이디가 중복되었습니다.");
+		});
 	}
+	// 아이디,패스워드 별로 예외를 나눔.
+
 }
