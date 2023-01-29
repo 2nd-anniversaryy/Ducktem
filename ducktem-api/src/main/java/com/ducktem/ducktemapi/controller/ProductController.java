@@ -60,13 +60,32 @@ public class ProductController {
 	public Map<String,Object> getListByCategoryAndSearch(
 		@PageableDefault(size = 20) Pageable pageable,
 		@RequestParam(name = "q", defaultValue = "") String query,
-		@RequestParam(name = "c", defaultValue = "")Integer[] category
+		@RequestParam(name = "c", defaultValue = "")Integer[] category,
+		@RequestParam(name="f", defaultValue = "최신순") String filter
 	){
 		Map<String ,Object> searchResultByCategory =new HashMap<>();
-		List<ProductPreviewResponse> productResult= productservice.getListByCategoryAndSearch(pageable, query, category);
+
 		Long countResult = productservice.getCountByQuery(query,category);
-		searchResultByCategory.put("productResult",productResult);
 		searchResultByCategory.put("countResult",countResult);
+		System.out.println(filter);
+		switch (filter){
+			case "최신순":
+				List<ProductPreviewResponse> productResult= productservice.getListByCategoryAndSearch(pageable, query, category);
+				searchResultByCategory.put("productResult",productResult);
+				break;
+			case "높은가격순":
+				List<ProductPreviewResponse> productResultByPriceDesc= productservice.getListByCategoryAndSearchOrderByPriceDesc(pageable, query, category);
+				searchResultByCategory.put("productResult",productResultByPriceDesc);
+				System.out.println(filter);
+				break;
+			case "낮은가격순":
+				List<ProductPreviewResponse> productResultByPrice= productservice.getListByCategoryAndSearchOrderByPrice(pageable, query, category);
+				searchResultByCategory.put("productResult",productResultByPrice);
+				System.out.println(filter);
+				break;
+		}
+
+
 
 		return searchResultByCategory;
 	}

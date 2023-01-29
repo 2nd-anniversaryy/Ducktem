@@ -68,6 +68,8 @@ public class ProductServiceImpl implements ProductService {
 								.toList();
 	}
 
+
+
 	// 상품 레포지토리에서 paging 이후 productPreview로 바꿔서 반환.
 	@Override
 	@Transactional
@@ -87,6 +89,33 @@ public class ProductServiceImpl implements ProductService {
 			.map(ProductPreviewResponse::from)
 			.toList();
 	}
+
+
+	//---정렬옵션
+	//높은가격순
+	@Override
+	public List<ProductPreviewResponse> getListByCategoryAndSearchOrderByPriceDesc(Pageable pageable, String query,
+		Integer[] categoryId) {
+		List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
+		String newQuery = "%"+query+"%";
+		return productRepository.findByNameQueryAndCategoryInOrderByPriceDesc(pageable,newQuery, category)
+			.map(ProductPreviewResponse::from)
+			.toList();
+	}
+	//낮은가격순
+	@Override
+	public List<ProductPreviewResponse> getListByCategoryAndSearchOrderByPrice(Pageable pageable, String query,
+		Integer[] categoryId) {
+		List<Category> category = (List<Category>)categoryRepository.findByIdIn(categoryId);
+		String newQuery = "%"+query+"%";
+		return productRepository.findByNameQueryAndCategoryInOrderByPrice(pageable,newQuery, category)
+			.map(ProductPreviewResponse::from)
+			.toList();
+	}
+
+
+
+
 
 	@Override
 	@Transactional

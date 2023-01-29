@@ -23,5 +23,14 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 	@Query("SELECT count(p) from Product p where p.name like :query  and p.category in :category")
 	Long countProductByNameLikeQuery(String query, List<Category> category);
 
+	//정렬
+	//높은가격순
+	@Query("from Product p where p.name like :query and p.category in :category  order by p.price desc")
+	Page<Product> findByNameQueryAndCategoryInOrderByPriceDesc(Pageable pageable, String query, List<Category> category);
+	//낮은가격순
+	@Query("from Product p where p.name like :query and p.category in :category  order by p.price asc ")
+	Page<Product> findByNameQueryAndCategoryInOrderByPrice(Pageable pageable, String query, List<Category> category);
+
+	//인기상품순
 
 }

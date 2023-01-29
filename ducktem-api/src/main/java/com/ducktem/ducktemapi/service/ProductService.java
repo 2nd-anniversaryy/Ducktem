@@ -24,6 +24,10 @@ public interface ProductService {
 	List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] category);
 
 	List<ProductPreviewResponse> getListByCategoryAndSearch(Pageable pageable,String query,Integer[] category);
+	//높은가격순
+	List<ProductPreviewResponse> getListByCategoryAndSearchOrderByPriceDesc(Pageable pageable,String query,Integer[] category);
+	//낮은가격순
+	List<ProductPreviewResponse> getListByCategoryAndSearchOrderByPrice(Pageable pageable,String query,Integer[] category);
 
 
 }

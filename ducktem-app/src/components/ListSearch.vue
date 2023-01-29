@@ -53,11 +53,11 @@
 
         <div class="option">
 
-            <select>
-                <option value="">최신순</option>
-                <option value="">높은 가격순</option>
-                <option value="">낮은 가격순</option>
-                <option value="">인기상품순</option>
+            <select v-model="this.filter" @change="this.fetchProductsBySearch">
+                <option value="최신순" >최신순</option>
+                <option value="높은가격순">높은 가격순</option>
+                <option value="낮은가격순">낮은 가격순</option>
+                <option value="인기상품순">인기상품순</option>
             </select>
         </div>
 
@@ -109,6 +109,7 @@ export default {
       selectAll: true,
 
       query:"",
+      filter:"최신순",
       searchQueryName:"",
       searchQueryCount:"",
 
@@ -138,13 +139,13 @@ export default {
     },
   //----- 검색결과 상품목록 반환
     async fetchProductsBySearch() {
-      const response = await fetch(`http://localhost:8080/products/searchByCategory?q=${this.query}&c=${this.productCategoryValue}`);
+      const response = await fetch(`http://localhost:8080/products/searchByCategory?q=${this.query}&c=${this.productCategoryValue}&${this.filter}`);
 
       const json = await response.json();
 
       this.products = json['productResult'];
       this.searchQueryCount = json['countResult'];
-      console.log();
+      console.log("되니?");
     },
 
     onSearch(){

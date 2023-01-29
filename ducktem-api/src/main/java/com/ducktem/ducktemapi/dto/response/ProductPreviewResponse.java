@@ -1,10 +1,8 @@
 package com.ducktem.ducktemapi.dto.response;
 
-import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.ProductImage;
 import com.ducktem.ducktemapi.entity.SalesStatus;
-import com.ducktem.ducktemapi.exception.ProductException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ProductPreviewResponse {
 	private Long productId;
 	private String name;
-	private String price;
+	private Long price;
 	private String regDate;
 	private SalesStatus salesStatus;
 	private String thumbNail;
