@@ -8,38 +8,41 @@
       <section class="supercategory">
         <h1 class="d-none">대분류</h1>
 
-        <span v-for="s in this.superCategoryList" >
-                <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory" v-bind:id="s.name" @change="superCategorySelected">
+        <span v-for="s in this.superCategoryList">
+                <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory"
+                       v-bind:id="s.name" @change="superCategorySelected">
                 <label v-bind:for="s.name" >{{ s.name }}</label>
               </span>
       </section>
-      <div>{{this.productSuperCategoryValue}} : 구현끝나면삭제</div>
+
+
 
       <section class="subcategory">
         <h1 class="d-none">소분류</h1>
 
-        <input type="checkbox" name="selectAll" v-model="this.selectAll" id="selectALl"  @change="superCategorySelected"><label class="btn btn-default aaa" for="selectALl" >전체보기</label>
+        <input type="checkbox" name="selectAll" v-model="this.selectAll" id="All" @change="this.selectAllSelected">
+        <label class="btn btn-default aaa" for="All" >전체보기</label>
 
-        <span v-for="category in this.categoryList1" v-if="this.isOfficialGoods">
-                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category" v-bind:id="category.id"  @change="categorySelected">
-                <label class="btn btn-default aaa" v-bind:for="category.id" >{{ category.name }}</label>
+        <span v-for="category in this.categoryList" >
+                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
+                       v-bind:id="category.id" @change="categorySelected">
+                <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
               </span>
-
-        <span v-for="category in this.categoryList2" v-if="this.isUnOfficialGoods">
-                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category" v-bind:id="category.id" @change="categorySelected">
-                <label class="btn btn-default aaa" v-bind:for="category.id" >{{ category.name }}</label>
-              </span>
-
-        <span v-for="category in this.categoryList3" v-if="this.isTicketing">
-                <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category" v-bind:id="category.id" @change="categorySelected">
-                <label class="btn btn-default aaa" v-bind:for="category.id" >{{ category.name }}</label>
-              </span>
-
 
       </section>
-      <div>{{this.productCategoryValue}} : 구현끝나면삭제</div>
 
     </section>
+
+    <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
+    <section style="border: 1px solid black; background-color: white; border-radius: 20px; width: 300px; padding: 10px;
+      position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
+      <div style="text-align: center">구현끝나면삭제예정</div>
+      <div>
+        <div>대분류 : {{ this.productSuperCategoryValue }} </div>
+        <div>소분류 : {{ this.productCategoryValue }} </div>
+      </div>
+    </section>
+    <!-- =========================================================================== -->
 
 
 
@@ -57,13 +60,11 @@
       <h1 class="d-none">상품목록</h1>
 
 
-
-
-      <div class="product-flex" >
+      <div class="product-flex">
         <div class="product-wrap">
 
           <div class="product-container" v-for="product in this.products">
-            <div><img src="/image/example-image0.png" alt="product-img"></div>
+            <div><img v-bind:src="product.thumbNail" alt="product-img"></div>
 
             <div class="price-wish">
               <span> {{ product.price }}원</span>
@@ -75,10 +76,9 @@
             </div>
 
             <div class="time">
-              0일 전
+              {{ product.regDate }}
             </div>
           </div>
-
 
 
         </div>
@@ -91,97 +91,74 @@
 
 <script>
 export default {
-  data(){
-    return{
-      //DB에서 받으면 수정할 예정.
-      superCategoryList:[{name:"공식굿즈",id:1},{name:"비공식굿즈",id:2},{name:"대리티켓팅",id:3}],
-      categoryList1:[{name:"음반/영상물", id:1},{name:"응원도구", id:2}, {name:"포토카드", id:3}, {name:"포스터/포토북", id:4}, {name:"문구류",id:5}, {name:"기타잡화",id:6}],
-      categoryList2:[{name:"영상물",id:7}, {name:"응원도구",id:8}, {name:"인형",id:9}, {name:"포토카드",id:10}, {name:"포스터/포토북",id:11}, {name:"문구류",id:12}, {name:"기타잡화",id:13}],
-      categoryList3:[{name:"능력을 사요",id:14}, {name:"능력을 팔아요",id:15}],
-
+  data() {
+    return {
+      superCategoryList: [],
+      categoryList:[],
+      products: [],
       // ----- 카테고리 inputValue(id로 전송)
-      productSuperCategoryValue : "1",
+      productSuperCategoryValue: "1",
       productCategoryValue: [],
-
-      // //--------------데이터 받아오기=========================================
-      products: 10,
-      // superCategorys: [],
-      // categorys: [],
-      // //--------------데이터 받아오기=========================================
-      isCategoryChecked: false,
-
-
-
-      isOfficialGoods: true,
-      isUnOfficialGoods: false,
-      isTicketing: false,
-
-
-
-      //--임시
       selectAll: true,
 
     };
   },
 
   mounted() {
-    this.fetchProducts()
+    this.fetchSuperCategory();
   },
 
-  methods: {
 
-    async fetchProducts(){
-      const response = await fetch("http://localhost:8080/products");
+  methods: {
+    //----- 카테고리 대분류 반환.(아래 카테고리 소분류 반환실행)
+    async fetchSuperCategory(){
+      const response = await fetch("http://localhost:8080/categorys/super");
+      const json = await response.json();
+      this.superCategoryList = json;
+      await this.fetchCategory();
+    },
+    //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
+    async fetchCategory(){
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
+      const json = await response.json();
+      this.categoryList = json;
+      for (let i = 0; i < this.categoryList.length; i++)
+        this.productCategoryValue.push(this.categoryList[i].id);
+      await this.fetchProductsByCategory();
+    },
+    //----- 카테고리별 상품목록 반환.
+    async fetchProductsByCategory() {
+      const response = await fetch(`http://localhost:8080/products/category?c=${this.productCategoryValue}`);
       const json = await response.json();
       this.products = json;
-      console.log(this.products);
     },
 
-    // async fetchSuperCategory(){
-    //   const response = await fetch("http://localhost:8080/");
-    //   const json = await response.json();
-    //   this.superCategorys = json;
-    // },
-    //
-    // async fetchCategory(){
-    //   const response = await fetch("http://localhost:8080/");
-    //   const json = await response.json();
-    //   this.categorys = json;
-    // },
-
-
-    //----- 카테고리 대분류 선택 시 소분류 보여지는 함수
-    superCategorySelected(){
+    //----- 카테고리 대분류 선택 시 소분류목록 반환
+    superCategorySelected() {
       this.productCategoryValue = [];
+      this.selectAll=true;
+      this.fetchCategory();
 
-      switch (this.productSuperCategoryValue){
-
-        case "공식굿즈":
-          this.isOfficialGoods = true;
-          this.isUnOfficialGoods = false;
-          this.isTicketing = false;
-          break;
-
-        case "비공식굿즈":
-          this.isOfficialGoods = false;
-          this.isUnOfficialGoods = true;
-          this.isTicketing = false;
-          break;
-
-        case "대리티켓팅":
-          this.isOfficialGoods = false;
-          this.isUnOfficialGoods = false;
-          this.isTicketing = true;
-          break;
-
-      }
     },
-
-    categorySelected(){
-      if(this.productCategoryValue)
+    //----- 카테고리 소분류 선택 시 상품 목록 반환
+    categorySelected() {
+      if (this.productCategoryValue)
         this.selectAll = false;
+      this.fetchProductsByCategory();
+    },
+    //----- 전체선택시 상품 목록 반환
+     selectAllSelected(){
+      console.log(this.categoryList);
+      if(this.selectAll) {
+        this.productCategoryValue=[];
+        for (let i = 0; i < this.categoryList.length; i++)
+          this.productCategoryValue.push(this.categoryList[i].id);
+         this.fetchProductsByCategory();
+      }
+      else
+        this.productCategoryValue=[];
+       this.fetchProductsByCategory();
     }
-
 
 
   }

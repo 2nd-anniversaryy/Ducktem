@@ -1,19 +1,19 @@
 <template>
   <header>
-
     <section class="header-wrap">
       <section class="menu">
         <nav class="menu-bar">
           <div class="burger-icon" @click="sideBarOpen()">
-            <img class="menu-img" src="/image/icon/menu-black.svg" alt="">
+            <img class="menu-img" src="/image/icon/menu-black.svg" alt="" />
           </div>
 
           <div class="menu-bar-category active" v-if="sideBarWrap == true">
             <div class="category-login">
-              <a href="">로그인/회원가입</a>
+              <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
+              <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
+              <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
-
-            <ul class="my-list">
+            <ul class="my-list" v-if="$store.state.id">
               <li @click="goMyPage">내 상점</li>
               <li>굿즈 판매하기</li>
             </ul>
@@ -22,16 +22,13 @@
 
             <div class="category-goods-wrap">
               <div class="category-goods" @click.prevent="goListPage">
-                <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">공식
-                  굿즈</label>
+                <input type="checkbox" name="" id="category-checkbox" /><label for="category-checkbox">공식 굿즈</label>
               </div>
               <div class="category-goods" @click.prevent="goListPage">
-                <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">비공식
-                  굿즈</label>
+                <input type="checkbox" name="" id="category-checkbox" /><label for="category-checkbox">비공식 굿즈</label>
               </div>
               <div class="category-goods" @click.prevent="goListPage">
-                <input type="checkbox" name="" id="category-checkbox"><label for="category-checkbox">대리
-                  티켓팅</label>
+                <input type="checkbox" name="" id="category-checkbox" /><label for="category-checkbox">대리 티켓팅</label>
               </div>
             </div>
 
@@ -39,7 +36,6 @@
               <li @click="goHelpCenter">헬프센터</li>
               <li>1:1문의하기</li>
             </ul>
-
           </div>
         </nav>
 
@@ -55,22 +51,19 @@
       </div>
 
       <div class="header-icon">
-        <img class="search-icon" src="/image/icon/search.svg" alt="검색" @click="searchBarOpen()">
-        <img class="alarm-icon" src="/image/icon/bell.svg" alt="알람" @click="alarmWrapOpen()">
-        <img class="chat-icon" src="/image/icon/icon-message.svg" alt="채팅">
+        <img class="search-icon" src="/image/icon/search.svg" alt="검색" @click="searchBarOpen()" />
+        <img class="alarm-icon" src="/image/icon/bell.svg" alt="알람" @click="alarmWrapOpen()" />
+        <img class="chat-icon" src="/image/icon/icon-message.svg" alt="채팅" />
       </div>
-
     </section>
 
     <!-- 검색 창 -->
     <section class="search-wrap" v-if="searchBarWrap == true">
-
       <div class="search-input-wrap">
-        <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기">
-        <input class="search-input-text" type="text" placeholder="어떤 상품을 찾으시나요?" value="">
-        <img class="search-input-icon" src="/image/icon/search.svg" alt="검색">
+        <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기" />
+        <input class="search-input-text" type="text" placeholder="어떤 상품을 찾으시나요?" value="" />
+        <img class="search-input-icon" src="/image/icon/search.svg" alt="검색" />
       </div>
-
 
       <section class="latest-world-list-wrap">
         <div class="latest-world-list-wrap-title-delete">
@@ -80,13 +73,10 @@
         <div class="latest-word-list">
           <div class="btn btn-tag">
             포카
-            <img src="/image/icon/icon-close.svg" class="latest-word-deletekey">
+            <img src="/image/icon/icon-close.svg" class="latest-word-deletekey" />
           </div>
-
         </div>
-
       </section>
-
     </section>
 
     <!-- 알람 창 -->
@@ -94,27 +84,26 @@
       <div class="alarm-title-wrap">
         <h1>알림</h1>
         <div>
-          <img src="/image/icon/icon-close.svg" class="alarm-close" @click="alarmWrapOpen()">
+          <img src="/image/icon/icon-close.svg" class="alarm-close" @click="alarmWrapOpen()" />
         </div>
       </div>
-      <hr>
+      <hr />
 
       <div class="date-top-margin">
         <span class="alarm-update-date">00월 00일</span>
         <span class="alarm-list-delete-all">모두 지우기</span>
       </div>
-      <hr>
+      <hr />
 
       <section class="alarm-list">
-        <img src="/image//icon/human.svg" class="member-profile">
+        <img src="/image//icon/human.svg" class="member-profile" />
 
         <div class="alarm-title">상품 찜</div>
         <div class="alarm-description">은비님이 회원님의 상품을 찜 하였습니다.</div>
         <div class="product-img-wrap">
-          <img src="/image/product-img.jpg" class="alarm-img">
+          <img src="/image/product-img.jpg" class="alarm-img" />
         </div>
       </section>
-
     </section>
 
     <!-- 덕템톡 알림 -->
@@ -122,21 +111,21 @@
       <div class="chatting-alarm-title-wrap">
         <h1>덕템톡</h1>
         <div>
-          <img src="/image/icon/icon-close.svg" class="chatting-alarm-close">
+          <img src="/image/icon/icon-close.svg" class="chatting-alarm-close" />
         </div>
       </div>
 
-      <hr>
+      <hr />
 
       <div>
         <span class="chatting-alarm-update-date">00월 00일</span>
         <span class="chatting-alarm-list-delete-all">모두 지우기</span>
       </div>
-      <hr>
+      <hr />
 
       <section class="chatting-alarm-list">
         <div class="img-wrap">
-          <img src="/image/icon/human.svg" class="chatting-member-profile">
+          <img src="/image/icon/human.svg" class="chatting-member-profile" />
         </div>
         <div class="chatting-alarm-username">은비</div>
         <div class="chatting-alarm-description">팔렸나요?</div>
@@ -147,11 +136,7 @@
           </div>
         </div>
       </section>
-
     </section>
-
-
-
   </header>
 </template>
 
@@ -161,7 +146,7 @@ export default {
     return {
       sideBarWrap: false,
       searchBarWrap: false,
-      alarmWrap: false
+      alarmWrap: false,
     };
   },
   methods: {
@@ -169,8 +154,7 @@ export default {
     sideBarOpen() {
       if (!this.sideBarWrap) {
         this.sideBarWrap = true;
-      }
-      else if (this.sideBarWrap) {
+      } else if (this.sideBarWrap) {
         this.sideBarWrap = false;
       }
     },
@@ -180,8 +164,7 @@ export default {
         this.sideBarWrap = false;
         this.alarmWrap = false;
         this.searchBarWrap = true;
-      }
-      else if (this.searchBarWrap) {
+      } else if (this.searchBarWrap) {
         this.searchBarWrap = false;
       }
     },
@@ -190,13 +173,18 @@ export default {
         this.sideBarWrap = false;
         this.searchBarWrap = false;
         this.alarmWrap = true;
-      }
-      else if (this.alarmWrap) {
+      } else if (this.alarmWrap) {
         this.alarmWrap = false;
       }
     },
   },
   computed: {
+    goLogin() {
+      this.$router.push('/login');
+    },
+    logout() {
+      this.$store.dispatch('logout');
+    },
     goMain() {
       this.$router.push('/');
     },
@@ -208,12 +196,12 @@ export default {
     },
     goMyPage() {
       this.$router.push('/my-page');
-    }
-
-  }
-}
+    },
+    // id: function () {
+    //   return this.$store.getters.id;
+    // },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

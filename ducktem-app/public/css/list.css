@@ -45,6 +45,8 @@
 
 .subcategory {
   padding-left: 1em;
+  display: flex;
+  gap: 10px;
 }
 
 .subcategory input {

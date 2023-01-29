@@ -43,5 +43,5 @@ export default {
 </script>
 
 <style scoped>
-@import '/css/member/my-page/leave/survey.css'
+@import '/css/member/my-page/leave/survey.css';
 </style>
