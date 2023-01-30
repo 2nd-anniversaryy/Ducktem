@@ -43,6 +43,7 @@
         <div>
           <div>대분류 : {{ this.productSuperCategoryValue }} </div>
           <div>소분류 : {{ this.productCategoryValue }} </div>
+          <div>필터결과 : {{this.filter}} </div>
           <div>
             <input placeholder="임시검색창" v-model="this.query"/>
             <input class="btn btn-default aaa" type="button" value="검색하기" @click.prevent="this.onSearch"/>
@@ -53,11 +54,11 @@
 
         <div class="option">
 
-            <select>
-                <option value="">최신순</option>
-                <option value="">높은 가격순</option>
-                <option value="">낮은 가격순</option>
-                <option value="">인기상품순</option>
+            <select v-model="this.filter" @change="this.onfilter">
+                <option value="최신순" >최신순</option>
+                <option value="높은가격순">높은 가격순</option>
+                <option value="낮은가격순">낮은 가격순</option>
+                <option value="인기상품순">인기상품순</option>
             </select>
         </div>
 
@@ -109,6 +110,7 @@ export default {
       selectAll: true,
 
       query:"",
+      filter:"최신순",
       searchQueryName:"",
       searchQueryCount:"",
 
@@ -134,22 +136,28 @@ export default {
       this.categoryList = json;
       for (let i = 0; i < this.categoryList.length; i++)
         this.productCategoryValue.push(this.categoryList[i].id);
-      await this.fetchProductsBySearch();
+      await this.fetchProducts();
     },
   //----- 검색결과 상품목록 반환
-    async fetchProductsBySearch() {
-      const response = await fetch(`http://localhost:8080/products/searchByCategory?q=${this.query}&c=${this.productCategoryValue}`);
+    async fetchProducts() {
 
+      if(this.productCategoryValue == 0) {
+        this.productCategoryValue.push(0);
+      }
+      const response = await fetch(`http://localhost:8080/products?q=${this.query}&c=${this.productCategoryValue}&f=${this.filter}`);
       const json = await response.json();
-
       this.products = json['productResult'];
       this.searchQueryCount = json['countResult'];
-      console.log();
+      console.log(json);
     },
 
     onSearch(){
-      this.fetchProductsBySearch();
+      this.fetchProducts();
       this.searchQueryName = this.query;
+    },
+
+    onfilter(){
+      this.fetchProducts();
     },
 
 
@@ -164,7 +172,7 @@ export default {
     categorySelected() {
       if (this.productCategoryValue)
         this.selectAll = false;
-      this.fetchProductsBySearch();
+      this.fetchProducts();
     },
     //----- 전체선택시 상품 목록 반환
     selectAllSelected(){
@@ -173,11 +181,11 @@ export default {
         this.productCategoryValue=[];
         for (let i = 0; i < this.categoryList.length; i++)
           this.productCategoryValue.push(this.categoryList[i].id);
-        this.fetchProductsBySearch();
+        this.fetchProducts();
       }
       else
         this.productCategoryValue=[];
-      this.fetchProductsBySearch();
+      this.fetchProducts();
     }
 
   }
