@@ -7,12 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
+import com.ducktem.ducktemapi.exception.MemberException;
 import com.ducktem.ducktemapi.exception.ProductException;
 import com.ducktem.ducktemapi.repository.CategoryRepository;
 import com.ducktem.ducktemapi.repository.MemberRepository;
@@ -39,18 +41,24 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public Product add(Product product, String regMemberId) {
-		Optional<Member> member = memberRepository.findByUserId(regMemberId);
-		System.out.println("product = " + product);
-		if (member.isPresent()) {
-			Member regMember = member.get();
-			product.setMember(regMember);
-			product.setRegDate(TimeFormatter.NOW());
-			product.setUpdateDate(TimeFormatter.NOW());
-			product.setSalesStatus(SalesStatus.ON);
-			product = productRepository.save(product);
-		}
-		return product;
+	public Product add(ProductRegisterRequest request, String regMemberId) {
+		Member member = memberRepository.findByUserId(regMemberId).orElseThrow(() -> new MemberException("몰라"));
+		Category category = categoryRepository.findById(request.getCategory())
+			.orElseThrow(() -> new ProductException("없는 카테고리입니다."));
+		return productRepository.save(Product
+			.builder()
+			.name(request.getName())
+			.price(request.getPrice())
+			.description(request.getDescription())
+			.condition(request.getCondition())
+			.deliveryType(request.getDeliveryType())
+			.regDate(TimeFormatter.NOW())
+			.updateDate(TimeFormatter.NOW())
+			.salesStatus(SalesStatus.ON)
+			.member(member)
+			.category(category)
+			.build());
+
 	}
 
 }
