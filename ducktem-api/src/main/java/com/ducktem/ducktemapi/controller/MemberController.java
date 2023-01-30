@@ -2,13 +2,18 @@ package com.ducktem.ducktemapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
+import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
+import com.ducktem.ducktemapi.dto.response.MemberInfoResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.service.MemberService;
 
@@ -30,6 +35,18 @@ public class MemberController {
 	public ResponseEntity<Void> withDraw(@RequestBody LoginRequest loginRequest) {
 		memberService.withDraw(loginRequest);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("me")
+	public ResponseEntity<MemberInfoResponse> myInfo(Authentication authentication) {
+
+		return new ResponseEntity<>(memberService.getInfo(authentication.getName()), HttpStatus.OK);
+
+	}
+
+	@PutMapping
+	public ResponseEntity<MemberInfoResponse> updateInfo(@RequestBody MemberInfoRequest memberInfoRequest, Authentication authentication) {
+		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 
 	@PostMapping("/members/test")
