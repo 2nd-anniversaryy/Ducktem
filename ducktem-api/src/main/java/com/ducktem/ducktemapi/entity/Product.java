@@ -73,5 +73,8 @@ public class Product {
 			member.getProductList().add(this);
 		}
 	}
+	@OneToMany(mappedBy = "product")
+	private List<WishList> membersWish = new ArrayList<>();
+
 }
 

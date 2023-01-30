@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
+import com.ducktem.ducktemapi.service.WishListService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
-import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.service.ProductService;
 
@@ -29,11 +30,19 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
 
 	private final ProductService productservice;
+	private final WishListService wishListService;
 	// /products?p=1&s=15
 	@GetMapping
-	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable)
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication)
 	{
-		return productservice.getList(pageable);
+		List<ProductPreviewResponse> tempProductPreviewResponseList = productservice.getList(pageable);
+
+		if(authentication!=null){
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(tempProductPreviewResponseList,userWishList);
+			tempProductPreviewResponseList = resultList;
+		}
+		return tempProductPreviewResponseList;
 	}
 
 	// /products/2
