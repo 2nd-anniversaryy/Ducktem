@@ -13,18 +13,7 @@ import java.util.List;
 @Service
 public interface ProductService {
 	ProductDetailResponse get(Long id);
-
 	Product add(Product product, String regMemberId);
-
-	List<ProductPreviewResponse> getList(Pageable pageable);
-
-	List<ProductPreviewResponse> getListBySearch(Pageable pageable, String query);
-
-	Long getCountByQuery(String query, Integer[] category);
-
-	List<ProductPreviewResponse> getListByCategory(Pageable pageable, Integer[] category);
-
-	List<ProductPreviewResponse> getListByCategoryAndSearch(Pageable pageable,String query,Integer[] category);
 
 
 }
