@@ -1,3 +1,4 @@
+
 .main {
     /* display: flex;
     flex-direction: column;
@@ -184,6 +185,13 @@
 .reg1 input[type=number]::-webkit-inner-spin-button{
     -webkit-appearance: none;
 }
+.img-input-container{
+    display: inline-flex;
+    flex-direction: column;
+}
+.img-input-container .input-title{
+    padding: 0 10px;
+}
 
 .thumbNail-title{
     display: block;
@@ -198,7 +206,7 @@
     border: 3px solid #545454;
 }
 
-.input-box-container{
+.img-input-box{
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -229,13 +237,12 @@
     display: inline-block;
     margin-right: 3px;
     padding: 0;
-
 }
 
 .reg1 .img-count{
     font-size: var(--font-2);
     color: rgb(82, 82, 82);
-    padding-top: 0;
+    padding: 0;
 }
 
 .img-delete{

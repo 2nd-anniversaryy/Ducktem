@@ -1,5 +1,15 @@
 <template>
   <main class="main">
+    <!-- ====================     임시 콘솔 입니다. 삭제 예정     ==================== -->
+    <section style="border: 1px solid black; background-color: white; border-radius: 20px; width: 300px; padding: 10px;
+      position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
+      <div style="text-align: center">구현끝나면삭제예정</div>
+      <div>
+        <div>파일정보 : {{ this.imageFiles }} </div>
+
+      </div>
+    </section>
+    <!-- =========================================================================== -->
 
     <div class="background">
 
@@ -32,37 +42,54 @@
 
 
               <!-- ==============================   이미지 입력란 입니다.(미완성)   =============================== -->
-              <div class="input-container">
+              <div class="img-input-container">
                 <div class="input-title">상품 이미지</div>
 
-                <div class="input-box-container">
-                  <div class="input-box" v-for="i in thumbNailImageInputs">
-                    <span class="thumbNail-title">대표 이미지</span>
-                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required v-on="fileChange"/>
-                    <img class="img-input thumbNail" src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
+                <!--                ========== 이미지 추가 ver 1 ==========-->
+                <!--                <div class="img-input-box">-->
+                <!--                  <div class="input-box" v-for="i in this.thumbNailImageInputs">-->
+                <!--                    <span class="thumbNail-title">대표 이미지</span>-->
+                <!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL"/>-->
+                <!--                    <img class="img-input thumbNail" src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
+                <!--                    <span class="img-delete thumbNail d-none" @click="imageDelete"></span>-->
+                <!--                  </div>-->
+
+                <!--                  <div class="input-box" v-for="i in this.imageInputs">-->
+                <!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">-->
+                <!--                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
+                <!--                    <span class="img-delete d-none" @click="imageDelete"></span>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="img-count">-->
+                <!--                  <span class="img-num">{{this.imageCount}}</span> <span>/4</span>-->
+                <!--                </div>-->
+                <!--              </div>-->
+
+                <!--                ========== 이미지 추가 ver 1 ==========-->
+                <div class="img-input-box">
+
+                  <div class="input-box" v-for="i in this.imageInputs">
+                    <label>
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
+                      <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
+                    </label>
                     <span class="img-delete thumbNail d-none" @click="imageDelete"></span>
                   </div>
 
-                  <div class="input-box" v-for="i in this.imageInputs">
-<!--                  <div class="input-box" >-->
-                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" v-on="fileChange">
-                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                    <span class="img-delete d-none" @click="imageDelete"></span>
-                  </div>
 
-<!--                  <div class="input-box" >-->
-<!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="fileChange">-->
-<!--                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
-<!--                    <span class="img-delete d-none" @click="imageDelete"></span>-->
-<!--                  </div>-->
 
+                  <!--                  <div class="input-box" v-for="i in this.imageInputs">-->
+                  <!--                    <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">-->
+                  <!--                    <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">-->
+                  <!--                    <span class="img-delete d-none" @click="imageDelete"></span>-->
+                  <!--                  </div>-->
                 </div>
 
                 <div class="img-count">
                   <span class="img-num">{{this.imageCount}}</span> <span>/4</span>
                 </div>
               </div>
-
 
 
               <!-- ==============================   상품 제목 입력란입니다.   =============================== -->
@@ -198,8 +225,8 @@
               <div class="reg3-condition-container">
                 <div class="input-title">상품 컨디션</div>
                 <sapn v-for="condition in conditionList">
-                <input v-bind:value="condition.name" v-bind:id="condition.id" name="condition" v-model="this.productConditionValue" type="radio" required>
-                <label class="btn reg-btn" v-bind:for="condition.id">{{ condition.name }}</label>
+                  <input v-bind:value="condition.name" v-bind:id="condition.id" name="condition" v-model="this.productConditionValue" type="radio" required>
+                  <label class="btn reg-btn" v-bind:for="condition.id">{{ condition.name }}</label>
                 </sapn>
 
               </div>
@@ -299,9 +326,9 @@ export default {
       //이미지 입력을 위한 변수
       uploadReady : true,
       imageCount: 0,
+      thumbNailImageInputs:1,
       imageInputs : 3,
-      imageInput1 : null,
-      imageInput2: null,
+      imageFiles:[],
       //----- 이미지 inputValue(미완성)
 
       //----- 상품 제목 inputValue
@@ -371,37 +398,42 @@ export default {
   methods: {
     // ====================     1번 페이지    ====================
     //--이미지 등록 함수
-    imageUpload(e){
-
-      let event = new MouseEvent("click", {
-        'view': window,
-        'bubbles': true,
-        'cancelable': true
-      });
-      let fileInput = e.target.previousElementSibling;
-
-      fileInput.dispatchEvent(event);
-
-      fileInput.oninput = function () {
-
-        let url = fileInput.files[0];
-
-        let reader = new FileReader();
-        reader.onload = (evt) => {
-
-
-          e.target.src = evt.target.result;
-
-        }
-        reader.readAsDataURL(url);
-
-        let imgDelete = e.target.nextElementSibling;
-        console.log(imgDelete);
-        imgDelete.classList.remove("d-none");
-
-
-      }
-      this.imageCount++;
+    imageUploadREAL(e){
+      this.imageFiles.push(e.target.files[0]);
+      console.log(e.target.files[0])
+      console.log(this.imageFiles)
+    },
+    imageUpload(){
+      this.imageUploadREAL();
+      //
+      // let event = new MouseEvent("click", {
+      //   'view': window,
+      //   'bubbles': true,
+      //   'cancelable': true
+      // });
+      // let fileInput = e.target.previousElementSibling;
+      //
+      // fileInput.dispatchEvent(event);
+      //
+      // fileInput.oninput = function () {
+      //
+      //   let url = fileInput.files[0];
+      //
+      //   let reader = new FileReader();
+      //   reader.onload = (evt) => {
+      //
+      //     e.target.src = evt.target.result;
+      //
+      //   }
+      //   reader.readAsDataURL(url);
+      //
+      //   let imgDelete = e.target.nextElementSibling;
+      //   console.log(imgDelete);
+      //   imgDelete.classList.remove("d-none");
+      //
+      //
+      // }
+      // this.imageCount++;
 
     },
 
@@ -427,6 +459,8 @@ export default {
 
       this.imageCount--;
       this.imageInputs++;
+      this.thumbNailImageInputs++;
+
       console.log(this.imageInputs);
     },
 
@@ -497,7 +531,7 @@ export default {
       }
       else
         alert("태그는 5개까지만입력 가능합니다.")
-        this.newTag = ''
+      this.newTag = ''
 
 
 
@@ -544,6 +578,8 @@ export default {
 
 <style scoped>
 @import '/css/member/sell/index.css';
+
+
 </style>
 
 
