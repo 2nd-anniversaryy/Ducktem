@@ -74,7 +74,6 @@ export default {
       otherProductList: [],
       e1: false,
       e2: false,
-      id: null,
     };
   },
   components: {
@@ -88,7 +87,7 @@ export default {
   methods: {
     async fetchProductDetail() {
       try {
-        const response = await fetch('http://localhost:8080/products/3');
+        const response = await fetch(`http://localhost:8080/products/${this.$route.query.id}`);
         const json = await response.json();
         this.detailProduct = json;
       } catch (e) {
@@ -98,7 +97,7 @@ export default {
     },
     async fetchRegMember() {
       try {
-        const response = await fetch('http://localhost:8080');
+        const response = await fetch(`http://localhost:8080`);
         const json = await response.json();
         this.detailProduct = json;
       } catch (e) {
