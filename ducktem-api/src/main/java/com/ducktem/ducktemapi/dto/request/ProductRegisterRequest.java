@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductRegisterRequest {
 	private String name;
-	private String price;
+	private Long price;
 	private String description;
 	private String condition;
 	private String deliveryType;
