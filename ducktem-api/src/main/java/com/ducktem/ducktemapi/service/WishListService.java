@@ -10,5 +10,7 @@ import java.util.List;
 public interface WishListService {
     List<WishListResponse> getList(String memberId);
     List<ProductPreviewResponse> confirmWishStatus(List<ProductPreviewResponse> tempProductPeviewResponseList, List<WishListResponse> userWishList);
-    int confirmWishStatus(Long productId, String memberId);
+    void add(Long productId, String memberId);
+    void delete(Long productId, String memberId);
+
 }

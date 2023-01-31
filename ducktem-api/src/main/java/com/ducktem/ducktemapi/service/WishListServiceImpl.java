@@ -6,9 +6,11 @@ import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.WishList;
 import com.ducktem.ducktemapi.exception.MemberException;
+import com.ducktem.ducktemapi.exception.ProductException;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.repository.WishListRepository;
+import com.ducktem.ducktemapi.util.TimeFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,21 +40,36 @@ public class WishListServiceImpl implements WishListService{
                     tempProductPeviewResponseList.get(i).setWishStatus(1);
             }
         }
-        List<ProductPreviewResponse> withWishStatusList = withWishStatusList = tempProductPeviewResponseList;
+        List<ProductPreviewResponse> withWishStatusList = tempProductPeviewResponseList;
 
         return withWishStatusList;
     }
 
+//    @Override
+//    public int confirmWishStatus(Long productId, String memberId) {
+//        Optional<Member> member = memberRepository.findByUserId(memberId);
+//        Optional<Product> product = productRepository.findById(productId);
+//
+//        List<WishList> wishList = wishListRepository.findByProductAndMember(product.get(), member.get());
+//
+//        if (wishList != null)
+//            return 1;
+//        else
+//            return 0;
+//    }
+
     @Override
-    public int confirmWishStatus(Long productId, String memberId) {
-        Optional<Member> member = memberRepository.findByUserId(memberId);
-        Optional<Product> product = productRepository.findById(productId);
+    public void add(Long productId, String memberId) {
+        Member member = memberRepository.findByUserId(memberId).orElseThrow(()->new MemberException("error"));
+        Product product = productRepository.findById(productId).orElseThrow(()->new ProductException("error"));
+        wishListRepository.save(WishList.builder().member(member).product(product).regDate(TimeFormatter.NOW()).build());
+    }
 
-        List<WishList> wishList = wishListRepository.findByProductAndMember(product.get(), member.get());
+    @Override
+    public void delete(Long productId, String memberId) {
+        Member member = memberRepository.findByUserId(memberId).orElseThrow(()->new MemberException("error"));
+        Product product = productRepository.findById(productId).orElseThrow(()->new ProductException("error"));
 
-        if (wishList != null)
-            return 1;
-        else
-            return 0;
+        wishListRepository.delete(wishListRepository.findByProductAndMember(product, member));
     }
 }

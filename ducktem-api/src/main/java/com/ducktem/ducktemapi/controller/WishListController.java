@@ -4,9 +4,7 @@ import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,15 @@ public class WishListController {
 
         return wishListService.getList(authentication.getName());
     }
+    @PostMapping("{id}")
+    public void add(Authentication authentication, @PathVariable Long id){
 
+        wishListService.add(id, authentication.getName());
+    }
+    @DeleteMapping("{id}")
+    public void delete(Authentication authentication, @PathVariable Long id){
+
+        wishListService.delete(id, authentication.getName());
+    }
 
 }

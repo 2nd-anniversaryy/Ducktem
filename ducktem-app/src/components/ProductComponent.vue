@@ -1,10 +1,9 @@
 <template>
-  <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId)">
+  <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId, $event)">
     <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
 
     <div class="price-wish">
       <span> {{ product.price }}원</span>
-      {{ product.wishStatus }}
       <Wish :wishStatus="product.wishStatus" :id="product.productId" />
     </div>
 
@@ -29,8 +28,10 @@ export default {
   },
   components: { Wish },
   methods: {
-    goDetailPage(id) {
-      this.$router.push({ name: 'detail', query: { id: id } });
+    goDetailPage(id, event) {
+      if (!event.target.classList.contains('wish')) {
+        this.$router.push({ name: 'detail', query: { id: id } });
+      }
     },
   },
 };
