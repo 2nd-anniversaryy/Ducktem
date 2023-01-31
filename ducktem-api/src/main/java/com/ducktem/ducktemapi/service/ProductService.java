@@ -14,6 +14,8 @@ public interface ProductService {
 
 	Product add(ProductRegisterRequest request, String regMemberId);
 
-	Product update(ProductRegisterRequest request, Long id); 
+	Product update(ProductRegisterRequest request, Long id);
+	
+  void delete(Long id); 
 
 }

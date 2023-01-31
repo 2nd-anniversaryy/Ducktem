@@ -24,6 +24,7 @@ import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.entity.Product;
+import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.service.ProductImageService;
 import com.ducktem.ducktemapi.service.ProductService;
 import com.ducktem.ducktemapi.service.ProductTagService;
@@ -153,4 +154,24 @@ public class ProductController {
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
 	}
 
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable Long id){
+		productservice.delete(id);
+	}
+
+	// URL 고민해봐야... 
+	@PutMapping("")
+	public void updateStatus(){
+		productservice.updateStatus();
+	}
+
+	@DeleteMapping("{imgId}")
+	public void deleteImage(@PathVariable Long id){
+		productImageService.delete(id);
+	}
+	
+	@DeleteMapping("{tagId}")
+	public void deleteTag(@PathVariable Long id){
+		productTagService.delete(id);
+	}
 }
