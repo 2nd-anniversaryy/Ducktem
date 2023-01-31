@@ -5,7 +5,18 @@
       position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
       <div style="text-align: center">구현끝나면삭제예정</div>
       <div>
-        <div>파일정보 : {{ this.imageFiles }} </div>
+
+        <div>{{this.product}}</div>
+        <br>
+        <div style="text-align: center">상품등록될 정보</div>
+        <br>
+        <div>name : {{this.product.name}}</div>
+        <div>price : {{this.product.price}}</div>
+        <div>description : {{this.product.description}}</div>
+        <div>deliveryType : {{this.product.deliveryType}}</div>
+        <div>category : {{this.product.category}}</div>
+        <div>tag : {{this.product.tag}}</div>
+        <div>image : 파일정보 : {{ this.imageFiles }} </div>
 
       </div>
     </section>
@@ -27,8 +38,8 @@
         <h1 class="d-none">상품 등록 form</h1>
 
 
-        <!--    ==============    폼시작   ================= -->
-        <form class="reg-form" method="post" enctype="multipart/form-data">
+        <!--    =========================    폼시작   ================= -->
+
 
           <!-- ==========================================================-->
           <!-- ====================     1번 페이지    ==================== -->
@@ -40,7 +51,7 @@
               <div class="title">상품 정보를 입력해주세요</div>
 
 
-
+              <form class="reg-form" method="post" enctype="multipart/form-data">
               <!-- ==============================   이미지 입력란 입니다.(미완성)   =============================== -->
               <div class="img-input-container">
                 <div class="input-title">상품 이미지</div>
@@ -91,17 +102,17 @@
                 </div>
               </div>
 
-
+        </form>
               <!-- ==============================   상품 제목 입력란입니다.   =============================== -->
               <div>
                 <label class="input-title" for="title">상품 제목</label>
-                <input v-model="this.productTitle" class="input-default" id="title" name="name" type="text" required placeholder="제목을 입력해 주세요.">
+                <input v-model="this.product.name" class="input-default" id="title" name="name" type="text" required placeholder="제목을 입력해 주세요.">
               </div>
 
               <!-- ==============================   상품 가격 입력란입니다.   =============================== -->
               <div class="price-container">
                 <label class="input-title" for="price">상품 가격</label>
-                <input v-model="this.productPrice"  class="input-default inline" id="price" name="price" type="number" required  placeholder="가격을 입력해 주세요.">
+                <input v-model="this.product.price"  class="input-default inline" id="price" name="price" type="number" required  placeholder="가격을 입력해 주세요.">
                 <span class="input-detail">원</span>
               </div>
 
@@ -155,7 +166,7 @@
                   <div class="category-title">하위 카테고리 선택</div>
                   <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
                   <div v-for="c in categoryList1">
-                    <input v-bind:value="c.name" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required @change="radioChange($event)">
+                    <input v-bind:value="c.id" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.product.category" required @change="radioChange($event)">
                     <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
                   </div>
                   <div class="btn btn-default next-btn final" @click="categorySelected">선택완료</div>
@@ -169,7 +180,7 @@
                   <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
 
                   <div  v-for="c in categoryList2">
-                    <input v-bind:value="c.name" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required @change="radioChange($event)">
+                    <input v-bind:value="c.id" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.product.category" required @change="radioChange($event)">
                     <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
                   </div>
 
@@ -182,7 +193,7 @@
                   <div class="category-title">하위 카테고리 선택</div>
                   <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
                   <div  v-for="c in categoryList3">
-                    <input v-bind:value="c.name" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required @change="radioChange($event)">
+                    <input v-bind:value="c.id" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required @change="radioChange($event)">
                     <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
                   </div>
 
@@ -195,7 +206,7 @@
               <div>
                 <label for="description" class="input-title">상품설명</label>
                 <textarea class="input-default input-description" id="description"
-                          name="description" type="text" required placeholder="설명을 입력해 주세요." v-model="this.productDescription"></textarea>
+                          name="description" type="text" required placeholder="설명을 입력해 주세요." v-model="this.product.description"></textarea>
               </div>
 
               <div class="btn-container">
@@ -225,7 +236,7 @@
               <div class="reg3-condition-container">
                 <div class="input-title">상품 컨디션</div>
                 <sapn v-for="condition in conditionList">
-                  <input v-bind:value="condition.name" v-bind:id="condition.id" name="condition" v-model="this.productConditionValue" type="radio" required>
+                  <input v-bind:value="condition.name" v-bind:id="condition.id" name="condition" v-model="this.product.condition" type="radio" required>
                   <label class="btn reg-btn" v-bind:for="condition.id">{{ condition.name }}</label>
                 </sapn>
 
@@ -240,7 +251,7 @@
                   <div class="btn btn-default btn-add"  @click="addTag">추가</div>
                 </div>
                 <div class="tag-box">
-                  <span v-for="t in this.tagList">
+                  <span v-for="t in this.product.tagNames">
                   <div class="btn btn-tag tag-default">{{ t.name }}</div>
                   <input class="tag-hiddenBox" type="hidden" name="tag" v-model="t.name" />
                   </span>
@@ -281,7 +292,7 @@
 
               <div>
                 <div v-for="d in this.deliveryTypeList">
-                  <input v-bind:value="d.name" class="" v-bind:id="d.id" name="deliveryType" type="radio" v-model="this.productDeliveryTypeValue" required>
+                  <input v-bind:value="d.name" class="" v-bind:id="d.id" name="deliveryType" type="radio" v-model="this.product.deliveryType" required>
                   <label v-bind:for="d.id" class="delivery-label general-mail">
                     <span class="label-box">
                       <span class="delivery-icon">{{d.logo}}</span>
@@ -294,10 +305,9 @@
 
 
 
-
               <div class="btn-container">
                 <div id="fourth-back" class="btn btn-cancel" href="" @click="toggle3">취소</div>
-                <button class="btn btn-default sell-btn" >등록 완료</button>
+                <button class="btn btn-default sell-btn" @click.prevent="postProduct">등록 완료</button>
               </div>
 
               <!-- ==================================================     폼 끝   ================================================== -->
@@ -306,7 +316,7 @@
           </section>
 
 
-        </form>
+
 
 
       </section>
@@ -320,25 +330,23 @@ let id = 0
 
 export default {
 
+
   data() {
     return {
+      product:{name:'',price:'',description:'',deliveryType:'',category:'',condition:'',tagNames:[]},
       //====================     1번 페이지    ====================
       //이미지 입력을 위한 변수
-      uploadReady : true,
       imageCount: 0,
       thumbNailImageInputs:1,
       imageInputs : 3,
       imageFiles:[],
       //----- 이미지 inputValue(미완성)
 
-      //----- 상품 제목 inputValue
-      productTitle:null,
 
-      //----- 상품 가격 inputValue
-      productPrice: null,
 
       //====================     2번 페이지    ====================
       //카테고리 선택
+      productSuperCategoryValue : '',
       categoryResult: "카테고리를 선택해주세요.",
       superCategoryModal: false,
       CategoryModal1: false,
@@ -352,33 +360,23 @@ export default {
       categoryList2:[{name:"영상물",id:7}, {name:"응원도구",id:8}, {name:"인형",id:9}, {name:"포토카드",id:10}, {name:"포스터/포토북",id:11}, {name:"문구류",id:12}, {name:"기타잡화",id:13}],
       categoryList3:[{name:"능력을 사요",id:14}, {name:"능력을 팔아요",id:15}],
 
-      // ----- 카테고리 inputValue(name으로 전송됩니다)
-      productSuperCategoryValue : null,    //(ex: 공식굿즈)
-      productCategoryValue: null,          //(ex: 능력을 팔아요)
-
-      // ----- 상품 상세 설명 inputValue
-      productDescription : null,
-
 
 
       //====================     3번 페이지    ====================
       //상품상태
       conditionList:[{name:"미개봉", id:1},{name:"거의새상품", id:2},{name:"사용감있는깨끗한상품", id:3},{name:"사용흔적이있는상품", id:4},{name:"하자가있는상품", id:5}],
-      // ----- 상품상태 inputValue
-      productConditionValue: null,
+
 
       //태그
       newTag:null,
-      // ----- 상품태그 inputValue (tagList의 key값이 name으로 저장되어있습니다)
-      tagList:[],
+
 
 
 
 
       //====================     4번 페이지    ====================
       deliveryTypeList:[{name:"일반우편",id:1,logo:"📮"},{name:"준등기", id:2,logo:"✉️"},{name:"택배", id:3,logo:"📦"}],
-      // ----- 배송방법 inputVlaue
-      productDeliveryTypeValue: null,
+
 
 
 
@@ -396,6 +394,33 @@ export default {
     }
   },
   methods: {
+    async postProduct() {
+
+      let formData = new FormData();
+      // formData.append('name',this.product.name);
+      // formData.append('price',this.product.price);
+      // formData.append('description',this.product.description);
+      // formData.append('deliveryType',this.product.deliveryType);
+      // formData.append('category',this.product.category);
+      // formData.append('tagNames',this.product.tagNames);
+      formData.append('files',this.imageFiles);
+
+      const response = await fetch(`http://localhost:8080/products`,{
+        method:'POST',
+        headers:{
+          Accept:'application/json',
+          // 'Content-Type':'multipart/form-data',
+          // 'Content-Type':'application/json',
+          Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
+        },
+        body: this.product,formData
+      });
+
+      const json = await response.json();
+
+    },
+
+
     // ====================     1번 페이지    ====================
     //--이미지 등록 함수
     imageUploadREAL(e){
@@ -437,14 +462,10 @@ export default {
 
     },
 
-    fileChange(e){
-      this.imageInput1=null;
-
-    },
 
     imageDelete(e){
 
-      this.fileChange();
+
 
 
 
@@ -464,9 +485,7 @@ export default {
       console.log(this.imageInputs);
     },
 
-    change() {
-      console.log('filechange');
-    },
+
 
 
     // <!-- ====================     2번 페이지    ==================== -->
@@ -501,11 +520,11 @@ export default {
     },
 
     categorySelected(){
-      if(this.productCategoryValue != null) {
+      if(this.product.category != null) {
         this.CategoryModal1 = false;
         this.CategoryModal2 = false;
         this.CategoryModal3 = false;
-        this.categoryResult = this.productSuperCategoryValue + ' > ' + this.productCategoryValue;
+        this.categoryResult = this.productSuperCategoryValue + ' > ' + this.product.category;
       }
     },
 
@@ -525,7 +544,7 @@ export default {
       }
 
       if(id < 5) {
-        this.tagList.push({id: id++, name: this.newTag})
+        this.product.tagNames.push({id: id++, name: this.newTag})
         this.newTag = ''
         console.log(id);
       }
