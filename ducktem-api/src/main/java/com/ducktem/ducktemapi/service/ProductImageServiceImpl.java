@@ -42,13 +42,14 @@ public class ProductImageServiceImpl implements ProductImageService {
 		System.out.println(files.length);
 		for (MultipartFile file : files) {
 			String imgUrl = ImageUtil.save(file);
+			System.out.println(imgUrl);
 			if (imgUrl != null) {
 				if (i == 0) {
 					imageRepository.save(
 						ProductImage.builder().name(imgUrl).product(product).thumbNail((byte)1).build());
 				} else {
 					imageRepository.save(
-						ProductImage.builder().name(file.getName()).product(product).thumbNail((byte)0).build());
+						ProductImage.builder().name(imgUrl).product(product).thumbNail((byte)0).build());
 				}
 				i++;
 			}
