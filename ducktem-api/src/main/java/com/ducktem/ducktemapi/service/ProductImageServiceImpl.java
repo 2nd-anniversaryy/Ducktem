@@ -39,9 +39,8 @@ public class ProductImageServiceImpl implements ProductImageService {
 	@Transactional
 	public void add(MultipartFile[] files, Product product) {
 		int i = 0;
-		System.out.println(files.length);
 		for (MultipartFile file : files) {
-			String imgUrl = ImageUtil.save(file);
+			String imgUrl = ImageUtil.productImgSave(file);
 			if (imgUrl != null) {
 				if (i == 0) {
 					imageRepository.save(
