@@ -15,6 +15,7 @@ import com.ducktem.ducktemapi.entity.MemberStatus;
 import com.ducktem.ducktemapi.exception.MemberException;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.RefreshTokenRepository;
+import com.ducktem.ducktemapi.util.ImageUtil;
 import com.ducktem.ducktemapi.util.TimeFormatter;
 
 import lombok.RequiredArgsConstructor;
@@ -73,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public MemberInfoResponse updateInfo(String userId,MemberInfoRequest memberInfoRequest) {
+	public MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest) {
 		Member member = memberRepository.findByUserId(userId)
 			.orElseThrow(() -> new MemberException("잘못된 접근입니다."));
 
@@ -83,6 +84,8 @@ public class MemberServiceImpl implements MemberService {
 			.ifPresent(member::setNickName);
 		Optional.ofNullable(memberInfoRequest.getIntro())
 			.ifPresent(member::setIntro);
+		Optional.ofNullable(ImageUtil.profileImgSave(memberInfoRequest.getFile()))
+			.ifPresent(member::setProfileImg);
 
 		return MemberInfoResponse.from(member);
 
