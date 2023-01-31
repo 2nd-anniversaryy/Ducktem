@@ -10,7 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,6 @@ import com.ducktem.ducktemapi.service.ProductTagService;
 import com.ducktem.ducktemapi.service.SearchService;
 import com.ducktem.ducktemapi.service.WishListService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -144,9 +142,10 @@ public class ProductController {
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request, Authentication authentication) {
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request,
+		Authentication authentication) {
 		String regMemberId = authentication.getName();
-		Product product = productservice.update(request,id);
+		Product product = productservice.update(request, id);
 		productImageService.add(request.getFiles(), product);
 		productTagService.add(request.getTagNames(), product);
 

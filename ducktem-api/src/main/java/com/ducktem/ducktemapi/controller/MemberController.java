@@ -45,7 +45,7 @@ public class MemberController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MemberInfoResponse> updateInfo(@RequestBody MemberInfoRequest memberInfoRequest, Authentication authentication) {
+	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication) {
 		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 

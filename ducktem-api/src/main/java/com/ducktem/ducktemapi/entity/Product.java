@@ -53,9 +53,8 @@ public class Product {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateDate")
 	private String updateDate;
-	// @OneToMany(mappedBy = "product")
-	// List<Tag> tag = new ArrayList<>();
-	private String tag;
+	@OneToMany(mappedBy = "product")
+	List<Tag> tag = new ArrayList<>();
 	//프로덕트 이미지와 양방향 관계 설정.
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImageList;
@@ -70,12 +69,12 @@ public class Product {
 
 	public void setMember(Member member) {
 		this.member = member;
-		if(!member.getProductList().contains(this)) {
+		if (!member.getProductList().contains(this)) {
 			member.getProductList().add(this);
 		}
 	}
+
 	@OneToMany(mappedBy = "product")
 	private List<WishList> membersWish = new ArrayList<>();
 
 }
-
