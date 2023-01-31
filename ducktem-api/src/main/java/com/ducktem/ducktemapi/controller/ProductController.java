@@ -41,7 +41,6 @@ public class ProductController {
 	@GetMapping
 	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
 		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
-		System.out.println(ProductPreviewResponseList);
 
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
@@ -49,7 +48,6 @@ public class ProductController {
 			ProductPreviewResponseList = resultList;
 		}
 
-		System.out.println(ProductPreviewResponseList);
 		return ProductPreviewResponseList;
 	}
 
