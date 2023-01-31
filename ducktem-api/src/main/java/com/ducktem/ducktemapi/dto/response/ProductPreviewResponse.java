@@ -6,7 +6,10 @@ import com.ducktem.ducktemapi.entity.ProductImage;
 import com.ducktem.ducktemapi.entity.SalesStatus;
 import com.ducktem.ducktemapi.util.TimeFormatter;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
@@ -15,11 +18,10 @@ import lombok.*;
 public class ProductPreviewResponse {
     private Long productId;
     private String name;
-    private String price;
+    private Long price;
     private String regDate;
     private SalesStatus salesStatus;
     private String thumbNail;
-    @Setter
     private int wishStatus;
 
 
