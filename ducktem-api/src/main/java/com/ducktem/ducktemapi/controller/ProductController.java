@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
-import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 
 import lombok.RequiredArgsConstructor;
@@ -41,17 +39,17 @@ public class ProductController {
 	// /products?p=1&s=15
 	private final SearchService searchService;
 
-//	@GetMapping("main")
-//	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
-//		List<ProductPreviewResponse> tempProductPreviewResponseList = productservice.getList(pageable);
-//
-//		if (authentication != null) {
-//			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
-//			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(tempProductPreviewResponseList, userWishList);
-//			tempProductPreviewResponseList = resultList;
-//		}
-//		return tempProductPreviewResponseList;
-//	}
+	@GetMapping("main")
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
+		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList, userWishList);
+			ProductPreviewResponseList = resultList;
+		}
+		return ProductPreviewResponseList;
+	}
 	@GetMapping
 	@Transactional
 	public Map<String, Object> getList(

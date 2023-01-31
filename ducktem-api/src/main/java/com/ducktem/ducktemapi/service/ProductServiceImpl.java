@@ -1,7 +1,6 @@
 package com.ducktem.ducktemapi.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,8 +38,14 @@ public class ProductServiceImpl implements ProductService {
 		return ProductDetailResponse.from(product);
 	}
 
+	@Override
+	@Transactional
+	public List<ProductPreviewResponse> getList(Pageable pageable) {
 
-
+		return productRepository.findAll(pageable)
+				.map(ProductPreviewResponse::from)
+				.toList();
+	}
 
 	@Override
 	@Transactional
