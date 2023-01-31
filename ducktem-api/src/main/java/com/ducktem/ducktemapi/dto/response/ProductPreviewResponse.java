@@ -28,7 +28,6 @@ public class ProductPreviewResponse {
 
 
     // 상품 정보에서 필요한 데이터만 취합하여 생성.
-    @Builder
     public static ProductPreviewResponse from(Product product) {
         return ProductPreviewResponse.builder()
                 .productId(product.getId())

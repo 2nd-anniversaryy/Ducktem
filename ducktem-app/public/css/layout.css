@@ -16,6 +16,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding-left: 10px;
+  z-index: 497;
 }
 
 .header-wrap .menu {
@@ -105,6 +106,22 @@ header {
 }
 
 /* ===================메뉴 바=================== */
+
+.slide-right {
+  z-index: 497;
+  animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-360px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
 
 .menu-bar-category {
   position: fixed;
@@ -301,6 +318,20 @@ header {
 }
 
 /* =================== 검색 버튼 ============================= */
+.slide-bottom {
+  z-index: 490;
+  animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .search-wrap {
   z-index: 9999;
   background-color: white;

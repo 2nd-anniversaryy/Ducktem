@@ -2,7 +2,6 @@
 .product-flex {
   display: flex;
   justify-content: center;
-  background-color: rgb(240, 240, 240);
 }
 
 .product-container {

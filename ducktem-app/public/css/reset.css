@@ -33,3 +33,7 @@ input:focus {
 input {
   padding: 0;
 }
+
+button {
+  border: none;
+}
