@@ -81,7 +81,6 @@
             <product-component :products="productList" />
           </div>
         </div>
-
       </section>
     </section>
   </main>
@@ -104,10 +103,18 @@ export default {
   },
   methods: {
     async fetchProductList() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
       try {
-        const response = await fetch('http://localhost:8080/products');
+        const response = await fetch('http://localhost:8080/products', {
+          headers: {
+            Authorization: myInfoForAuth,
+          },
+        });
         const json = await response.json();
-        this.productList = json['productResult'];
+        this.productList = json;
       } catch (e) {
         this.e = e;
       } finally {

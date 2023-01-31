@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.service.ProductImageService;
 import com.ducktem.ducktemapi.service.ProductService;
 import com.ducktem.ducktemapi.service.ProductTagService;
 import com.ducktem.ducktemapi.service.SearchService;
+import com.ducktem.ducktemapi.service.WishListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,16 +39,33 @@ public class ProductController {
 	private final ProductImageService productImageService;
 	private final ProductTagService productTagService;
 
+	private final WishListService wishListService;
 	// /products?p=1&s=15
 	private final SearchService searchService;
 
 	@GetMapping
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable,
+		Authentication authentication) {
+		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList,
+				userWishList);
+			ProductPreviewResponseList = resultList;
+		}
+
+		return ProductPreviewResponseList;
+	}
+
+	@GetMapping("filter")
 	@Transactional
 	public Map<String, Object> getList(
 		@PageableDefault(size = 20) Pageable pageable,
 		@RequestParam(name = "q", defaultValue = "") String query,
 		@RequestParam(name = "c", defaultValue = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15") Integer[] category,
-		@RequestParam(name = "f", defaultValue = "최신순") String filter
+		@RequestParam(name = "f", defaultValue = "최신순") String filter,
+		Authentication authentication
 	) {
 		Map<String, Object> searchResultByCategory = new HashMap<>();
 
@@ -76,13 +95,38 @@ public class ProductController {
 			}
 		}
 
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+				(List<ProductPreviewResponse>)searchResultByCategory.get("productResult"),
+				userWishList);
+			//			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+			//					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+			//					userWishList);
+
+			if (filter != null) {
+				searchResultByCategory.put("productResult", resultList);
+			} else {
+				searchResultByCategory.put("countResult", resultList);
+			}
+		}
+
 		return searchResultByCategory;
 	}
 
 	// /products/2
 	@GetMapping("{id}")
-	public ProductDetailResponse get(@PathVariable Long id) {
-		return productservice.get(id);
+	public ProductDetailResponse get(@PathVariable Long id, Authentication authentication) {
+		ProductDetailResponse productDetailResponse = productservice.get(id);
+		if (authentication != null) {
+			List<WishListResponse> list = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> otherProducts = productDetailResponse.getOtherProducts();
+			productDetailResponse.setOtherProducts(wishListService.confirmWishStatus(otherProducts, list));
+			if (list.stream().anyMatch(l -> l.getProductId().equals(productDetailResponse.getId()))) {
+				productDetailResponse.setWishStatus(1);
+			}
+		}
+		return productDetailResponse;
 	}
 
 	@PostMapping

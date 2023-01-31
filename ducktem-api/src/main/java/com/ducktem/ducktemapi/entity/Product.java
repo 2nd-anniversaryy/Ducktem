@@ -58,7 +58,7 @@ public class Product {
 	//프로덕트 이미지와 양방향 관계 설정.
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImageList;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
 	private Category category;
 	@ManyToOne
@@ -73,5 +73,8 @@ public class Product {
 			member.getProductList().add(this);
 		}
 	}
+	@OneToMany(mappedBy = "product")
+	private List<WishList> membersWish = new ArrayList<>();
+
 }
 

@@ -23,7 +23,7 @@
             <button class="btn btn-cancel final-check-btn">확인</button>
         </section>
 
-        <div class="d-none modal-background">
+        <div class="modal-background">
             <div class="modal-box">
                 <h1>회원탈퇴가 완료되었습니다.</h1>
                 <button class="btn btn-cancel">확인</button>
