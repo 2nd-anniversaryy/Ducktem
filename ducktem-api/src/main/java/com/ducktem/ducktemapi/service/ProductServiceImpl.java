@@ -1,14 +1,13 @@
 package com.ducktem.ducktemapi.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
-import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
@@ -66,6 +65,31 @@ public class ProductServiceImpl implements ProductService {
 			.member(member)
 			.category(category)
 			.build());
+	}
+
+	@Override
+	@Transactional
+	public Product update(ProductRegisterRequest request, Long id) {
+		Product product = productRepository.findById(id)
+			.orElseThrow(() -> new ProductException("잘못된 접근입니다."));
+			Category category = categoryRepository.findById(request.getCategory())
+			.orElseThrow(() -> new ProductException("없는 카테고리입니다."));
+
+		Optional.ofNullable(request.getName())
+			.ifPresent(product::setName);
+		Optional.ofNullable(request.getPrice())
+			.ifPresent(product::setPrice);
+		Optional.ofNullable(category)
+			.ifPresent(product::setCategory);
+		Optional.ofNullable(request.getCondition())
+			.ifPresent(product::setCondition);
+		Optional.ofNullable(request.getDeliveryType())
+			.ifPresent(product::setDeliveryType);
+		Optional.ofNullable(request.getDescription())
+			.ifPresent(product::setDescription);
+		product.setUpdateDate(TimeFormatter.NOW());
+
+		return product;
 
 	}
 

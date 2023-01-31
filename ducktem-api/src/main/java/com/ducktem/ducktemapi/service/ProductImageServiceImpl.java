@@ -48,10 +48,15 @@ public class ProductImageServiceImpl implements ProductImageService {
 						ProductImage.builder().name(imgUrl).product(product).thumbNail((byte)1).build());
 				} else {
 					imageRepository.save(
-						ProductImage.builder().name(file.getName()).product(product).thumbNail((byte)0).build());
+						ProductImage.builder().name(imgUrl).product(product).thumbNail((byte)0).build());
 				}
 				i++;
 			}
 		}
+	}
+
+	@Override
+	public void delete(Long id) {
+		imageRepository.deleteById(id);
 	}
 }

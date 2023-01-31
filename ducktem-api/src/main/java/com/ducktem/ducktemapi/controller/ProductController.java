@@ -10,9 +10,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +30,7 @@ import com.ducktem.ducktemapi.service.ProductTagService;
 import com.ducktem.ducktemapi.service.SearchService;
 import com.ducktem.ducktemapi.service.WishListService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -133,6 +136,17 @@ public class ProductController {
 	public ResponseEntity<Void> add(ProductRegisterRequest request, Authentication authentication) {
 		String regMemberId = authentication.getName();
 		Product product = productservice.add(request, regMemberId);
+		productImageService.add(request.getFiles(), product);
+		productTagService.add(request.getTagNames(), product);
+
+		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
+	}
+
+	@PutMapping("{id}")
+	// @Transactional
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request, Authentication authentication) {
+		String regMemberId = authentication.getName();
+		Product product = productservice.update(request,id);
 		productImageService.add(request.getFiles(), product);
 		productTagService.add(request.getTagNames(), product);
 

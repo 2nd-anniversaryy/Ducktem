@@ -53,8 +53,9 @@ public class Product {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateDate")
 	private String updateDate;
-	@OneToMany(mappedBy = "product")
-	List<Tag> tag = new ArrayList<>();
+	// @OneToMany(mappedBy = "product")
+	// List<Tag> tag = new ArrayList<>();
+	private String tag;
 	//프로덕트 이미지와 양방향 관계 설정.
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImageList;
