@@ -1,6 +1,6 @@
 package com.ducktem.ducktemapi.controller;
 
-import com.ducktem.ducktemapi.entity.WishList;
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,7 @@ public class WishListController {
 
     private final WishListService wishListService;
     @GetMapping
-    public List<WishList> getList(Authentication authentication){
+    public List<WishListResponse> getList(Authentication authentication){
 
         return wishListService.getList(authentication.getName());
     }

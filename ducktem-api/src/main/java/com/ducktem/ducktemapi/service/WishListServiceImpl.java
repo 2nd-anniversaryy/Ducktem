@@ -1,8 +1,11 @@
 package com.ducktem.ducktemapi.service;
 
+import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.entity.Member;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.WishList;
+import com.ducktem.ducktemapi.exception.MemberException;
 import com.ducktem.ducktemapi.repository.MemberRepository;
 import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.repository.WishListRepository;
@@ -21,10 +24,23 @@ public class WishListServiceImpl implements WishListService{
     private final ProductRepository productRepository;
 
     @Override
-    public List<WishList> getList(String memberId) {
-        Optional<Member> member = memberRepository.findByUserId(memberId);
+    public List<WishListResponse> getList(String memberId) {
+        Member member = memberRepository.findByUserId(memberId).orElseThrow(() -> new MemberException("잘못된 접근입니다."));
+        return member.getMemberWishProducts().stream().map(WishListResponse::from).toList();
+    }
 
-        return wishListRepository.findByMember(member.get());
+    @Override
+    public List<ProductPreviewResponse> confirmWishStatus(List<ProductPreviewResponse> tempProductPeviewResponseList, List<WishListResponse> userWishList) {
+
+        for(int i=0; i<tempProductPeviewResponseList.size(); i++){
+            for(int j=0; j<userWishList.size(); j++){
+                if(tempProductPeviewResponseList.get(i).getProductId() == userWishList.get(j).getProductId())
+                    tempProductPeviewResponseList.get(i).setWishStatus(1);
+            }
+        }
+        List<ProductPreviewResponse> withWishStatusList = withWishStatusList = tempProductPeviewResponseList;
+
+        return withWishStatusList;
     }
 
     @Override

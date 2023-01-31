@@ -4,7 +4,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
+import com.ducktem.ducktemapi.service.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,6 @@ import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.entity.Product;
-import com.ducktem.ducktemapi.service.ProductImageService;
-import com.ducktem.ducktemapi.service.ProductService;
-import com.ducktem.ducktemapi.service.ProductTagService;
-import com.ducktem.ducktemapi.service.SearchService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,16 +34,29 @@ public class ProductController {
 	private final ProductImageService productImageService;
 	private final ProductTagService productTagService;
 
+	private final WishListService wishListService;
 	// /products?p=1&s=15
 	private final SearchService searchService;
 
+	@GetMapping("main")
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
+		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList, userWishList);
+			ProductPreviewResponseList = resultList;
+		}
+		return ProductPreviewResponseList;
+	}
 	@GetMapping
 	@Transactional
 	public Map<String, Object> getList(
 		@PageableDefault(size = 20) Pageable pageable,
 		@RequestParam(name = "q", defaultValue = "") String query,
 		@RequestParam(name = "c", defaultValue = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15") Integer[] category,
-		@RequestParam(name = "f", defaultValue = "최신순") String filter
+		@RequestParam(name = "f", defaultValue = "최신순") String filter,
+		Authentication authentication
 	) {
 		Map<String, Object> searchResultByCategory = new HashMap<>();
 
@@ -76,6 +86,23 @@ public class ProductController {
 			}
 		}
 
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+					userWishList);
+
+			if(filter != null){
+				searchResultByCategory.put("productResult", resultList);
+				System.out.println("되고 있는 것인가????");
+
+				System.out.println(searchResultByCategory);
+			}
+			else{
+				searchResultByCategory.put("countResult", resultList);
+			}
+		}
+
 		return searchResultByCategory;
 	}
 
@@ -94,5 +121,6 @@ public class ProductController {
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
 	}
+
 
 }

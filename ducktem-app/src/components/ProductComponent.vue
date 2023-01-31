@@ -4,7 +4,8 @@
 
     <div class="price-wish">
       <span> {{ product.price }}원</span>
-      <img src="/image/icon/heart.svg" alt="찜" />
+      {{ product.wishStatus }}
+      <Wish :wishStatus="product.wishStatus" :id="product.productId" />
     </div>
 
     <div class="name">
@@ -18,11 +19,15 @@
 </template>
 
 <script>
+import Wish from './wish.vue';
 export default {
   props: ['products'],
   data() {
-    return {};
+    return {
+      wishList: [],
+    };
   },
+  components: { Wish },
   methods: {
     goDetailPage(id) {
       this.$router.push({ name: 'detail', query: { id: id } });
