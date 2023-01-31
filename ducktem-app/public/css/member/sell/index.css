@@ -186,8 +186,7 @@
     -webkit-appearance: none;
 }
 .img-input-container{
-    display: inline-flex;
-    flex-direction: column;
+    align-self: flex-start;
 }
 .img-input-container .input-title{
     padding: 0 10px;
@@ -243,6 +242,7 @@
     font-size: var(--font-2);
     color: rgb(82, 82, 82);
     padding: 0;
+    padding-left: 10px;
 }
 
 .img-delete{
@@ -257,11 +257,7 @@
     margin-right:-20px;
 }
 
-.img-delete:hover{
-    cursor: pointer;
-    background: url(../../../image/icon/icon-close-hover.svg) no-repeat;
-    transition: .3s;
-}
+
 
 
 
@@ -457,7 +453,7 @@
     top : -55px;
     right : 25px;
     margin-right:-20px;
-    /* position: absolute; */
+    position: absolute;
 }
 
 
@@ -469,6 +465,21 @@
     font-size: var(--font-2);
     margin: 1px 2px;
 }
+
+.tag-delete{
+    display: inline-block;
+    background: url(../../../image/icon/icon-close.svg) no-repeat;
+    background-size : 18px 18px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top : 4px;
+    right : -3px;
+    margin-right:-10px;
+
+}
+
+
 
 /* <!-- ==========     4번 페이지    ========== --> */
 
@@ -629,7 +640,7 @@
 
 
     .reg .input-title {
-        display: inline-block;
+
         font-size: var(--font-3);
         padding-left: 10px;
         padding-right: 10px;
