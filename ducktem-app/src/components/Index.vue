@@ -107,7 +107,7 @@ export default {
       try {
         const response = await fetch('http://localhost:8080/products');
         const json = await response.json();
-        this.productList = json;
+        this.productList = json['productResult'];
       } catch (e) {
         this.e = e;
       } finally {

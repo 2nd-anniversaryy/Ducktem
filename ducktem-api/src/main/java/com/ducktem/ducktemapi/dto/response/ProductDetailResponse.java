@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductDetailResponse {
 	private String name;
-	private String price;
+	private Long price;
 	private String description;
 	private String condition;
 	private int hit;

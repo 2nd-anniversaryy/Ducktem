@@ -1,5 +1,5 @@
 <template>
-  <div class="product-container" v-for="product in this.products" @click="goDetailPage">
+  <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId)">
     <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
 
     <div class="price-wish">
@@ -23,9 +23,9 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    goDetailPage() {
-      this.$router.push('/detail');
+  methods: {
+    goDetailPage(id) {
+      this.$router.push({ name: 'detail', query: { id: id } });
     },
   },
 };
