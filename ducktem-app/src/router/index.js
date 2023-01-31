@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Layout from "/src/components/Layout.vue";
-import Index from "/src/components/Index.vue";
+import Layout from '/src/components/Layout.vue';
+import Index from '/src/components/Index.vue';
 import HelpCenter from '/src/components/help-center/HelpCenter.vue';
 
 const router = createRouter({
@@ -12,7 +12,7 @@ const router = createRouter({
       component: Layout,
       children: [
         { path: 'index', component: Index },
-        { path: 'detail', component: () => import('/src/components/Detail.vue') },
+        { path: 'detail', name: 'detail', component: () => import('/src/components/Detail.vue') },
         { path: 'list', component: () => import('/src/components/List.vue') },
         { path: 'list-search', component: () => import('/src/components/ListSearch.vue') },
         { path: 'login', component: () => import('/src/components/Login.vue') },
@@ -22,7 +22,6 @@ const router = createRouter({
           path: 'help-center',
           component: HelpCenter,
         },
-
 
         // member
         { path: 'sell', component: () => import('/src/components/member/Sell.vue') },
