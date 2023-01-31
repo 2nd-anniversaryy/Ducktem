@@ -49,6 +49,11 @@ public class MemberController {
 		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 
+	@GetMapping
+	public ResponseEntity<String> getUserId(@RequestBody LoginRequest loginRequest) {
+		return new ResponseEntity<>(memberService.get(loginRequest).getUserId(), HttpStatus.OK);
+
+	}
 	@PostMapping("/members/test")
 	public String test() {
 		return "권한 성공";
