@@ -163,7 +163,7 @@ export default {
       if (this.productCategoryValue == 0) {
         this.productCategoryValue.push(0);
       }
-      const response = await fetch(`http://localhost:8080/products?q=${this.query}&c=${this.productCategoryValue}&f=${this.filter}`, {
+      const response = await fetch(`http://localhost:8080/products/filter?q=${this.query}&c=${this.productCategoryValue}&f=${this.filter}`, {
         headers: {
           Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
         },
