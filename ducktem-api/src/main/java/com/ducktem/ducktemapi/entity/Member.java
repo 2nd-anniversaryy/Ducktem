@@ -55,4 +55,6 @@ public class Member {
 	@OneToMany(mappedBy = "member")
 	private List<Product> productList = new ArrayList<>();
 
+	@OneToMany(mappedBy = "member")
+	private List<WishList> memberWishProducts = new ArrayList<>();
 }
