@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.service.*;
 import org.springframework.data.domain.Pageable;
@@ -56,7 +55,8 @@ public class ProductController {
 		@PageableDefault(size = 20) Pageable pageable,
 		@RequestParam(name = "q", defaultValue = "") String query,
 		@RequestParam(name = "c", defaultValue = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15") Integer[] category,
-		@RequestParam(name = "f", defaultValue = "최신순") String filter
+		@RequestParam(name = "f", defaultValue = "최신순") String filter,
+		Authentication authentication
 	) {
 		Map<String, Object> searchResultByCategory = new HashMap<>();
 
@@ -83,6 +83,23 @@ public class ProductController {
 				List<ProductPreviewResponse> productResultByHit = searchService.getListByCategoryAndSearchOrderByHit(
 					pageable, query, category);
 				searchResultByCategory.put("productResult", productResultByHit);
+			}
+		}
+
+		if (authentication != null) {
+			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+					userWishList);
+
+			if(filter != null){
+				searchResultByCategory.put("productResult", resultList);
+				System.out.println("되고 있는 것인가????");
+
+				System.out.println(searchResultByCategory);
+			}
+			else{
+				searchResultByCategory.put("countResult", resultList);
 			}
 		}
 
