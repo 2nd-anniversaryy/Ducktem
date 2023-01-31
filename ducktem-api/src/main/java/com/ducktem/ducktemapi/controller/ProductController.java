@@ -38,18 +38,22 @@ public class ProductController {
 	// /products?p=1&s=15
 	private final SearchService searchService;
 
-	@GetMapping("main")
+	@GetMapping
 	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
 		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+		System.out.println(ProductPreviewResponseList);
 
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
 			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList, userWishList);
 			ProductPreviewResponseList = resultList;
 		}
+
+		System.out.println(ProductPreviewResponseList);
 		return ProductPreviewResponseList;
 	}
-	@GetMapping
+
+	@GetMapping("filter")
 	@Transactional
 	public Map<String, Object> getList(
 		@PageableDefault(size = 20) Pageable pageable,
@@ -89,14 +93,14 @@ public class ProductController {
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
 			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
-					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+					(List<ProductPreviewResponse>) searchResultByCategory.get("productResult"),
 					userWishList);
+//			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+//					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+//					userWishList);
 
 			if(filter != null){
 				searchResultByCategory.put("productResult", resultList);
-				System.out.println("되고 있는 것인가????");
-
-				System.out.println(searchResultByCategory);
 			}
 			else{
 				searchResultByCategory.put("countResult", resultList);
