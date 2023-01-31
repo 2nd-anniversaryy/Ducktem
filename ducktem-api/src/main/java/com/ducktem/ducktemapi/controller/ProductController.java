@@ -4,8 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.ducktem.ducktemapi.dto.response.WishListResponse;
-import com.ducktem.ducktemapi.service.*;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
+import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.entity.Product;
+import com.ducktem.ducktemapi.service.ProductImageService;
+import com.ducktem.ducktemapi.service.ProductService;
+import com.ducktem.ducktemapi.service.ProductTagService;
+import com.ducktem.ducktemapi.service.SearchService;
+import com.ducktem.ducktemapi.service.WishListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,12 +44,14 @@ public class ProductController {
 	private final SearchService searchService;
 
 	@GetMapping
-	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable, Authentication authentication) {
+	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable,
+		Authentication authentication) {
 		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
 
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
-			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList, userWishList);
+			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(ProductPreviewResponseList,
+				userWishList);
 			ProductPreviewResponseList = resultList;
 		}
 
@@ -91,16 +98,15 @@ public class ProductController {
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
 			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
-					(List<ProductPreviewResponse>) searchResultByCategory.get("productResult"),
-					userWishList);
-//			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
-//					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
-//					userWishList);
+				(List<ProductPreviewResponse>)searchResultByCategory.get("productResult"),
+				userWishList);
+			//			List<ProductPreviewResponse> resultList = wishListService.confirmWishStatus(
+			//					(List<ProductPreviewResponse>) searchResultByCategory.values().stream().toList().get(0),
+			//					userWishList);
 
-			if(filter != null){
+			if (filter != null) {
 				searchResultByCategory.put("productResult", resultList);
-			}
-			else{
+			} else {
 				searchResultByCategory.put("countResult", resultList);
 			}
 		}
@@ -110,8 +116,17 @@ public class ProductController {
 
 	// /products/2
 	@GetMapping("{id}")
-	public ProductDetailResponse get(@PathVariable Long id) {
-		return productservice.get(id);
+	public ProductDetailResponse get(@PathVariable Long id, Authentication authentication) {
+		ProductDetailResponse productDetailResponse = productservice.get(id);
+		if (authentication != null) {
+			List<WishListResponse> list = wishListService.getList(authentication.getName());
+			List<ProductPreviewResponse> otherProducts = productDetailResponse.getOtherProducts();
+			productDetailResponse.setOtherProducts(wishListService.confirmWishStatus(otherProducts, list));
+			if (list.stream().anyMatch(l -> l.getProductId().equals(productDetailResponse.getId()))) {
+				productDetailResponse.setWishStatus(1);
+			}
+		}
+		return productDetailResponse;
 	}
 
 	@PostMapping
@@ -123,6 +138,5 @@ public class ProductController {
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
 	}
-
 
 }

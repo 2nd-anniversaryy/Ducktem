@@ -11,12 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDetailResponse {
+	private Long id;
 	private String name;
 	private Long price;
 	private String description;
@@ -28,12 +30,16 @@ public class ProductDetailResponse {
 	private String subCategory;
 	private String superCategory;
 	private MemberInfoResponse regMemberInfo;
+	@Setter
 	private List<ProductPreviewResponse> otherProducts;
 	private int otherProductsSize;
 	private SalesStatus salesStatus;
+	@Setter
+	private int wishStatus;
 
 	public static ProductDetailResponse from(Product product) {
 		return ProductDetailResponse.builder()
+			.id(product.getId())
 			.name(product.getName())
 			.price(product.getPrice())
 			.description(product.getDescription())
