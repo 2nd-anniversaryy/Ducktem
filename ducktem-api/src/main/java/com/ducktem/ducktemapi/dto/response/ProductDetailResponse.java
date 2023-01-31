@@ -1,6 +1,7 @@
 package com.ducktem.ducktemapi.dto.response;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.SalesStatus;
@@ -26,7 +27,9 @@ public class ProductDetailResponse {
 	private List<ProductTagResponse> tags;
 	private String subCategory;
 	private String superCategory;
-	private String regMemberId;
+	private MemberInfoResponse regMemberInfo;
+	private List<ProductPreviewResponse> otherProducts;
+	private int otherProductsSize;
 	private SalesStatus salesStatus;
 
 	public static ProductDetailResponse from(Product product) {
@@ -41,7 +44,12 @@ public class ProductDetailResponse {
 			.superCategory(product.getCategory().getSuperCategory().getName())
 			.subCategory(product.getCategory().getName())
 			.tags(ProductTagResponse.from(product.getTag()))
-			.regMemberId(product.getMember().getUserId())
+			.regMemberInfo(MemberInfoResponse.from(product.getMember()))
+			.otherProducts(ProductPreviewResponse.fromList(product.getMember()
+				.getProductList()
+				.stream()
+				.filter(memberProduct -> !Objects.equals(memberProduct.getId(), product.getId())).toList()))
+			.otherProductsSize(product.getMember().getProductList().size())
 			.salesStatus(product.getSalesStatus())
 			.build();
 	}

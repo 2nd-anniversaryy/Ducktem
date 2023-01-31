@@ -1,5 +1,7 @@
 package com.ducktem.ducktemapi.dto.response;
 
+import java.util.List;
+
 import com.ducktem.ducktemapi.dto.WishStatusDto;
 import com.ducktem.ducktemapi.entity.Product;
 import com.ducktem.ducktemapi.entity.ProductImage;
@@ -41,6 +43,10 @@ public class ProductPreviewResponse {
                 .salesStatus(product.getSalesStatus())
                 .wishStatus(new WishStatusDto().getWishStatus())
                 .build();
+    }
+
+    public static List<ProductPreviewResponse> fromList(List<Product> products) {
+        return products.stream().map(ProductPreviewResponse::from).toList();
     }
 
 }
