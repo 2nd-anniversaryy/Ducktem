@@ -1,235 +1,229 @@
 .total-height {
-    height: 100vh;
+  height: 100vh;
 }
 
 main {
-    margin-top: 0;
-    height: 100%;
+  margin-top: 0;
+  height: 100%;
 }
 
 .header-wrap {
-    background-color: rgb(14, 14, 14);
-    padding-left: 0;
-
+  background-color: rgb(14, 14, 14);
+  padding-left: 0;
 }
 
 .main-wrap {
-    background-color: rgb(34, 34, 34);
-    color: rgb(211, 211, 211);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+  background-color: rgb(34, 34, 34);
+  color: rgb(211, 211, 211);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .backpage-btn-wrap {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .option-btn-wrap {
-    display: flex;
-    align-items: center;
-    padding-right: 8px;
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
 }
 
 .others {
-    color: white;
-    font-size: 18px;
-    background-color: rgba(0, 0, 0, 0);
-    font-weight: normal;
+  color: white;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0);
+  font-weight: normal;
 }
 
 .product-info {
-    height: 70px;
-    border-bottom: 1px solid white;
-    display: flex;
-    position: fixed;
-    background-color: rgb(34, 34, 34);
-    width: 100%;
-    min-width: 360px;
-    border-bottom: 1px solid rgb(68, 68, 68);
-    margin-top: 50px;
+  height: 70px;
+  border-bottom: 1px solid white;
+  display: flex;
+  position: fixed;
+  background-color: rgb(34, 34, 34);
+  width: 100%;
+  min-width: 360px;
+  border-bottom: 1px solid rgb(68, 68, 68);
+  margin-top: 50px;
 }
 
 .product-img-wrap {
-    height: 100%;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-
+  height: 100%;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
 }
 
 .product-img {
-    width: 100%;
-    border-radius: 5px;
+  width: 100%;
+  border-radius: 5px;
 }
-
-
 
 .info-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px 10px 10px 15px;
-    font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 10px 10px 15px;
+  font-size: 14px;
 }
 
-.info-flex>div:nth-child(1) {
-    display: flex;
-    align-items: center;
+.info-flex > div:nth-child(1) {
+  display: flex;
+  align-items: center;
 }
 
-.info-flex>div span:nth-child(1) {
-    padding-right: 15px;
+.info-flex > div span:nth-child(1) {
+  padding-right: 15px;
 }
 
-.info-flex>div span:nth-child(2) {
-    display: inline-block;
-    max-width: 210px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.info-flex > div span:nth-child(2) {
+  display: inline-block;
+  max-width: 210px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-@media(min-width: 600px) {
-    .info-flex>div span:nth-child(2) {
-        max-width: 100%;
-    }
+@media (min-width: 600px) {
+  .info-flex > div span:nth-child(2) {
+    max-width: 100%;
+  }
 }
 
 /* =========================================================  */
 
 .chatting-date-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-
 .chatting-padding {
-    padding: 130px 10px 0;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  padding: 130px 10px 0;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .chatting-date-wrap {
-
-    width: 160px;
-    border-radius: 20px;
-    border: 2px solid rgb(90, 90, 90);
-    text-align: center;
+  width: 160px;
+  border-radius: 20px;
+  border: 2px solid rgb(90, 90, 90);
+  text-align: center;
 }
 
 .chat-date {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .received-wrap {
-    display: flex;
-    margin: 10px 0;
+  display: flex;
+  margin: 10px 0;
 }
 
 .send-wrap {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    margin: 10px 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin: 10px 0;
 }
 
-@media(min-width: 700px) {
-    .received-wrap {
-        margin-left: 7%;
-    }
+@media (min-width: 700px) {
+  .received-wrap {
+    margin-left: 7%;
+  }
 
-    .send-wrap {
-        margin-right: 7%;
-    }
+  .send-wrap {
+    margin-right: 7%;
+  }
 }
 
 .chat-text {
-    margin: 5px;
-    padding: 10px;
-    border-radius: 20px;
-    max-width: 500px;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 20px;
+  max-width: 500px;
 }
 
 .send-wrap .chat-text {
-    background-color: var(--color-strong);
+  background-color: var(--color-strong);
 }
 
 .received-wrap .chat-text {
-    background-color: rgb(58, 58, 58);
+  background-color: rgb(58, 58, 58);
 }
 
 .img-wrap {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
-
 .img {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .chat-text-date {
-    padding-bottom: 3px;
-    font-size: 10px;
-    color: rgb(128, 128, 128);
-    min-width: 50px;
-    align-self: flex-end;
+  padding-bottom: 3px;
+  font-size: 10px;
+  color: rgb(128, 128, 128);
+  min-width: 50px;
+  align-self: flex-end;
 }
 
 .chat-input-box {
-    display: flex;
-    justify-content: center;
-    height: 140px;
+  display: flex;
+  justify-content: center;
+  height: 140px;
 }
 
 .chat-input-area {
-    border-radius: 10px;
-    background-color: rgb(48, 48, 48);
-    width: 85%;
-    height: 100px;
-    border: 2px solid rgb(90, 90, 90);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 13px;
+  border-radius: 10px;
+  background-color: rgb(48, 48, 48);
+  width: 85%;
+  height: 100px;
+  border: 2px solid rgb(90, 90, 90);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
 }
 
 .chat-input-area img {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .chat-input {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    color: rgb(166, 166, 166);
-    /* height: 25px; */
-    font-size: 17px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(166, 166, 166);
+  /* height: 25px; */
+  font-size: 17px;
+  border: none;
+  padding: 0 10px;
+  overflow: scroll;
 }
 
 .button-wrap {
-    bottom: 10px;
-    display: flex;
-    justify-content: space-between;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .button-wrap div {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .tool-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
 }
-

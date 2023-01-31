@@ -7,24 +7,34 @@
 
       <section class="profile-container">
         <img class="profile-img" src="/image/prof-img.jpg" alt="" />
-        <h1>{{ detailProduct.regMemberId }}</h1>
+        <!-- <h1>{{ detailProduct.regMemberId }}</h1> -->
+        <h1>sdlkjflksdjflksdjf</h1>
         <span class="product-count">판매상품 6</span>
 
-        <span class="review-info">★★★★★(2)</span>
       </section>
+      <hr>
       <section class="detail-container">
         <div class="detail-container-title">
-          <h1>{{ detailProduct.name }}</h1>
-          <span class="detail-category">{{ detailProduct.superCategory }}>{{ detailProduct.subCategory }}</span>
-          <span>{{ detailProduct.updateDate }}</span>
+          <!-- <h1>{{ detailProduct.name }}</h1> -->
+          <h1>dsfsdfsdfsdf</h1>
+          <!-- <span class="detail-category">{{ detailProduct.superCategory }}>{{ detailProduct.subCategory }}</span> -->
+          <span class="detail-category">dfsdfsdf>sdfsdfsdfsdf</span>
+
+          <!-- <span>{{ detailProduct.updateDate }}</span> -->
+          <span>14전</span>
+
         </div>
         <div class="detail-icon">
           <div class="">
             <img src="/image/icon/icon-eye-fill.svg" alt="" />
-            <span>{{ detailProduct.hit }}</span>
+            <!-- <span>{{ detailProduct.hit }}</span> -->
+            <span>12</span>
+
           </div>
         </div>
-        <p>{{ detailProduct.description }}</p>
+        <!-- <p>{{ detailProduct.description }}</p> -->
+        <p>ㄴㅇㅁㄹㄴㄹㅇㄴㅇㄹ</p>
+
       </section>
       <section>
         <ul class="detail-button">
@@ -37,7 +47,9 @@
       </section>
       <section class="detail-spec-container">
         <ul>
-          <li>상품상태 {{ detailProduct.condition }}</li>
+          <!-- <li>상품상태 {{ detailProduct.condition }}</li> -->
+          <li>상품상태 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄹㄴㅇㄴㅇㄹㄴㅇㄹ</li>
+
           <li>배송방법</li>
         </ul>
       </section>
@@ -55,6 +67,8 @@
           <div><img src="/image/icon/heart.svg" alt="" /><label for="">2</label></div>
           <div>
             <span>{{ detailProduct.price }}</span>
+            <span>214124124</span>
+
           </div>
           <div>
             <button class="btn btn-default" @click="goChattingPage">덕템톡</button>

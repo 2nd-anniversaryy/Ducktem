@@ -1,10 +1,10 @@
 <template>
-  <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId)">
+  <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId, $event)">
     <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
 
     <div class="price-wish">
       <span> {{ product.price }}원</span>
-      <img src="/image/icon/heart.svg" alt="찜" />
+      <Wish :wishStatus="product.wishStatus" :id="product.productId" />
     </div>
 
     <div class="name">
@@ -18,14 +18,20 @@
 </template>
 
 <script>
+import Wish from './wish.vue';
 export default {
   props: ['products'],
   data() {
-    return {};
+    return {
+      wishList: [],
+    };
   },
+  components: { Wish },
   methods: {
-    goDetailPage(id) {
-      this.$router.push({ name: 'detail', query: { id: id } });
+    goDetailPage(id, event) {
+      if (!event.target.classList.contains('wish')) {
+        this.$router.push({ name: 'detail', query: { id: id } });
+      }
     },
   },
 };

@@ -83,8 +83,10 @@ export default {
     async fetchUpdateMyInfo() {
       try {
         const response = await fetch('http://localhost:8080/members', {
+          method: 'PUT',
           headers: {
-            Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$store.state.tokenResponse.access,
           },
           body: JSON.stringify(this.myInfoList),
         });
