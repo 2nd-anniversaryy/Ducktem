@@ -96,6 +96,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<ProductPreviewResponse> productList(String userId) {
+		Member member = memberRepository.findByUserId(userId).orElseThrow(() -> new MemberException("잘못된 접근입니다."));
+
+		return member.getProductList().stream().map(ProductPreviewResponse::from).toList();
+
+	}
+
+	@Override
 	public void delete(Long id) {
 		productRepository.deleteById(id);
 	}
@@ -115,5 +123,5 @@ public class ProductServiceImpl implements ProductService {
 			product.setSalesStatus(SalesStatus.ON);
 
 	}
-		
+
 }

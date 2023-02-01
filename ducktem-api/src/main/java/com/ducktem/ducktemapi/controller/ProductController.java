@@ -9,6 +9,7 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,9 +141,6 @@ public class ProductController {
 	public ResponseEntity<Void> add(ProductRegisterRequest request, Authentication authentication,@RequestPart MultipartFile[] files) {
 
 		String regMemberId = authentication.getName();
-
-
-		System.out.println(request);
 		Product product = productservice.add(request, regMemberId);
 		productImageService.add(files, product);
 		productTagService.add(request.getTagNames(), product);
@@ -167,20 +165,31 @@ public class ProductController {
 		// //tag랑 img도 삭제해야
 	}
 
-	// 아래 URL 고민해봐야... 
-	
+	// 아래 URL 고민해봐야...
+
 	@DeleteMapping("editImg/{imgId}")//이미지 삭제
 	public void deleteImage(@PathVariable Long id){
 		productImageService.delete(id);
 	}
-	
+
 	@DeleteMapping("editTag/{tagId}")//태그 삭제
 	public void deleteTag(@PathVariable Long id){
 		productTagService.delete(id);
 	}
 
-	@PutMapping("{id}/{status}")//상품 상태 변경 
+	@PutMapping("{id}/{status}")//상품 상태 변경
 	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status){
 		productservice.updateStatus(id, status);
+	}
+	@GetMapping("/me")
+	public ResponseEntity<List<ProductPreviewResponse>> mySellProductList(Authentication authentication) {
+		return new ResponseEntity<>(productservice.productList(authentication.getName()), HttpStatus.OK);
+
+	}
+
+	@GetMapping("/wish")
+	public ResponseEntity<List<ProductPreviewResponse>> myWishProductList(Authentication authentication) {
+		List<ProductPreviewResponse> list = wishListService.getMyWishList(authentication.getName());
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }
