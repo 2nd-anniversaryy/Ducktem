@@ -9,13 +9,13 @@
 
           <div class="menu-bar-category active slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
-              <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
+                <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
               <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
               <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
             <ul class="my-list" v-if="$store.state.id">
               <li @click="goMyPage">내 상점</li>
-              <li>굿즈 판매하기</li>
+              <li @click="goSell">굿즈 판매하기</li>
             </ul>
 
             <div class="middle-line"><span>카테고리</span></div>
@@ -199,6 +199,9 @@ export default {
     },
     goMyPage() {
       this.$router.push('/my-page');
+    },
+    goSell() {
+      this.$router.push('/sell');
     },
     // id: function () {
     //   return this.$store.getters.id;
