@@ -27,14 +27,10 @@ export default {
   },
   methods: {
     async yesBtnHandeler(id, password) {
-      let params = {
-        userId: id,
-        pwd: password,
-      };
       if (this.id && this.password) {
-        id = this.id; // 아이디
-        password = this.password; // 비밀번호
-        this.$store.dispatch('save', params);
+        // id = this.id; // 아이디
+        // password = this.password; // 비밀번호
+        this.$store.dispatch('confirm', { id, password });
       } else {
         alert('아이디 또는 비밀번호가 입력되지 않았습니다.');
         return false;
