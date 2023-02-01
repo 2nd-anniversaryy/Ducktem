@@ -12,7 +12,6 @@ public class ImageUtil {
 
 	public static String productImgSave(MultipartFile file) {
 		String productImgPath = localUrl + File.separator + "productimgs" + File.separator;
-		fileSave(file, productImgPath);
 		return fileSave(file, productImgPath);
 	}
 
