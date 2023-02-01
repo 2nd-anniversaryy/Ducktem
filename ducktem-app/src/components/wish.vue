@@ -1,6 +1,7 @@
 <template>
   <img v-if="myStatus == 0" class="wish" @click.prevent="checkClickHandler(id)" src="/image/icon/heart.svg" alt="찜" />
-  <img v-if="myStatus != 0" class="wish checked" @click.prevent="unCheckClickHandler(id)" src="/image/icon/icon-heart-red.svg" alt="찜" />
+  <img v-if="myStatus != 0" class="wish checked" @click.prevent="unCheckClickHandler(id)"
+    src="/image/icon/icon-heart-red.svg" alt="찜" />
 </template>
 
 <script>
@@ -55,4 +56,16 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.wish {
+  width: 22px;
+  height: 22px;
+}
+
+@media(min-width: 768px) {
+  .wish {
+    width: 32px;
+    height: 32px;
+  }
+}
+</style>

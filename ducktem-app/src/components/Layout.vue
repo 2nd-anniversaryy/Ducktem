@@ -1,7 +1,7 @@
 <template>
   <Header ref="header" />
-  <router-view @click.prevent="this.$refs.header.onClickOutside()"></router-view>
-  <Footer @click.prevent="this.$refs.header.onClickOutside()" />
+  <router-view class="fade" @click="this.$refs.header.onClickOutside()"></router-view>
+  <Footer @click="this.$refs.header.onClickOutside()" />
 </template>
 
 <script setup>
