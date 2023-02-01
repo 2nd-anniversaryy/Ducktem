@@ -63,15 +63,15 @@
                   <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL"/>
                   <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" >
                   </label>
-                  <span  class="img-delete thumbNail" id="0" @click="imageDelete"></span>
+                  <span v-if="this.isImageDelete[0]" class="img-delete thumbNail" id="0" @click="imageDelete"></span>
                 </div>
 
-                  <div class="input-box">
+                  <div class="input-box" >
                     <label>
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
                       <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" >
                     </label>
-                    <span  class="img-delete" id="1" @click="imageDelete"></span>
+                    <span v-if="this.isImageDelete[1]" class="img-delete" id="1" @click="imageDelete"></span>
                   </div>
 
                   <div class="input-box">
@@ -79,7 +79,7 @@
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
                       <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2">
                     </label>
-                    <span  class="img-delete" id="2" @click="imageDelete"></span>
+                    <span v-if="this.isImageDelete[2]" class="img-delete" id="2" @click="imageDelete"></span>
                   </div>
 
                   <div class="input-box">
@@ -87,7 +87,7 @@
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
                       <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3">
                     </label>
-                    <span  class="img-delete" id="3" @click="imageDelete"></span>
+                    <span v-if="this.isImageDelete[3]" class="img-delete" id="3" @click="imageDelete"></span>
                   </div>
 
                 </div>
@@ -216,10 +216,10 @@
                 </div>
                 <div class="tag-box">
                   <span v-for="t in this.product.tagNames">
-                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear" @mouseleave="this.deleteDisappear"  >
-                    {{ t.name }}
-                    <span v-if="this.deleteOn" class="tag-delete" :id="t.id" @click.prevent="tagDelete" ></span>
-                  </div>
+                      <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear(t)" @mouseleave="this.deleteDisappear(t)"   >
+                            {{ t.name }}
+                            <span v-if="t.state" class="tag-delete" :id="t.id" @click.prevent="tagDelete" ></span>
+                      </div>
 
 <!--                  <input class="tag-hiddenBox" type="hidden" name="tag" v-model="t.name" />-->
                   </span>
@@ -303,10 +303,8 @@ export default {
       imageSrcDefault: '/image/icon/icon-image.svg',
       imageSrc:['/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg'],
       newImageSrc:[],
-      isImageDelete0:false,
-      isImageDelete1:false,
-      isImageDelete2:false,
-      isImageDelete3:false,
+      isImageDelete:[false,false,false,false],
+
       //====================     2번 페이지    ====================
       //카테고리 선택
       superCategoryList:[{name:"공식굿즈", id:1},{name:"비공식굿즈", id:2},{name:"대리티켓팅", id:3}],
@@ -323,7 +321,6 @@ export default {
       //태그
       tagIndex:0,
       newTag:null,
-      deleteOn: false,
       //====================     4번 페이지    ====================
       deliveryTypeList:[{name:"일반우편",id:1,logo:"📮"},{name:"준등기", id:2,logo:"✉️"},{name:"택배", id:3,logo:"📦"}],
 
@@ -390,6 +387,7 @@ export default {
         const url = URL.createObjectURL(imageFile)
 
         this.imageSrc[this.imageCount] = url
+        this.isImageDelete[this.imageCount] = true
         this.imageCount++;
         this.imageIndex++;
       }
@@ -414,12 +412,17 @@ export default {
       })
       let resultImageIndex= this.product.images.indexOf(resultImage);
 
-      this.product.images.splice(resultImageIndex,1)
-      this.imageSrc.splice(resultImageIndex,1)
-      this.imageSrc[3]=this.imageSrcDefault
+      this.product.images.splice(resultImageIndex,1);
+      this.imageSrc.splice(resultImageIndex,1);
+      this.imageSrc[3]=this.imageSrcDefault;
+
       for(let i=0;i<this.product.images.length;i++)
         this.product.images[i].id = i;
 
+      for(let i=0;i<4;i++) {
+        if(this.imageSrc[i] == this.imageSrcDefault)
+          this.isImageDelete[i] = false;
+      }
 
       this.imageCount--;
       this.imageIndex--;
@@ -466,7 +469,7 @@ export default {
       }
 
       if(this.tagIndex < 5) {
-        this.product.tagNames.push({id: this.tagIndex, name: this.newTag})
+        this.product.tagNames.push({id: this.tagIndex, name: this.newTag, state:false})
         this.newTag = ''
         this.tagIndex++;
       }
@@ -477,13 +480,14 @@ export default {
 
     },
 
-    deleteAppear(e){
-
-      this.deleteOn = true;
+    deleteAppear(t){
+      console.log(t)
+      console.log(t.state)
+      t.state = true;
     },
 
-    deleteDisappear(e){
-      this.deleteOn = false;
+    deleteDisappear(t){
+      t.state = false;
     },
 
     tagDelete(e){
