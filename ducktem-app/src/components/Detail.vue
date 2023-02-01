@@ -3,7 +3,7 @@
     <section class="main-wrap">
       <!-- 상품 이미지 -->
       <div class="product-img-wrap">
-        <img class="product-img" v-for="imgUrl in this.imgList" src="imgUrl" alt="" />
+        <img class="product-img" v-for="imgUrl in this.imgList" :src="imgUrl.imgUrl" alt="" />
       </div>
 
       <!-- 판매자 프로필 정보 -->
