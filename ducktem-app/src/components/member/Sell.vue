@@ -272,12 +272,13 @@ export default {
 
   data() {
     return {
-      //test코드
-      imageIndex:0,
+
+
 
       product:{name:'',price:'',description:'',deliveryType:'',category:'',condition:'',tagNames:[],images:[]},
       //====================     1번 페이지    ====================
       //이미지 입력을 위한 변수
+      imageIndex:0,
       imageCount: 0,
       imageSrcDefault: '/image/icon/icon-image.svg',
       imageSrc:['/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg'],
