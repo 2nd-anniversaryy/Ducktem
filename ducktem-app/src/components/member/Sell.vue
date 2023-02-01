@@ -1,26 +1,5 @@
 <template>
   <main class="main">
-    <!-- ====================     임시 콘솔 입니다. 삭제 예정     ==================== -->
-    <section style="border: 1px solid black; background-color: white; border-radius: 20px; width: 300px; padding: 10px;
-      position: fixed; bottom: 0px; right:0; z-index: 999; display: flex; flex-direction: column; align-items: center;">
-      <div style="text-align: center">구현끝나면삭제예정</div>
-      <div>
-
-        <div>{{this.imageSrc}}</div>
-        <br>
-        <div style="text-align: center">상품등록될 정보</div>
-        <br>
-        <div>name : {{this.product.name}}</div>
-        <div>price : {{this.product.price}}</div>
-        <div>description : {{this.product.description}}</div>
-        <div>deliveryType : {{this.product.deliveryType}}</div>
-        <div>category : {{this.product.category}}</div>
-        <div>tag : {{this.product.tagNames}}</div>
-        <div>image : 파일정보 : {{ this.product.images }} </div>
-
-      </div>
-    </section>
-    <!-- =========================================================================== -->
 
     <div class="background">
 
@@ -369,7 +348,8 @@ export default {
       });
 
       // const json = await response.json();
-      console.log(response);
+      console.log(response.headers);
+
 
     },
 
@@ -481,8 +461,6 @@ export default {
     },
 
     deleteAppear(t){
-      console.log(t)
-      console.log(t.state)
       t.state = true;
     },
 
