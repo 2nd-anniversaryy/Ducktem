@@ -63,9 +63,7 @@
       <section class="product-card-component">
         <h1 class="detail-user-others">이 판매자의 다른 물건</h1>
         <div class="product-flex">
-          <div class="product-wrap">
-            <product-component :products="otherProductList" />
-          </div>
+          <div class="product-wrap"><product-component :products="otherProductList" :pageName="true" @refresh="fetchProductDetail" /></div>
         </div>
       </section>
 
