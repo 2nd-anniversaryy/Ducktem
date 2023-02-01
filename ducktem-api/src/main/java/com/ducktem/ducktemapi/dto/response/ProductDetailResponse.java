@@ -45,7 +45,7 @@ public class ProductDetailResponse {
 			.price(product.getPrice())
 			.description(product.getDescription())
 			.condition(product.getCondition())
-			.hit(product.getHit() + 1)
+			.hit(product.getHit())
 			.updateDate(TimeFormatter.nTimeAgo(product.getUpdateDate()))
 			.imgNames(ProductImageResponse.from(product.getProductImageList()))
 			.superCategory(product.getCategory().getSuperCategory().getName())
