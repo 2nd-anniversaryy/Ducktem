@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public List<ProductPreviewResponse> getList(Pageable pageable) {
 
-		return productRepository.findAll(pageable)
+		return productRepository.findAllByOrderByIdDesc(pageable)
 				.map(ProductPreviewResponse::from)
 				.toList();
 	}
