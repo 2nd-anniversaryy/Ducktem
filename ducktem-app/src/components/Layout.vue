@@ -1,6 +1,6 @@
 <template>
   <Header ref="header" />
-  <router-view @click.prevent="this.$refs.header.onClickOutside()"></router-view>
+  <router-view class="fade" @click.prevent="this.$refs.header.onClickOutside()"></router-view>
   <Footer @click.prevent="this.$refs.header.onClickOutside()" />
 </template>
 
@@ -9,4 +9,6 @@ import Header from './Header.vue';
 import Footer from './Footer.vue';
 </script>
 
-<style></style>
+<style>
+
+</style>

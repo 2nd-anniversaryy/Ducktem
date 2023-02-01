@@ -45,3 +45,17 @@ main {
   margin-top: 50px;
   background-color: rgba(240, 248, 255, 0.202);
 }
+
+.fade {
+  animation: fade 1.3s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
