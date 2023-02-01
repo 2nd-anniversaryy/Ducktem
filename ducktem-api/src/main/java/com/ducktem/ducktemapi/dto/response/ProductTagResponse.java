@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductTagResponse {
+	private Long id;
 	private String name;
 
 	public static List<ProductTagResponse> from(List<Tag> tagList) {
-		return tagList.stream().map(Tag::getName).map(ProductTagResponse::new).toList();
+		return tagList.stream().map(tag -> new ProductTagResponse(tag.getId(), tag.getName())).toList();
 	}
 }
