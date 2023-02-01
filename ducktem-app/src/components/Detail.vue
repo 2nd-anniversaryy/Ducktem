@@ -111,8 +111,16 @@ export default {
   },
   methods: {
     async fetchProductDetail() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
       try {
-        const response = await fetch(`http://localhost:8080/products/${this.$route.query.id}`);
+        const response = await fetch(`http://localhost:8080/products/${this.$route.query.id}`, {
+          headers: {
+            Authorization: myInfoForAuth,
+          },
+        });
         const json = await response.json();
         this.detailProductInfo = json;
         this.sellProductSize = this.detailProductInfo.otherProductsSize;
