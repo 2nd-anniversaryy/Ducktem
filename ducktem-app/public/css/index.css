@@ -4,14 +4,14 @@
   position: relative;
 }
 
-.banner-wrap {
+/* .banner-wrap {
   width: 300vw;
   transition: transform 1s;
-}
+} */
 
 .banner-wrap .inner {
   width: 100vw;
-  float: left;
+  /* float: left; */
 }
 
 .inner img {
@@ -34,7 +34,7 @@
 
 .vector-right {
   position: absolute;
-  left: 88%;
+  right: 1%;
   top: 43%;
   width: 40px;
   height: 40px;

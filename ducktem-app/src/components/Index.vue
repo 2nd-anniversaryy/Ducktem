@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="main-wrap">
-      <div class="banner-container">
+      <!-- <div class="banner-container">
         <div class="banner-wrap">
           <div class="inner">
             <img class="banner1" src="/image/big-banner.png" alt="banner" />
@@ -13,8 +13,28 @@
             <img class="banner3" src="/image/big-banner2.png" alt="banner" />
           </div>
         </div>
-        <img class="vector-left" src="/image/icon/꺽쇠.svg" alt="" />
-        <img class="vector-right" src="/image/icon/꺽쇠.svg" alt="" />
+      </div> -->
+
+      <!-- 배너 -->
+      <div class="banner-container">
+        <div class="banner-wrap">
+          <!-- <div class="inner" v-for="banner in banners" :key="banner">
+            <img class="banner" :src="banner.img" v-if="banners[0]" />
+          </div> -->
+          <div class="inner">
+            <transition name="banner">
+              <img class="banner" :src="banners[index]" />
+            </transition>
+          </div>
+          <!-- <div class="inner">
+            <img class="banner" :src="banners[1]" />
+          </div>
+          <div class="inner">
+            <img class="banner" :src="banners[2]" />
+          </div> -->
+        </div>
+        <img class="vector-left" src="/image/icon/꺽쇠.svg" @click="changeBannerLeft" />
+        <img class="vector-right" src="/image/icon/꺽쇠.svg" @click="changeBannerRight" />
       </div>
 
       <section>
@@ -93,6 +113,13 @@ export default {
     return {
       productList: [],
       e: false,
+
+      index: 0,
+      banners: [
+        '/image/big-banner.png',
+        '/image/big-banner1.png',
+        '/image/big-banner2.png'
+      ]
     };
   },
   components: {
@@ -120,6 +147,22 @@ export default {
       } finally {
       }
     },
+
+    // 배너 좌우버튼
+    changeBannerLeft() {
+      if (this.index > 0) {
+        this.banners[this.index--];
+      }
+      console.log('left');
+    },
+
+    changeBannerRight() {
+      if (this.index < 2) {
+        this.banners[this.index++];
+      }
+      console.log('right');
+    },
+
   },
   computed: {
     goListPage() {
@@ -131,4 +174,22 @@ export default {
 
 <style scoped>
 @import '/css/index.css';
+
+.banner-enter-active {
+  animation: fade 0.5s;
+}
+
+.banner-leave-active {
+  animation: fade 0.5s reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 </style>

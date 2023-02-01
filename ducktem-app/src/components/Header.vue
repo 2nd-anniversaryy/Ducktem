@@ -7,7 +7,8 @@
             <img class="menu-img" src="/image/icon/menu-black.svg" alt="" />
           </div>
 
-          <div class="menu-bar-category active slide-right" v-if="sideBarWrap == true">
+          <!-- <transition name="side"> -->
+          <div class="menu-bar-category slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
               <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
               <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
@@ -37,6 +38,7 @@
               <li>1:1문의하기</li>
             </ul>
           </div>
+          <!-- </transition> -->
         </nav>
 
         <img class="logo" src="/image/logo.png" alt="로고" @click="goMain" />
@@ -157,7 +159,7 @@ export default {
     sideBarOpen() {
       if (!this.sideBarWrap) {
         this.sideBarWrap = true;
-      } else if (this.sideBarWrap) {
+      } else if (this.sideBarWrap === true) {
         this.sideBarWrap = false;
       }
     },

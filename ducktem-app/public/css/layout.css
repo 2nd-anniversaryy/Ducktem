@@ -109,16 +109,22 @@ header {
 
 .slide-right {
   z-index: 497;
-  animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-right 0.5s ease;
 }
+
+/* .side-enter-active {
+  animation: slide-right ease;
+}
+
+.side-leave-active {
+  animation: slide-right ease reverse;
+} */
 
 @keyframes slide-right {
   0% {
-    opacity: 0;
     transform: translateX(-360px);
   }
   100% {
-    opacity: 1;
     transform: translateX(0px);
   }
 }
@@ -152,19 +158,14 @@ header {
   z-index: 2;
 }
 
-.menu-bar-category {
+/* .menu-bar-category {
   visibility: hidden;
-}
+} */
 
 /* active */
-.menu-bar-category.active {
+/* .menu-bar-category.active {
   visibility: visible;
-}
-
-.burger-icon.active {
-  max-width: 100%;
-  visibility: visible;
-}
+} */
 
 /* @media (min-width: 768px) {
   .menu-bar-category {
