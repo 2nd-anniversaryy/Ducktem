@@ -10,4 +10,6 @@ import com.ducktem.ducktemapi.entity.ProductImage;
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
 	Optional<List<ProductImage>> findByThumbNail(byte thumbNail);
 
+	Optional<ProductImage> findByName(String name);
+
 }

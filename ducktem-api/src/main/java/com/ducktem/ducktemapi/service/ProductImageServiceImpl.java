@@ -60,4 +60,14 @@ public class ProductImageServiceImpl implements ProductImageService {
 	public void delete(Long id) {
 		imageRepository.deleteById(id);
 	}
+
+	@Override
+	@Transactional
+	public void update(MultipartFile[] files, List<String> imgUrl, Product product) {
+		imgUrl.stream().map(imageRepository::findByName).forEach(productImage -> {
+			if (productImage.isEmpty()) {
+				add(files, product);
+			}
+		});
+	}
 }
