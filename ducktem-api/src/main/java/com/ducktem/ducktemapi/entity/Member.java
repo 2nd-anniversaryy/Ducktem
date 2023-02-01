@@ -1,6 +1,7 @@
 package com.ducktem.ducktemapi.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -48,7 +49,7 @@ public class Member {
 	private String profileImg;
 	private String intro;
 	@Temporal(TemporalType.TIMESTAMP)
-	private String regDate;
+	private Date regDate;
 	private float level;
 	@Enumerated(EnumType.STRING)
 	private MemberStatus status;

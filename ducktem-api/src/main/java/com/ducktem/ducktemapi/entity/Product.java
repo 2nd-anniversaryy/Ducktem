@@ -1,6 +1,7 @@
 package com.ducktem.ducktemapi.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -49,10 +50,10 @@ public class Product {
 	private int hit;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "regDate")
-	private String regDate;
+	private Date regDate;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateDate")
-	private String updateDate;
+	private Date updateDate;
 	@OneToMany(mappedBy = "product")
 	List<Tag> tag = new ArrayList<>();
 	//프로덕트 이미지와 양방향 관계 설정.

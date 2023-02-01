@@ -22,12 +22,15 @@
         </section>
 
         <section class="title">
-          <div class="selling-btn">판매중 {{ myProductList.length }}</div>
-          <div class="wish-list-btn">찜 상품 0</div>
+          <div class="selling-btn" @click="fetchMyProductList">판매중 {{ myProductList.length }}</div>
+          <div class="wish-list-btn" @click="fetchMyWishList">찜 상품 {{myWishList.length}}</div>
         </section>
         <div class="product-flex">
-          <section class="product-wrap product-page">
+          <section v-if="myProduct" class="product-wrap product-page">
             <product-component :products="myProductList" />
+          </section>
+          <section v-if="myWish" class="product-wrap wish-page">
+            <product-component :products="myWishList" />
           </section>
         </div>
       </section>
@@ -86,6 +89,9 @@ export default {
     return {
       myInfo: [],
       myProductList: [],
+      myWishList: [],
+      myProduct : true,
+      myWish : true,
       e1: false,
       e2: false,
     };
@@ -95,6 +101,7 @@ export default {
   },
   mounted() {
     this.fetchMyInfo();
+    this.fetchMyWishList();
     this.fetchMyProductList();
   },
   methods: {
@@ -112,6 +119,23 @@ export default {
       } finally {
       }
     },
+    async fetchMyWishList() {
+      try {
+        console.log("이게 안켜짐.")
+        const response = await fetch('http://localhost:8080/products/wish', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
+          },
+        });
+        const json = await response.json();
+        this.myWishList = json;
+      } catch (e) {
+        this.e2 = e;
+      } finally {
+        this.myProduct = false;
+        this.myWish = true;
+      }
+    },
     async fetchMyProductList() {
       try {
         const response = await fetch('http://localhost:8080/products/me', {
@@ -124,9 +148,12 @@ export default {
       } catch (e) {
         this.e2 = e;
       } finally {
+        this.myProduct = true;
+        this.myWish = false;
       }
-    },
+    }
   },
+
   computed: {
     goMyInfo() {
       this.$router.push('/my-info');
