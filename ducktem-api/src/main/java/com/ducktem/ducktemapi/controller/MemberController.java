@@ -45,10 +45,15 @@ public class MemberController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MemberInfoResponse> updateInfo(@RequestBody MemberInfoRequest memberInfoRequest, Authentication authentication) {
+	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication) {
 		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 
+	@GetMapping
+	public ResponseEntity<String> getUserId(@RequestBody LoginRequest loginRequest) {
+		return new ResponseEntity<>(memberService.get(loginRequest).getUserId(), HttpStatus.OK);
+
+	}
 	@PostMapping("/members/test")
 	public String test() {
 		return "권한 성공";
