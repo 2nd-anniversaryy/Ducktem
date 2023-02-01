@@ -1,3 +1,6 @@
 spring:
+  output:
+    ansi:
+      enabled: always
   config:
     import: application-jpa.yml , application-token.yml

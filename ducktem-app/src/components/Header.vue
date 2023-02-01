@@ -7,7 +7,7 @@
             <img class="menu-img" src="/image/icon/menu-black.svg" alt="" />
           </div>
 
-          <div class="menu-bar-category active" v-if="sideBarWrap == true">
+          <div class="menu-bar-category active slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
                 <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
               <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
@@ -58,7 +58,7 @@
     </section>
 
     <!-- 검색 창 -->
-    <section class="search-wrap" v-if="searchBarWrap == true">
+    <section class="search-wrap slide-bottom" v-if="searchBarWrap == true">
       <div class="search-input-wrap">
         <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기" />
         <div class="input-container">
