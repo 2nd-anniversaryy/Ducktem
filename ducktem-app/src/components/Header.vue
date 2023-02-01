@@ -9,7 +9,7 @@
 
           <div class="menu-bar-category active slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
-                <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
+              <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
               <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
               <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
@@ -62,7 +62,7 @@
       <div class="search-input-wrap">
         <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기" />
         <div class="input-container">
-          <input class="effect-1" type="text" placeholder="상품을 검색해주세요.">
+          <input class="effect-1" type="text" placeholder="상품을 검색해주세요." />
           <span class="focus-border"></span>
         </div>
         <img class="search-input-icon" src="/image/icon/search.svg" alt="검색" />
@@ -153,9 +153,16 @@ export default {
     };
   },
   methods: {
+    onClickOutside() {
+      this.alarmWrap = false;
+      this.searchBarWrap = false;
+      this.sideBarWrap = false;
+    },
     // side bar
     sideBarOpen() {
       if (!this.sideBarWrap) {
+        this.alarmWrap = false;
+        this.searchBarWrap = false;
         this.sideBarWrap = true;
       } else if (this.sideBarWrap) {
         this.sideBarWrap = false;
@@ -210,6 +217,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
