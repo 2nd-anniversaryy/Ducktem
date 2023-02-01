@@ -94,10 +94,11 @@ export default {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },
           body: formData,
-        }).then(console.log(response));
+        });
       } catch (e) {
-        this.e = e;
+        alert(e);
       } finally {
+        alert("정상적으로 업데이트 됐습니다.")
       }
     },
     goToLeave() {
