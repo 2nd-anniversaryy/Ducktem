@@ -18,6 +18,9 @@ export default {
       let myInfoForAuth;
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      } else {
+        alert('로그인이 필요한 서비스 입니다.');
+        this.$router.push('/login');
       }
       try {
         const response = await fetch(`http://localhost:8080/wish/${productId}`, {
