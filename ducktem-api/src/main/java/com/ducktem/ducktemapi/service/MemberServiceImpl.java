@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
 import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
@@ -74,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest) {
+	public MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest, MultipartFile file) {
 		Member member = memberRepository.findByUserId(userId)
 			.orElseThrow(() -> new MemberException("잘못된 접근입니다."));
 
@@ -84,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 			.ifPresent(member::setNickName);
 		Optional.ofNullable(memberInfoRequest.getIntro())
 			.ifPresent(member::setIntro);
-		Optional.ofNullable(ImageUtil.profileImgSave(memberInfoRequest.getFile()))
+		Optional.ofNullable(ImageUtil.profileImgSave(file))
 			.ifPresent(member::setProfileImg);
 
 		return MemberInfoResponse.from(member);

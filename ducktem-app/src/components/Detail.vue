@@ -1,18 +1,25 @@
 <template>
   <main>
     <section class="main-wrap">
+      <!-- 상품 이미지 -->
       <div class="product-img-wrap">
         <img class="product-img" src="/image/product-img.jpg" alt="" />
       </div>
 
+      <!-- 판매자 프로필 정보 -->
       <section class="profile-container">
         <img class="profile-img" src="/image/prof-img.jpg" alt="" />
         <!-- <h1>{{ detailProduct.regMemberId }}</h1> -->
         <h1>sdlkjflksdjflksdjf</h1>
-        <span class="product-count">판매상품 6</span>
-
+        <div class="product-count-and-update-product">
+          <span class="product-count">판매상품 6</span>
+          <span class="update-product">상품수정</span>
+        </div>
       </section>
-      <hr>
+
+      <div class="line"></div>
+
+      <!-- 상품 상세정보 -->
       <section class="detail-container">
         <div class="detail-container-title">
           <!-- <h1>{{ detailProduct.name }}</h1> -->
@@ -21,7 +28,7 @@
           <span class="detail-category">dfsdfsdf>sdfsdfsdfsdf</span>
 
           <!-- <span>{{ detailProduct.updateDate }}</span> -->
-          <span>14전</span>
+          <span>14분전</span>
 
         </div>
         <div class="detail-icon">
@@ -32,11 +39,20 @@
 
           </div>
         </div>
-        <!-- <p>{{ detailProduct.description }}</p> -->
-        <p>ㄴㅇㅁㄹㄴㄹㅇㄴㅇㄹ</p>
 
       </section>
-      <section>
+
+      <!-- 상품설명단락 -->
+      <!-- <p class="product-explain">{{ detailProduct.description }}</p> -->
+      <p class="product-explain">
+        맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널
+        맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널
+        맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널맂더라ㅣㅈ더라ㅣㄴ어리ㅏㅇ널
+        맂더라ㅣㅈ더라ㅣㄴ어리맂더라ㅣㅈ더라ㅣㄴ어리맂더라ㅣㅈ더라ㅣㄴ어리
+      </p>
+
+      <!-- 상품 태그 -->
+      <section class="product-tag-wrap">
         <ul class="detail-button">
           <li><a class="btn btn-tag" href="">Newjeans</a></li>
           <li><a class="btn btn-tag" href="">포카</a></li>
@@ -45,15 +61,20 @@
           <li><a class="btn btn-tag" href="">Aespa</a></li>
         </ul>
       </section>
+
+      <!-- 상품 설정 정보 -->
       <section class="detail-spec-container">
         <ul>
           <!-- <li>상품상태 {{ detailProduct.condition }}</li> -->
-          <li>상품상태 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄹㄴㅇㄴㅇㄹㄴㅇㄹ</li>
+          <li>상품상태: ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄹㄴㅇㄴㅇㄹㄴㅇㄹ</li>
 
-          <li>배송방법</li>
+          <li>배송방법: 등기</li>
         </ul>
       </section>
-      <section>
+
+      <div class="line"></div>
+
+      <section class="product-card-component">
         <h1 class="detail-user-others">이 판매자의 다른 물건</h1>
         <div class="product-flex">
           <div class="product-wrap">
@@ -62,15 +83,16 @@
         </div>
       </section>
 
+      <!-- 찜, 가격, 톡버튼 -->
       <section class="bottom-bar-wrap">
         <div class="bottom-bar">
-          <div><img src="/image/icon/heart.svg" alt="" /><label for="">2</label></div>
-          <div>
-            <span>{{ detailProduct.price }}</span>
-            <span>214124124</span>
+          <div class="wish-img-wrap"><img src="/image/icon/heart.svg" alt="" /></div>
+          <div class="product-price-wrap">
+            <!-- <span class="product-price">{{ detailProduct.price }}</span> -->
+            <span class="product-price">80,000원</span>
 
           </div>
-          <div>
+          <div class="chat-btn-wrap">
             <button class="btn btn-default" @click="goChattingPage">덕템톡</button>
           </div>
         </div>

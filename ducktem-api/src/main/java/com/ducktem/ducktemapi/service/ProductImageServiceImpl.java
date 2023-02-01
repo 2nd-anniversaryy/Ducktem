@@ -40,7 +40,9 @@ public class ProductImageServiceImpl implements ProductImageService {
 	public void add(MultipartFile[] files, Product product) {
 		int i = 0;
 		for (MultipartFile file : files) {
+
 			String imgUrl = ImageUtil.productImgSave(file);
+
 			if (imgUrl != null) {
 				if (i == 0) {
 					imageRepository.save(

@@ -2,6 +2,8 @@ package com.ducktem.ducktemapi.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
 import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
 import com.ducktem.ducktemapi.dto.response.MemberInfoResponse;
@@ -18,5 +20,5 @@ public interface MemberService {
 
 	MemberInfoResponse getInfo(String name);
 
-	MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest);
+	MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest, MultipartFile file);
 }
