@@ -26,7 +26,7 @@ const router = createRouter({
         // member
         { path: 'sell', component: () => import('/src/components/member/Sell.vue') },
         {
-          path: 'update-product',
+          path: `update-product/:productId`,
           component: () => import('/src/components/member/UpdateProduct.vue'),
         },
 

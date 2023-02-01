@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <img v-if="myStatus == 0" @click.prevent="checkClickHandler(id)" class="wish" src="/image/icon/heart.svg" alt="찜" />
-    <img v-if="myStatus != 0" @click.prevent="unCheckClickHandler(id)" class="wish checked" src="/image/icon/icon-heart-red.svg" alt="찜" />
-  </div>
+  <img v-if="myStatus == 0" class="wish" @click.prevent="checkClickHandler(id)" src="/image/icon/heart.svg" alt="찜" />
+  <img v-if="myStatus != 0" class="wish checked" @click.prevent="unCheckClickHandler(id)" src="/image/icon/icon-heart-red.svg" alt="찜" />
 </template>
 
 <script>
