@@ -7,6 +7,6 @@ import com.ducktem.ducktemapi.entity.ProductTag;
 
 public interface ProductTagRepository extends JpaRepository<ProductTag,Long> {
 
+	void deleteById(Long id);
 
-	void deleteByProductId(Long id);
 }
