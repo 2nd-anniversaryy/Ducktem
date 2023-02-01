@@ -51,7 +51,7 @@ public class MemberController {
 		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 
-	@GetMapping
+	@PostMapping("/confirm")
 	public ResponseEntity<String> getUserId(@RequestBody LoginRequest loginRequest) {
 		return new ResponseEntity<>(memberService.get(loginRequest).getUserId(), HttpStatus.OK);
 

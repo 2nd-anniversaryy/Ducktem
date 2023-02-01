@@ -121,7 +121,6 @@ export default {
     },
     async fetchMyWishList() {
       try {
-        console.log("이게 안켜짐.")
         const response = await fetch('http://localhost:8080/products/wish', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,

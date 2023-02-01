@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ducktem.ducktemapi.dto.request.ProductRegisterRequest;
+import com.ducktem.ducktemapi.dto.request.ProductUpdateRequest;
 import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.dto.response.WishListResponse;
@@ -149,10 +150,11 @@ public class ProductController {
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request,
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request,
 		@RequestPart MultipartFile[] files) {
 		Product product = productservice.update(request, id);
-		productImageService.add(files, product);
+		// productImageService.add(files, product);
+		productImageService.update(files, request.getImgUrl(),product);
 		productTagService.add(request.getTagNames(), product);
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
