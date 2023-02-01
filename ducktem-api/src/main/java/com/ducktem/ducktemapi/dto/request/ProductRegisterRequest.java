@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ProductRegisterRequest {
 	private String name;
 	private Long price;
@@ -18,7 +20,6 @@ public class ProductRegisterRequest {
 	private String condition;
 	private String deliveryType;
 	private String[] tagNames;
-	private MultipartFile[] files;
-	private Integer category;
+	private int category;
 
 }

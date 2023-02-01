@@ -17,5 +17,4 @@ public class MemberInfoRequest {
 	private String nickName;
 	private String intro;
 	private String email;
-	private MultipartFile file;
 }

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ducktem.ducktemapi.dto.request.LoginRequest;
 import com.ducktem.ducktemapi.dto.request.MemberInfoRequest;
@@ -45,8 +47,8 @@ public class MemberController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication) {
-		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
+	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication, @RequestPart MultipartFile file) {
+		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest,file), HttpStatus.OK);
 	}
 
 	@GetMapping
