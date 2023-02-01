@@ -1,5 +1,38 @@
 <template>
   <main>
+    <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
+    <section
+        style="
+        border: 1px solid black;
+        background-color: white;
+        border-radius: 20px;
+        width: 300px;
+        padding: 10px;
+        position: fixed;
+        bottom: 0px;
+        right: 0;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+      "
+    >
+      <div style="text-align: center">구현끝나면삭제예정</div>
+      <div>
+
+        <div>productId : {{this.productId}}</div><br>
+        <div>myProductList.imgNames : {{this.myProductList.imgNames}}</div><br>
+        <div>imageIndex : {{this.imageIndex}}</div><br>
+        <div>imageCount : {{this.imageCount}}</div><br>
+<!--        <div>imageSrc : {{this.imageSrc}}</div><br>-->
+        <div>productId : {{this.productId}}</div><br>
+
+
+
+      </div>
+    </section>
+    <!-- =========================================================================== -->
 
     <div class="update-product-form-wrap">
     <div class="update-product-title">
@@ -53,6 +86,8 @@
           <span class="img-num">{{this.imageCount}}</span> <span>/4</span>
         </div>
       </div>
+
+
 
       <div class="update-product-name">
         <div class="input-title">상품 제목</div>
@@ -209,9 +244,15 @@ export default {
 
       //==========화면에 보여주기 위한 코드==============
       //이미지 불러오기, 이미지 갯수 불러오기
-      for(let i=0;i<this.myProductList.imgNames.length;i++)
-        this.imageSrc[i] = this.myProductList.imgNames[i].imgUrl;
       this.imageCount = this.myProductList.imgNames.length
+      for(let i=0;i<this.myProductList.imgNames.length;i++) {
+        this.imageSrc[i] = this.myProductList.imgNames[i].imgUrl;
+        this.isImageDelete[i] = true
+        this.myProductList.imgNames[i]["indexId"] = i;
+      }
+
+
+
 
       //카테고리 결과 조합
       this.categoryResult = this.myProductList.superCategory + '>' + this.myProductList.subCategory;
@@ -222,8 +263,8 @@ export default {
     },
 
     async fetchUpdateMyproduct(id) {
-      //태그랑 이미지 싹 밀고 다시시작
-      await this.fetchDeleteMyproductTag(id)
+
+
       let formData = new FormData();
       formData.append('name',this.myProductList.name);
       formData.append('price',this.myProductList.price);
@@ -231,12 +272,17 @@ export default {
       formData.append('deliveryType',this.myProductList.deliveryType);
       formData.append('category',this.myProductList.subCategory);
       formData.append('condition',this.myProductList.condition);
-      for(let i in this.product.tagNames){
-        formData.append('tagNames',this.myProductList.tags);
+
+      for(let i in this.myProductList.tags){
+        formData.append('tagNames',this.myProductList.tags.name);
       }
-      for(let i in this.product.images) {
-        formData.append('files', this.myProductList.imageNames.imgUrl);
+      for(let i in this.myProductList.imageNames) {
+        if(i.id != null)
+          formData.append('imgUrl',i.imgUrl);
+
+        formData.append('files', this.myProductList.imageNames);
       }
+
       console.log(this.$store.state.tokenResponse.access);
       try {
         const response = await fetch(`http://localhost:8080/products/${id}`, {
@@ -253,7 +299,11 @@ export default {
         method:'DELETE',
       })
     },
-    async fetchDeleteMyproductImage(id) {},
+    async fetchDeleteMyproductImage(id) {
+      const response = await fetch(`http://localhost:8080/products/editImage/${id}`,{
+        method:'DELETE',
+      })
+    },
     goToLeave() {
       this.$router.push('leave');
     },
@@ -261,19 +311,22 @@ export default {
     //===이미지 수정
     imageUpload(e){
       if(this.imageCount<4){
+
+
+
+
         //-- 업로드된 이미지 저장
         let imageFile = e.target.files[0]
-        // this.product.images.push({id:this.imageCount,Files:imageFile});
-        this.myProductList.images.push({id: this.imageIndex, Files: imageFile}); //test코드
+        const url = URL.createObjectURL(imageFile)
+        this.myProductList.imgNames.push({indexId: this.imageCount, Files: imageFile, imgUrl: url }); //test코드=========
         //-- 업로드된 이미지 뿌려주기
 
-        const url = URL.createObjectURL(imageFile)
+
 
         this.imageSrc[this.imageCount] = url
         this.isImageDelete[this.imageCount] = true
         this.imageCount++;
         this.imageIndex++;
-        console.log(this.temp)
       }
       else
         alert("상품은 4개까지만 등록이 가능합니다.")
@@ -283,18 +336,26 @@ export default {
 
 
     imageDelete(e){
+      console.log(e.target.id)
 
-      let resultImage = this.myProductList.images.find((images)=> {
-        return images.id == e.target.id
+
+      let resultImage = this.myProductList.imgNames.find((images)=> {
+        return images.indexId == e.target.id
       })
-      let resultImageIndex= this.myProductList.images.indexOf(resultImage);
+      console.log(resultImage)
+      if(resultImage.id != null)
+          // this.fetchDeleteMyproductImage(id)//=========켜야됨!!!!!!!DB Delete!!!!!!!!!!!!!!!!!!!!!!!!
 
-      this.myProductList.images.splice(resultImageIndex,1);
+      console.log("내가 새로 입력한거")
+
+      let resultImageIndex= this.myProductList.imgNames.indexOf(resultImage);
+
+      this.myProductList.imgNames.splice(resultImageIndex,1);
       this.imageSrc.splice(resultImageIndex,1);
       this.imageSrc[3]=this.imageSrcDefault;
 
-      for(let i=0;i<this.myProductList.images.length;i++)
-        this.myProductList.images[i].id = i;
+      for(let i=0;i<this.myProductList.imgNames.length;i++)
+        this.myProductList.imgNames[i].indexId = i;
 
       for(let i=0;i<4;i++) {
         if(this.imageSrc[i] == this.imageSrcDefault)
@@ -332,12 +393,14 @@ export default {
         alert("태그는 5개까지만입력 가능합니다.")
       this.newTag = ''
 
-
+      console.log(this.myProductList.tags)
     },
 
     tagDelete(e){
+
+      this.fetchDeleteMyproductTag(parseInt(e.target.id))//DB Delete!!!!!!!!!!!!!!!!!!!!!!!!
       console.log(e)
-      console.log(e.target)
+      console.log(e.target.id)
 
       let resultTag = this.myProductList.tags.find((tags)=> {
         console.log(tags)
@@ -348,6 +411,8 @@ export default {
       let resultTagIndex= this.myProductList.tags.indexOf(resultTag);
       this.myProductList.tags.splice(resultTagIndex,1)
       this.tagIndex--;
+
+      console.log(this.myProductList.tags)
     },
 
 
