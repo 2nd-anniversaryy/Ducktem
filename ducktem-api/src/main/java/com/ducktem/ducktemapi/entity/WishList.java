@@ -1,5 +1,7 @@
 package com.ducktem.ducktemapi.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.*;
 @NoArgsConstructor
@@ -19,5 +21,5 @@ public class WishList {
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "userId", name = "memberId")
 	private Member member;
-	private String regDate;
+	private Date regDate;
 }

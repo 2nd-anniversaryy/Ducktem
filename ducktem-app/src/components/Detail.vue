@@ -22,7 +22,7 @@
       <section class="detail-container">
         <div class="detail-container-title">
           <h1>{{ detailProductInfo.name }}</h1>
-          <span class="detail-category">{{ detailProductInfo.superCategory }}+{{ detailProductInfo.subCategory }}</span>
+          <span class="detail-category">{{ detailProductInfo.superCategory }}>{{ detailProductInfo.subCategory }}</span>
 
           <span>{{ detailProductInfo.updateDate }}</span>
         </div>
@@ -41,11 +41,7 @@
       <!-- 상품 태그 -->
       <section class="product-tag-wrap">
         <ul class="detail-button">
-          <li><a class="btn btn-tag" href="">Newjeans</a></li>
-          <li><a class="btn btn-tag" href="">포카</a></li>
-          <li><a class="btn btn-tag" href="">Aespa</a></li>
-          <li><a class="btn btn-tag" href="">Aespa</a></li>
-          <li><a class="btn btn-tag" href="">Aespa</a></li>
+          <li v-for="tag in tags"><a class="btn btn-tag" href="">{{ tag.name }}</a></li>
         </ul>
       </section>
 
@@ -54,7 +50,7 @@
         <ul>
           <li>상품상태: {{ detailProductInfo.condition }}</li>
 
-          <li>배송방법: {{ detailProductInfo.condition }}</li>
+          <li>배송방법: {{ detailProductInfo.deliveryType }}</li>
         </ul>
       </section>
 
@@ -95,6 +91,8 @@ export default {
       otherProductList: [],
       regMemberInfo: [],
       imgList: [],
+      tags: [],
+      deliveryType: null,
       sellProductSize: null,
       e1: false,
       e2: false,
@@ -106,6 +104,7 @@ export default {
   },
   mounted() {
     this.fetchProductDetail();
+
   },
   methods: {
     async fetchProductDetail() {
@@ -125,6 +124,8 @@ export default {
         this.regMemberInfo = this.detailProductInfo.regMemberInfo;
         this.otherProductList = this.detailProductInfo.otherProducts;
         this.imgList = this.detailProductInfo.imgNames;
+        this.tags = this.detailProductInfo.tags;
+        this.deliveryType = this.detailProductInfo.deliveryType;
       } catch (e) {
         this.e1 = e;
       } finally {
