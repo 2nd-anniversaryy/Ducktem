@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -151,11 +152,9 @@ public class ProductController {
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request,
-		Authentication authentication) {
-		String regMemberId = authentication.getName();
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request, @RequestPart MultipartFile[] files) {
 		Product product = productservice.update(request, id);
-		productImageService.add(request.getFiles(), product);
+		productImageService.add(files, product);
 		productTagService.add(request.getTagNames(), product);
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
@@ -166,23 +165,22 @@ public class ProductController {
 		productservice.delete(id);
 		Product product = null;
 		// //tag랑 img도 삭제해야
-		// productImageService.deleteByProduct(id);
-		// productTagService.deleteByProduct(id);
 	}
 
-	// URL 고민해봐야... 
-	@PutMapping("{id}/{status}")
-	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status){
-		productservice.updateStatus(id, status);
-	}
-
-	@DeleteMapping("editImg/{imgId}")
+	// 아래 URL 고민해봐야... 
+	
+	@DeleteMapping("editImg/{imgId}")//이미지 삭제
 	public void deleteImage(@PathVariable Long id){
 		productImageService.delete(id);
 	}
 	
-	@DeleteMapping("editTag/{tagId}")
+	@DeleteMapping("editTag/{tagId}")//태그 삭제
 	public void deleteTag(@PathVariable Long id){
 		productTagService.delete(id);
+	}
+
+	@PutMapping("{id}/{status}")//상품 상태 변경 
+	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status){
+		productservice.updateStatus(id, status);
 	}
 }
