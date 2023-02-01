@@ -36,6 +36,7 @@ public class ProductDetailResponse {
 	private SalesStatus salesStatus;
 	@Setter
 	private int wishStatus;
+	private String deliveryType;
 
 	public static ProductDetailResponse from(Product product) {
 		return ProductDetailResponse.builder()
@@ -57,6 +58,7 @@ public class ProductDetailResponse {
 				.filter(memberProduct -> !Objects.equals(memberProduct.getId(), product.getId())).toList()))
 			.otherProductsSize(product.getMember().getProductList().size())
 			.salesStatus(product.getSalesStatus())
+			.deliveryType(product.getDeliveryType())
 			.build();
 	}
 }

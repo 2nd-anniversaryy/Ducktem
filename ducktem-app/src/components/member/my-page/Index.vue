@@ -114,7 +114,7 @@ export default {
     },
     async fetchMyProductList() {
       try {
-        const response = await fetch('http://localhost:8080/mypage', {
+        const response = await fetch('http://localhost:8080/products/me', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },

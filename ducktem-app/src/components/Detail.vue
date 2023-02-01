@@ -73,7 +73,7 @@
       <section class="bottom-bar-wrap">
         <div class="bottom-bar">
           <div class="wish-img-wrap">
-            <Wish :wishStatus="detailProductInfo.wishStatus" :id="detailProductInfo.id" />
+            <Wish :wishStatus="detailProductInfo.wishStatus" :id="detailProductInfo.productId" />
           </div>
           <div class="product-price-wrap">
             <span class="product-price">{{ detailProductInfo.price }} 원</span>

@@ -47,8 +47,8 @@ public class MemberController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication, @RequestPart MultipartFile file) {
-		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest,file), HttpStatus.OK);
+	public ResponseEntity<MemberInfoResponse> updateInfo(MemberInfoRequest memberInfoRequest, Authentication authentication) {
+		return new ResponseEntity<>(memberService.updateInfo(authentication.getName(),memberInfoRequest), HttpStatus.OK);
 	}
 
 	@GetMapping

@@ -75,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest, MultipartFile file) {
+	public MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest) {
 		Member member = memberRepository.findByUserId(userId)
 			.orElseThrow(() -> new MemberException("잘못된 접근입니다."));
 
@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 			.ifPresent(member::setNickName);
 		Optional.ofNullable(memberInfoRequest.getIntro())
 			.ifPresent(member::setIntro);
-		Optional.ofNullable(ImageUtil.profileImgSave(file))
+		Optional.ofNullable(ImageUtil.profileImgSave(memberInfoRequest.getFile()))
 			.ifPresent(member::setProfileImg);
 
 		return MemberInfoResponse.from(member);

@@ -20,5 +20,5 @@ public interface MemberService {
 
 	MemberInfoResponse getInfo(String name);
 
-	MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest, MultipartFile file);
+	MemberInfoResponse updateInfo(String userId, MemberInfoRequest memberInfoRequest);
 }
