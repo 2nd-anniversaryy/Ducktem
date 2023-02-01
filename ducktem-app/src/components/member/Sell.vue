@@ -216,10 +216,10 @@
                 </div>
                 <div class="tag-box">
                   <span v-for="t in this.product.tagNames">
-                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear" @mouseleave="this.deleteDisappear"  >
-                    {{ t.name }}
-                    <span v-if="this.deleteOn" class="tag-delete" :id="t.id" @click.prevent="tagDelete" ></span>
-                  </div>
+                      <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear(t)" @mouseleave="this.deleteDisappear(t)"   >
+                            {{ t.name }}
+                            <span v-if="t.state" class="tag-delete" :id="t.id" @click.prevent="tagDelete" ></span>
+                      </div>
 
 <!--                  <input class="tag-hiddenBox" type="hidden" name="tag" v-model="t.name" />-->
                   </span>
@@ -323,7 +323,6 @@ export default {
       //태그
       tagIndex:0,
       newTag:null,
-      deleteOn: false,
       //====================     4번 페이지    ====================
       deliveryTypeList:[{name:"일반우편",id:1,logo:"📮"},{name:"준등기", id:2,logo:"✉️"},{name:"택배", id:3,logo:"📦"}],
 
@@ -466,7 +465,7 @@ export default {
       }
 
       if(this.tagIndex < 5) {
-        this.product.tagNames.push({id: this.tagIndex, name: this.newTag})
+        this.product.tagNames.push({id: this.tagIndex, name: this.newTag, state:false})
         this.newTag = ''
         this.tagIndex++;
       }
@@ -477,13 +476,14 @@ export default {
 
     },
 
-    deleteAppear(e){
-
-      this.deleteOn = true;
+    deleteAppear(t){
+      console.log(t)
+      console.log(t.state)
+      t.state = true;
     },
 
-    deleteDisappear(e){
-      this.deleteOn = false;
+    deleteDisappear(t){
+      t.state = false;
     },
 
     tagDelete(e){
