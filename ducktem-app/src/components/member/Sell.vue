@@ -6,7 +6,7 @@
       <div style="text-align: center">구현끝나면삭제예정</div>
       <div>
 
-        <div>{{this.product}}</div>
+        <div>{{this.imageSrc}}</div>
         <br>
         <div style="text-align: center">상품등록될 정보</div>
         <br>
@@ -57,22 +57,37 @@
 
                 <div class="img-input-box">
 
-                <div class="input-box" v-for="i in this.thumbNailImageInputs">
+                <div class="input-box"> <!-- v-for="i in this.thumbNailImageInputs" -->
                   <span class="thumbNail-title">대표 이미지</span>
                   <label>
                   <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL"/>
-                  <img class="img-input thumbNail" src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                  <span class="img-delete thumbNail" @click="imageDelete"></span>
+                  <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" @click="imageUpload">
                   </label>
+                  <span  class="img-delete thumbNail" id="0" @click="imageDelete"></span>
                 </div>
 
-                  <div class="input-box" v-for="i in this.imageInputs">
+                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
                     <label>
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
-                      <img class="img-input " src="/image/icon/icon-image.svg" alt="" @click="imageUpload">
-                      <span class="img-delete thumbNail" @click="imageDelete"></span>
+                      <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" @click="imageUpload">
                     </label>
+                    <span  class="img-delete" id="1" @click="imageDelete"></span>
+                  </div>
 
+                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
+                    <label>
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
+                      <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2" @click="imageUpload">
+                    </label>
+                    <span  class="img-delete" id="2" @click="imageDelete"></span>
+                  </div>
+
+                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
+                    <label>
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
+                      <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3" @click="imageUpload">
+                    </label>
+                    <span  class="img-delete" id="3" @click="imageDelete"></span>
                   </div>
 
                 </div>
@@ -201,9 +216,9 @@
                 </div>
                 <div class="tag-box">
                   <span v-for="t in this.product.tagNames">
-                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear" @mouseleave="this.deleteDisappear" :class="t.id" @click.prevent="tagDelete">
+                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear" @mouseleave="this.deleteDisappear"  >
                     {{ t.name }}
-                    <span v-if="this.deleteOn" class="tag-delete"  ></span>
+                    <span v-if="this.deleteOn" class="tag-delete" :id="t.id" @click.prevent="tagDelete" ></span>
                   </div>
 
 <!--                  <input class="tag-hiddenBox" type="hidden" name="tag" v-model="t.name" />-->
@@ -274,7 +289,7 @@
 let id = 0
 
 export default {
-  props:['targetId'],
+  props:['targetId','targetid'],
   emits:['tagDelete'],
 
 
@@ -285,9 +300,13 @@ export default {
       //====================     1번 페이지    ====================
       //이미지 입력을 위한 변수
       imageCount: 0,
-      thumbNailImageInputs:1,
-      imageInputs : 3,
-
+      imageSrcDefault: '/image/icon/icon-image.svg',
+      imageSrc:['/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg','/image/icon/icon-image.svg'],
+      newImageSrc:[],
+      isImageDelete0:false,
+      isImageDelete1:false,
+      isImageDelete2:false,
+      isImageDelete3:false,
       //====================     2번 페이지    ====================
       //카테고리 선택
       superCategoryList:[{name:"공식굿즈", id:1},{name:"비공식굿즈", id:2},{name:"대리티켓팅", id:3}],
@@ -302,6 +321,7 @@ export default {
       //상품상태
       conditionList:[{name:"미개봉", id:1},{name:"거의새상품", id:2},{name:"사용감있는깨끗한상품", id:3},{name:"사용흔적이있는상품", id:4},{name:"하자가있는상품", id:5}],
       //태그
+      tagIndex:0,
       newTag:null,
       deleteOn: false,
       //====================     4번 페이지    ====================
@@ -339,7 +359,7 @@ export default {
         formData.append('tagNames',this.product.tagNames[i].name);
       }
       for(let i in this.product.images) {
-        formData.append('files', this.product.images[i]);
+        formData.append('files', this.product.images[i]['Files']);
       }
 
 
@@ -361,58 +381,56 @@ export default {
     // ====================     1번 페이지    ====================
     //--이미지 등록 함수
     imageUploadREAL(e){
-      this.product.images.push(e.target.files[0]);
+      //-- 업로드된 이미지 저장
+      let imageFile = e.target.files[0]
+      this.product.images.push({id:this.imageCount,Files:imageFile});
+
+      //-- 업로드된 이미지 뿌려주기
+
+      const url = URL.createObjectURL(imageFile)
+      console.log(url)
+      this.imageSrc[this.imageCount] = url
+      this.imageCount++;
+
+
+
     },
-    imageUpload(){
-      this.imageUploadREAL();
-      //
-      // let event = new MouseEvent("click", {
-      //   'view': window,
-      //   'bubbles': true,
-      //   'cancelable': true
-      // });
-      // let fileInput = e.target.previousElementSibling;
-      //
-      // fileInput.dispatchEvent(event);
-      //
-      // fileInput.oninput = function () {
-      //
-      //   let url = fileInput.files[0];
-      //
-      //   let reader = new FileReader();
-      //   reader.onload = (evt) => {
-      //
-      //     e.target.src = evt.target.result;
-      //
-      //   }
-      //   reader.readAsDataURL(url);
-      //
-      //   let imgDelete = e.target.nextElementSibling;
-      //   console.log(imgDelete);
-      //   imgDelete.classList.remove("d-none");
-      //
-      //
-      // }
-      // this.imageCount++;
+    imageUpload(e){
+      console.log(e.target.src)
+
+      //봐서 삭제
 
     },
 
 
     imageDelete(e){
+      console.log(e.target.id)
 
-      // const imgInputBoxContainer = document.querySelector(".input-box-container");
-      let imgDelete = e.target;
-      //
-      imgDelete.parentElement.remove();
+      let resultImage = this.product.images.find((images)=> {
+        console.log(images)
+        return images.id == e.target.id
+      })
+      let resultTagIndex= this.product.images.indexOf(resultImage);
 
-      // imgInputBoxContainer.insertAdjacentHTML("beforeend", FileInput);
+      console.log(resultImage)
+      console.log(resultTagIndex)
+
+      this.product.images.splice(resultTagIndex,1)
+
+      for(let i=0;i<(this.imageCount-resultTagIndex);i++)
+        this.imageSrc[resultTagIndex] = this.imageSrc[resultTagIndex+1]
+
+      this.imageSrc[this.imageCount-1]=this.imageSrcDefault
+
+      console.log(this.product.images)
 
       this.imageCount--;
-      this.imageInputs++;
-      this.thumbNailImageInputs++;
 
-      console.log(this.imageInputs);
+
+
     },
+
+
 
 
 
@@ -456,15 +474,16 @@ export default {
         return;
       }
 
-      if(id < 5) {
-        this.product.tagNames.push({id: id++, name: this.newTag})
+      if(this.tagIndex < 5) {
+        this.product.tagNames.push({id: this.tagIndex, name: this.newTag})
         this.newTag = ''
+        this.tagIndex++;
       }
       else
         alert("태그는 5개까지만입력 가능합니다.")
       this.newTag = ''
 
-
+      console.log(this.tagIndex)
 
     },
 
@@ -478,12 +497,10 @@ export default {
     },
 
     tagDelete(e){
-      console.log(e.class)
-      console.log(e)
-      console.log(e.target.id)
-      // e.target.parentElement.remove();
-
-
+      let resultTag = this.product.tagNames.find((tags)=> tags.id == e.target.id)
+      let resultTagIndex= this.product.tagNames.indexOf(resultTag);
+      this.product.tagNames.splice(resultTagIndex,1)
+      this.tagIndex--;
     },
 
     // <!-- ====================     4번 페이지    ==================== -->
