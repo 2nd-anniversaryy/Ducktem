@@ -12,7 +12,7 @@
       <section class="signup-form">
         <h1 class="d-none">회원가입</h1>
 
-        <form action="signup">
+        <form action="signUp">
           <!-- 백에서 사용할 로그인 함수이름-->
 
           <div class="signup-container">
@@ -29,7 +29,7 @@
             <div>
               <label class="required" for="password">비밀번호</label>
               <input id="password" type="password" required placeholder="비밀번호를 입력해주세요." />
-              <input id="password" type="password" required placeholder="비밀번호를 입력해주세요." />
+              <input id="password" type="password" required placeholder="비밀번호를 확인해주세요." />
             </div>
 
             <div>
@@ -209,7 +209,7 @@
           </div>
 
           <div>
-            <a href="sign-up-ending.html" class="btn btn-default btn-margin">동의하고 가입하기</a>
+            <a class="btn btn-default btn-margin" @click.prevent="signUp">동의하고 가입하기</a>
           </div>
         </form>
       </section>
@@ -218,7 +218,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      name: '',
+      userId: '',
+      pwd: '',
+      nickName: '',
+      email: '',
+      phoneNumber: '',
+      regDate: '',
+      returnSecureToken: '',
+    }
+  },
+  methods: {
+    signUp() {
+
+    }
+  },
+};
 </script>
 
 <style scoped>

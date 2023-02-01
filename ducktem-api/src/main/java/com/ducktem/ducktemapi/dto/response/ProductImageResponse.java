@@ -14,12 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductImageResponse {
+	private Long id;
 	private String imgUrl;
 
 	public static List<ProductImageResponse> from(List<ProductImage> productImageList) {
-		return productImageList.stream()
-			.map(ProductImage::getName)
-			.map(ProductImageResponse::new)
-			.toList();
+		return productImageList.stream().map(image -> new ProductImageResponse(image.getId(),image.getName())).toList();
 	}
 }
