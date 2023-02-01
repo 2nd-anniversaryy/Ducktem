@@ -228,15 +228,15 @@ export default {
       formData.append('name',this.myProductList.name);
       formData.append('price',this.myProductList.price);
       formData.append('description',this.myProductList.description);
-      // formData.append('deliveryType',this.product.deliveryType);
-      // formData.append('category',this.product.category);
+      formData.append('deliveryType',this.myProductList.deliveryType);
+      formData.append('category',this.myProductList.subCategory);
       formData.append('condition',this.myProductList.condition);
       for(let i in this.product.tagNames){
-        formData.append('tagNames',this.product.tags[i].name);
+        formData.append('tagNames',this.myProductList.tags);
       }
-      // for(let i in this.product.images) {
-      //   formData.append('files', this.product.images[i]['Files']);
-      // }
+      for(let i in this.product.images) {
+        formData.append('files', this.myProductList.imageNames.imgUrl);
+      }
       console.log(this.$store.state.tokenResponse.access);
       try {
         const response = await fetch(`http://localhost:8080/products/${id}`, {
@@ -249,7 +249,9 @@ export default {
       }
     },
     async fetchDeleteMyproductTag(id) {
-      const response = await fetch(`http://localhost:8080/products/editTag/${id}`)
+      const response = await fetch(`http://localhost:8080/products/editTag/${id}`,{
+        method:'DELETE',
+      })
     },
     async fetchDeleteMyproductImage(id) {},
     goToLeave() {
