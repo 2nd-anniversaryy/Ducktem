@@ -11,10 +11,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "Tag")
 public class Tag {
@@ -25,5 +27,6 @@ public class Tag {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "productId")
 	private Product product;
+	private byte ban;
 
 }

@@ -77,22 +77,7 @@
 
       <div class="product-flex">
         <div class="product-wrap">
-          <div class="product-container" v-for="product in this.products">
-            <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
-
-            <div class="price-wish">
-              <span> {{ product.price }}원</span>
-              <img src="/image/icon/heart.svg" alt="찜" />
-            </div>
-
-            <div class="name">
-              {{ product.name }}
-            </div>
-
-            <div class="time">
-              {{ product.regDate }}
-            </div>
-          </div>
+          <product-component :products="products" />
         </div>
       </div>
     </section>
@@ -100,6 +85,7 @@
 </template>
 
 <script>
+import ProductComponent from './ProductComponent.vue';
 export default {
   data() {
     return {
@@ -113,22 +99,39 @@ export default {
       filter: '최신순',
     };
   },
-
+  components: {
+    ProductComponent,
+  },
   mounted() {
     this.fetchSuperCategory();
   },
-
   methods: {
     //----- 카테고리 대분류 반환.(아래 카테고리 소분류 반환실행)
     async fetchSuperCategory() {
-      const response = await fetch('http://localhost:8080/categorys/super');
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
+      const response = await fetch('http://localhost:8080/categorys/super', {
+        headers: {
+          Authorization: myInfoForAuth,
+        },
+      });
       const json = await response.json();
       this.superCategoryList = json;
       await this.fetchCategory();
     },
     //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
     async fetchCategory() {
-      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`);
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`, {
+        headers: {
+          Authorization: myInfoForAuth,
+        },
+      });
       const json = await response.json();
       this.categoryList = json;
       for (let i = 0; i < this.categoryList.length; i++) this.productCategoryValue.push(this.categoryList[i].id);
@@ -139,7 +142,15 @@ export default {
       if (this.productCategoryValue == 0) {
         this.productCategoryValue.push(0);
       }
-      const response = await fetch(`http://localhost:8080/products/filter?c=${this.productCategoryValue}&f=${this.filter}`);
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
+      const response = await fetch(`http://localhost:8080/products/filter?c=${this.productCategoryValue}&f=${this.filter}`, {
+        headers: {
+          Authorization: myInfoForAuth,
+        },
+      });
       const json = await response.json();
       this.products = json['productResult'];
     },
