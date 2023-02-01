@@ -57,35 +57,35 @@
 
                 <div class="img-input-box">
 
-                <div class="input-box"> <!-- v-for="i in this.thumbNailImageInputs" -->
+                <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
                   <span class="thumbNail-title">대표 이미지</span>
                   <label>
                   <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL"/>
-                  <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" @click="imageUpload">
+                  <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" >
                   </label>
                   <span  class="img-delete thumbNail" id="0" @click="imageDelete"></span>
                 </div>
 
-                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
+                  <div class="input-box">
                     <label>
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
-                      <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" @click="imageUpload">
+                      <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" >
                     </label>
                     <span  class="img-delete" id="1" @click="imageDelete"></span>
                   </div>
 
-                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
+                  <div class="input-box">
                     <label>
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
-                      <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2" @click="imageUpload">
+                      <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2">
                     </label>
                     <span  class="img-delete" id="2" @click="imageDelete"></span>
                   </div>
 
-                  <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
+                  <div class="input-box">
                     <label>
                       <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUploadREAL">
-                      <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3" @click="imageUpload">
+                      <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3">
                     </label>
                     <span  class="img-delete" id="3" @click="imageDelete"></span>
                   </div>
@@ -228,8 +228,6 @@
 
               </div>
 
-
-
               <div class="btn-container">
                 <div id="third-back" class="btn btn-cancel"  @click="toggle2">취소</div>
                 <div id="third-click" class="btn btn-default" @click="toggle3">다음</div>
@@ -295,6 +293,8 @@ export default {
 
   data() {
     return {
+      //test코드
+      imageIndex:0,
 
       product:{name:'',price:'',description:'',deliveryType:'',category:'',condition:'',tagNames:[],images:[]},
       //====================     1번 페이지    ====================
@@ -362,7 +362,6 @@ export default {
         formData.append('files', this.product.images[i]['Files']);
       }
 
-
       const response = await fetch(`http://localhost:8080/products`,{
         method:'POST',
         headers:{
@@ -381,59 +380,51 @@ export default {
     // ====================     1번 페이지    ====================
     //--이미지 등록 함수
     imageUploadREAL(e){
-      //-- 업로드된 이미지 저장
-      let imageFile = e.target.files[0]
-      this.product.images.push({id:this.imageCount,Files:imageFile});
+      if(this.imageCount<4){
+        //-- 업로드된 이미지 저장
+        let imageFile = e.target.files[0]
+        // this.product.images.push({id:this.imageCount,Files:imageFile});
+        this.product.images.push({id: this.imageIndex, Files: imageFile}); //test코드
+        //-- 업로드된 이미지 뿌려주기
 
-      //-- 업로드된 이미지 뿌려주기
+        const url = URL.createObjectURL(imageFile)
 
-      const url = URL.createObjectURL(imageFile)
-      console.log(url)
-      this.imageSrc[this.imageCount] = url
-      this.imageCount++;
-
-
-
-    },
-    imageUpload(e){
-      console.log(e.target.src)
-
-      //봐서 삭제
+        this.imageSrc[this.imageCount] = url
+        this.imageCount++;
+        this.imageIndex++;
+      }
+      else
+        alert("상품은 4개까지만 등록이 가능합니다.")
 
     },
+
 
 
     imageDelete(e){
-      console.log(e.target.id)
+
+      let resultTag = this.product.tagNames.find((tags)=> tags.id == e.target.id)
+      let resultTagIndex= this.product.tagNames.indexOf(resultTag);
+      this.product.tagNames.splice(resultTagIndex,1)
+      this.tagIndex--;
+
+
 
       let resultImage = this.product.images.find((images)=> {
-        console.log(images)
         return images.id == e.target.id
       })
-      let resultTagIndex= this.product.images.indexOf(resultImage);
+      let resultImageIndex= this.product.images.indexOf(resultImage);
 
-      console.log(resultImage)
-      console.log(resultTagIndex)
+      this.product.images.splice(resultImageIndex,1)
+      this.imageSrc.splice(resultImageIndex,1)
+      this.imageSrc[3]=this.imageSrcDefault
+      for(let i=0;i<this.product.images.length;i++)
+        this.product.images[i].id = i;
 
-      this.product.images.splice(resultTagIndex,1)
-
-      for(let i=0;i<(this.imageCount-resultTagIndex);i++)
-        this.imageSrc[resultTagIndex] = this.imageSrc[resultTagIndex+1]
-
-      this.imageSrc[this.imageCount-1]=this.imageSrcDefault
-
-      console.log(this.product.images)
 
       this.imageCount--;
-
-
+      this.imageIndex--;
 
     },
-
-
-
-
-
 
     // <!-- ====================     2번 페이지    ==================== -->
     //--카테고리 선택을 위한 함수
@@ -445,7 +436,7 @@ export default {
       this.CategoryModal = false;
     },
     superCategorySelected(){
-      console.log(this.productSuperCategoryValue)
+
       if(this.productSuperCategoryValue != null){
         this.fetchCategory()
         this.CategoryModal = true;
@@ -483,7 +474,6 @@ export default {
         alert("태그는 5개까지만입력 가능합니다.")
       this.newTag = ''
 
-      console.log(this.tagIndex)
 
     },
 
