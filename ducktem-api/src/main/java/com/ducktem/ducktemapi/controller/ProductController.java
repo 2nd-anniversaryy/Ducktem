@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -142,6 +143,18 @@ public class ProductController {
 		System.out.println(request);
 		Product product = productservice.add(request, regMemberId);
 		productImageService.add(files, product);
+		productTagService.add(request.getTagNames(), product);
+
+		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
+	}
+
+	@PutMapping("{id}")
+	// @Transactional
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request,
+		Authentication authentication) {
+		String regMemberId = authentication.getName();
+		Product product = productservice.update(request, id);
+		productImageService.add(request.getFiles(), product);
 		productTagService.add(request.getTagNames(), product);
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();

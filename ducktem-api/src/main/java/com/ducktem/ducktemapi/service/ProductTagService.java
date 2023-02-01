@@ -4,4 +4,5 @@ import com.ducktem.ducktemapi.entity.Product;
 
 public interface ProductTagService {
 	void add(String[] tagNames, Product product);
+	void delete(Long id);
 }

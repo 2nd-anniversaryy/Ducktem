@@ -137,6 +137,10 @@ export default {
   methods: {
     //----- 카테고리 대분류 반환.(아래 카테고리 소분류 반환실행)
     async fetchSuperCategory() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
       const response = await fetch('http://localhost:8080/categorys/super', {
         headers: {
           Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
@@ -148,6 +152,10 @@ export default {
     },
     //----- 카테고리 소분류 반환.(아래 검색결과 상품목록 반환함수 실행)
     async fetchCategory() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
       const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`, {
         headers: {
           Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
@@ -162,6 +170,10 @@ export default {
     async fetchProducts() {
       if (this.productCategoryValue == 0) {
         this.productCategoryValue.push(0);
+      }
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
       const response = await fetch(`http://localhost:8080/products/filter?q=${this.query}&c=${this.productCategoryValue}&f=${this.filter}`, {
         headers: {
