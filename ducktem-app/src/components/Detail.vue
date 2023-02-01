@@ -41,7 +41,9 @@
       <!-- 상품 태그 -->
       <section class="product-tag-wrap">
         <ul class="detail-button">
-          <li v-for="tag in tags"><a class="btn btn-tag" href="">{{ tag.name }}</a></li>
+          <li v-for="tag in tags">
+            <a class="btn btn-tag" href="">{{ tag.name }}</a>
+          </li>
         </ul>
       </section>
 

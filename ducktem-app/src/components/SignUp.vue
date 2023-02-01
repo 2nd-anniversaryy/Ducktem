@@ -18,28 +18,27 @@
           <div class="signup-container">
             <div>
               <label class="required" for="name">이름</label>
-              <input id="name" name="name" type="text" required autofocus placeholder="이름을 입력해주세요." />
+              <input id="name" name="name" type="text" v-model="name" required autofocus placeholder="이름을 입력해주세요." />
             </div>
 
             <div>
               <label class="required" for="uid">아이디</label>
-              <input id="uid" name="uid" type="text" required placeholder="아이디를 입력해주세요." />
+              <input id="uid" name="uid" type="text" v-model="userId" required placeholder="아이디를 입력해주세요." />
             </div>
 
             <div>
               <label class="required" for="password">비밀번호</label>
-              <input id="password" type="password" required placeholder="비밀번호를 입력해주세요." />
-              <input id="password" type="password" required placeholder="비밀번호를 확인해주세요." />
+              <input id="password" type="password" required placeholder="비밀번호를 입력해주세요." v-model="pwd" />
             </div>
 
             <div>
               <label class="required" for="email">이메일</label>
-              <input id="email" name="email" type="text" required placeholder="이메일을 입력해주세요." />
+              <input id="email" name="email" type="text" required placeholder="이메일을 입력해주세요." v-model="email" />
             </div>
 
             <div>
               <label class="required" for="phonenumber">휴대폰번호</label>
-              <input id="phonenumber" name="phonenumber" type="text" required placeholder="(-)을 제외하고 입력해주세요" />
+              <input id="phonenumber" name="phonenumber" type="text" required placeholder="(-)을 제외하고 입력해주세요" v-model="phoneNumber" />
             </div>
 
             <div>
@@ -227,14 +226,21 @@ export default {
       nickName: '',
       email: '',
       phoneNumber: '',
-      regDate: '',
-      returnSecureToken: '',
-    }
+    };
   },
   methods: {
     signUp() {
+      let params = {
+        userId: this.userId,
+        nickName: this.nickName,
+        name: this.name,
+        pwd: this.pwd,
+        phoneNumber: this.phoneNumber,
+        email: this.email,
+      };
 
-    }
+      this.$store.dispatch('signUp', params);
+    },
   },
 };
 </script>

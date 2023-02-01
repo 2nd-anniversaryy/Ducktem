@@ -28,7 +28,10 @@ const mutations = {
   setUser(state, payload) {
     (state.token = payload.token), (state.userId = payload.userId), (state.tokenExpiration = payload.tokenExpiration);
   },
-
+  confirm(state, item) {
+    state.id = item.userId;
+    state.pwd = item.pwd;
+  },
   login(state, item) {
     state.tokenResponse.refresh = item.tokenResponse.refresh;
     state.tokenResponse.access = item.tokenResponse.access;
@@ -45,19 +48,10 @@ const mutations = {
 };
 const actions = {
   // junhyun
-  async signUp(context, payload) {
+  async signUp(context, params) {
     const response = await fetch('http://localhost:8080/members/join', {
       method: 'POST',
-      body: JSON.stringify({
-        name: payload.name,
-        userId: payload.userId,
-        pwd: payload.pwd,
-        nickName: payload.nickName,
-        email: payload.email,
-        phoneNumber: payload.phoneNumber,
-        regDate: payload.regDate,
-        returnSecureToken: ture,
-      }),
+      body: JSON.stringify(params),
     });
 
     const responseData = await response.json();
@@ -69,11 +63,6 @@ const actions = {
     }
 
     console.log(responseData);
-    context.commit('setUser', {
-      token: responseData.idToken,
-      userId: responseData.localId,
-      tokenExpiration: responseData.expiresIn,
-    });
   },
 
   confirm({ commit }, { id, password }) {
@@ -82,27 +71,26 @@ const actions = {
       pwd: password,
     };
 
-    const response = fetch(`http://localhost:8080/members`, {
-      method: 'GET',
+    const response = fetch(`http://localhost:8080/members/confirm`, {
+      method: 'POST',
       headers: {
-        'Accept': 'application/json', //받는 형식
         'Content-Type': 'application/json', //보내는 형식
       },
       body: JSON.stringify(params),
     })
       .then((response) => {
-        return response.json();
+        return response.text();
       })
       .then((result) => {
         if (result) {
-          commit('confirm', result);
-          if (params.pwd) {
-            state.pwd = params.pwd;
-          }
-          alert('인증되었습니다.');
+          commit('confirm', params);
         } else {
           console.log('로그인에 실패하였습니다.');
         }
+      })
+      .then(() => {
+        router.push('/survey');
+        alert('인증되었습니다.');
       })
       .catch((e) => {
         console.log(e);
@@ -124,13 +112,12 @@ const actions = {
       body: JSON.stringify(params),
     })
       .then((response) => {
-        return response.json();
-      })
-      .then(() => {
+        commit('logout');
         alert('삭제되었습니다.');
       })
       .catch((e) => {
         console.log(e);
+        alert(e);
         alert('삭제에 실패하였습니다.');
       });
   },
@@ -171,7 +158,7 @@ const actions = {
 };
 
 const persistedState = createPersistedState({
-  paths: ['tokenResponse.access', 'tokenResponse.refresh', 'id', 'nickname'],
+  paths: ['tokenResponse.access', 'tokenResponse.refresh', 'id', 'nickname', 'pwd'],
 });
 
 const store = createStore({
