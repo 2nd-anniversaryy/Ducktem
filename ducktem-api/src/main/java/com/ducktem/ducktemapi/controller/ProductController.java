@@ -168,13 +168,13 @@ public class ProductController {
 	// 아래 URL 고민해봐야...
 
 	@DeleteMapping("editImg/{imgId}")//이미지 삭제
-	public void deleteImage(@PathVariable Long id) {
-		productImageService.delete(id);
+	public void deleteImage(@PathVariable Long imgId) {
+		productImageService.delete(imgId);
 	}
 
 	@DeleteMapping("editTag/{tagId}")//태그 삭제
-	public void deleteTag(@PathVariable Long id) {
-		productTagService.delete(id);
+	public void deleteTag(@PathVariable Long tagId) {
+		productTagService.delete(tagId);
 	}
 
 	@PutMapping("{id}/{status}")//상품 상태 변경
