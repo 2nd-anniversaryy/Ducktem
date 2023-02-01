@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
@@ -152,4 +153,15 @@ public class ProductController {
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
 	}
 
+	@GetMapping("/me")
+	public ResponseEntity<List<ProductPreviewResponse>> mySellProductList(Authentication authentication) {
+		return new ResponseEntity<>(productservice.productList(authentication.getName()), HttpStatus.OK);
+
+	}
+
+	@GetMapping("/wish")
+	public ResponseEntity<List<ProductPreviewResponse>> myWishProductList(Authentication authentication) {
+		List<ProductPreviewResponse> list = wishListService.getMyWishList(authentication.getName());
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

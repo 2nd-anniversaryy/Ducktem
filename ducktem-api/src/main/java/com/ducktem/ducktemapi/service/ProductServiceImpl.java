@@ -30,11 +30,10 @@ public class ProductServiceImpl implements ProductService {
 	private final MemberRepository memberRepository;
 	private final CategoryRepository categoryRepository;
 
-
 	@Override
 	@Transactional
 	public ProductDetailResponse get(Long id) {
-		Product product = productRepository.findById(id).orElseThrow(()->new ProductException("상품이 존재하지 않습니다."));
+		Product product = productRepository.findById(id).orElseThrow(() -> new ProductException("상품이 존재하지 않습니다."));
 
 		return ProductDetailResponse.from(product);
 	}
@@ -44,8 +43,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductPreviewResponse> getList(Pageable pageable) {
 
 		return productRepository.findAll(pageable)
-				.map(ProductPreviewResponse::from)
-				.toList();
+			.map(ProductPreviewResponse::from)
+			.toList();
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product update(ProductRegisterRequest request, Long id) {
 		Product product = productRepository.findById(id)
 			.orElseThrow(() -> new ProductException("잘못된 접근입니다."));
-			Category category = categoryRepository.findById(request.getCategory())
+		Category category = categoryRepository.findById(request.getCategory())
 			.orElseThrow(() -> new ProductException("없는 카테고리입니다."));
 
 		Optional.ofNullable(request.getName())
@@ -92,6 +91,14 @@ public class ProductServiceImpl implements ProductService {
 		product.setUpdateDate(TimeFormatter.NOW());
 
 		return product;
+
+	}
+
+	@Override
+	public List<ProductPreviewResponse> productList(String userId) {
+		Member member = memberRepository.findByUserId(userId).orElseThrow(() -> new MemberException("잘못된 접근입니다."));
+
+		return member.getProductList().stream().map(ProductPreviewResponse::from).toList();
 
 	}
 
