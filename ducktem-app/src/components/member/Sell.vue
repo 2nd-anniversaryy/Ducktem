@@ -40,7 +40,7 @@
                   <span class="thumbNail-title">대표 이미지</span>
                   <label>
                   <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL"/>
-                  <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" >
+                  <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" @click="imageUploadREAL">
                   </label>
                   <span v-if="this.isImageDelete[0]" class="img-delete thumbNail" id="0" @click="imageDelete"></span>
                 </div>
@@ -78,6 +78,7 @@
 
         </form>
               <!--    상품 제목 입력란입니다.    -->
+              <input type="file">
               <div>
                 <label class="input-title" for="title">상품 제목</label>
                 <input v-model="this.product.name" class="input-default" id="title" name="name" type="text" required placeholder="제목을 입력해 주세요.">
@@ -358,6 +359,7 @@ export default {
     // ====================     1번 페이지    ====================
     //--이미지 등록 함수
     imageUploadREAL(e){
+      console.log(this.imageCount)
       if(this.imageCount<4){
         //-- 업로드된 이미지 저장
         let imageFile = e.target.files[0]
@@ -380,14 +382,6 @@ export default {
 
 
     imageDelete(e){
-
-      let resultTag = this.product.tagNames.find((tags)=> tags.id == e.target.id)
-      let resultTagIndex= this.product.tagNames.indexOf(resultTag);
-      this.product.tagNames.splice(resultTagIndex,1)
-      this.tagIndex--;
-
-
-
       let resultImage = this.product.images.find((images)=> {
         return images.id == e.target.id
       })
