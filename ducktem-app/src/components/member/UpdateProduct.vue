@@ -131,7 +131,7 @@
 
       <div class="update-product-btn">
         <input class="btn btn-default" type="submit" value="상품 삭제" />
-        <input class="btn btn-default" @click="fetchUpdateMyproduct($route.params)" type="submit" value="상품 수정" />
+        <input class="btn btn-default" @click="fetchUpdateMyproduct(this.productId)" type="submit" value="상품 수정" />
       </div>
     </form>
     </div>
@@ -149,11 +149,11 @@ export default {
       profileImage: null,
 
       //test
-      temp: {},
+      temp: null,
 
 
       //==================여기서부터 작업 시작
-      productId:'',
+      productId:null,
       myProductList: {},
       product:{name:'',price:'',description:'',deliveryType:'',category:'',condition:'',tagNames:[],images:[]},
       //======이미지 수정
@@ -183,6 +183,7 @@ export default {
   },
   mounted() {
     // this.fetchGetMyInfo();
+    this.productId = this.$route.query.id;
     console.log(this.$route.query.id)
     this.fetchGetMyProduct(this.$route.query.id);
   },
@@ -202,10 +203,10 @@ export default {
       });
       const json = await response.json();
 
-      this.temp = json;
-      console.log(this.temp);
-
       this.myProductList = json;
+      console.log(this.myProductList);
+
+
       //==========화면에 보여주기 위한 코드==============
       //이미지 불러오기, 이미지 갯수 불러오기
       for(let i=0;i<this.myProductList.imgNames.length;i++)
@@ -214,16 +215,28 @@ export default {
 
       //카테고리 결과 조합
       this.categoryResult = this.myProductList.superCategory + '>' + this.myProductList.subCategory;
+      //태그 갯수 불러오기
+      this.tagIndex = this.myProductList.tags.length;
+
 
     },
 
     async fetchUpdateMyproduct(id) {
+      //태그랑 이미지 싹 밀고 다시시작
+      await this.fetchDeleteMyproductTag(id)
       let formData = new FormData();
-      formData.append('nickName', this.myInfoList.nickName);
-      formData.append('intro', this.myInfoList.intro);
-      formData.append('email', this.myInfoList.email);
-      formData.append('profileUrl', this.profileImage);
-
+      formData.append('name',this.myProductList.name);
+      formData.append('price',this.myProductList.price);
+      formData.append('description',this.myProductList.description);
+      // formData.append('deliveryType',this.product.deliveryType);
+      // formData.append('category',this.product.category);
+      formData.append('condition',this.myProductList.condition);
+      for(let i in this.product.tagNames){
+        formData.append('tagNames',this.product.tags[i].name);
+      }
+      // for(let i in this.product.images) {
+      //   formData.append('files', this.product.images[i]['Files']);
+      // }
       console.log(this.$store.state.tokenResponse.access);
       try {
         const response = await fetch(`http://localhost:8080/products/${id}`, {
@@ -235,6 +248,10 @@ export default {
       } finally {
       }
     },
+    async fetchDeleteMyproductTag(id) {
+      const response = await fetch(`http://localhost:8080/products/editTag/${id}`)
+    },
+    async fetchDeleteMyproductImage(id) {},
     goToLeave() {
       this.$router.push('leave');
     },
@@ -254,6 +271,7 @@ export default {
         this.isImageDelete[this.imageCount] = true
         this.imageCount++;
         this.imageIndex++;
+        console.log(this.temp)
       }
       else
         alert("상품은 4개까지만 등록이 가능합니다.")
@@ -263,13 +281,6 @@ export default {
 
 
     imageDelete(e){
-
-      let resultTag = this.myProductList.tagNames.find((tags)=> tags.id == e.target.id)
-      let resultTagIndex= this.myProductList.tagNames.indexOf(resultTag);
-      this.myProductList.tagNames.splice(resultTagIndex,1)
-      this.tagIndex--;
-
-
 
       let resultImage = this.myProductList.images.find((images)=> {
         return images.id == e.target.id
@@ -311,7 +322,7 @@ export default {
       }
 
       if(this.tagIndex < 5) {
-        this.myProductList.tagNames.push({id: this.tagIndex, name: this.newTag, state:false})
+        this.myProductList.tags.push({id: this.tagIndex, name: this.newTag, state:false})
         this.newTag = ''
         this.tagIndex++;
       }
@@ -323,9 +334,17 @@ export default {
     },
 
     tagDelete(e){
-      let resultTag = this.myProductList.tagNames.find((tags)=> tags.id == e.target.id)
-      let resultTagIndex= this.myProductList.tagNames.indexOf(resultTag);
-      this.myProductList.tagNames.splice(resultTagIndex,1)
+      console.log(e)
+      console.log(e.target)
+
+      let resultTag = this.myProductList.tags.find((tags)=> {
+        console.log(tags)
+        console.log(tags.id)
+        return tags.id == e.target.id
+      })
+      console.log(resultTag)
+      let resultTagIndex= this.myProductList.tags.indexOf(resultTag);
+      this.myProductList.tags.splice(resultTagIndex,1)
       this.tagIndex--;
     },
 
