@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public ProductDetailResponse get(Long id) {
 		Product product = productRepository.findById(id).orElseThrow(()->new ProductException("상품이 존재하지 않습니다."));
-
+		product.setHit(product.getHit()+1);
 		return ProductDetailResponse.from(product);
 	}
 

@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,6 @@ import com.ducktem.ducktemapi.dto.response.ProductDetailResponse;
 import com.ducktem.ducktemapi.dto.response.ProductPreviewResponse;
 import com.ducktem.ducktemapi.dto.response.WishListResponse;
 import com.ducktem.ducktemapi.entity.Product;
-import com.ducktem.ducktemapi.repository.ProductRepository;
 import com.ducktem.ducktemapi.service.ProductImageService;
 import com.ducktem.ducktemapi.service.ProductService;
 import com.ducktem.ducktemapi.service.ProductTagService;
@@ -138,19 +136,21 @@ public class ProductController {
 	}
 
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<Void> add(ProductRegisterRequest request, Authentication authentication,@RequestPart MultipartFile[] files) {
+	public ResponseEntity<Long> add(ProductRegisterRequest request, Authentication authentication,
+		@RequestPart MultipartFile[] files) {
 
 		String regMemberId = authentication.getName();
 		Product product = productservice.add(request, regMemberId);
 		productImageService.add(files, product);
 		productTagService.add(request.getTagNames(), product);
 
-		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
+		return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
 	}
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request, @RequestPart MultipartFile[] files) {
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductRegisterRequest request,
+		@RequestPart MultipartFile[] files) {
 		Product product = productservice.update(request, id);
 		productImageService.add(files, product);
 		productTagService.add(request.getTagNames(), product);
@@ -159,7 +159,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable Long id){
+	public void delete(@PathVariable Long id) {
 		productservice.delete(id);
 		Product product = null;
 		// //tag랑 img도 삭제해야
@@ -168,19 +168,20 @@ public class ProductController {
 	// 아래 URL 고민해봐야...
 
 	@DeleteMapping("editImg/{imgId}")//이미지 삭제
-	public void deleteImage(@PathVariable Long id){
+	public void deleteImage(@PathVariable Long id) {
 		productImageService.delete(id);
 	}
 
 	@DeleteMapping("editTag/{tagId}")//태그 삭제
-	public void deleteTag(@PathVariable Long id){
+	public void deleteTag(@PathVariable Long id) {
 		productTagService.delete(id);
 	}
 
 	@PutMapping("{id}/{status}")//상품 상태 변경
-	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status){
+	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status) {
 		productservice.updateStatus(id, status);
 	}
+
 	@GetMapping("/me")
 	public ResponseEntity<List<ProductPreviewResponse>> mySellProductList(Authentication authentication) {
 		return new ResponseEntity<>(productservice.productList(authentication.getName()), HttpStatus.OK);
