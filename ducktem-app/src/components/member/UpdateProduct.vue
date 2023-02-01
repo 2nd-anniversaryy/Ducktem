@@ -50,7 +50,7 @@
           <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
             <span class="thumbNail-title">대표 이미지</span>
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUpload"/>
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload"/>
               <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" >
             </label>
             <span v-if="this.isImageDelete[0]" class="img-delete thumbNail" id="0" @click="imageDelete"></span>
@@ -58,7 +58,7 @@
 
           <div class="input-box" >
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" >
             </label>
             <span v-if="this.isImageDelete[1]" class="img-delete" id="1" @click="imageDelete"></span>
@@ -66,7 +66,7 @@
 
           <div class="input-box">
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2">
             </label>
             <span v-if="this.isImageDelete[2]" class="img-delete" id="2" @click="imageDelete"></span>
@@ -74,7 +74,7 @@
 
           <div class="input-box">
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3">
             </label>
             <span v-if="this.isImageDelete[3]" class="img-delete" id="3" @click="imageDelete"></span>
@@ -288,11 +288,15 @@ export default {
         const response = await fetch(`http://localhost:8080/products/${id}`, {
           method: 'PUT',
           body: formData,
-        }).then(console.log(response));
+        })
+            // .then(console.log(response));
       } catch (e) {
         this.e = e;
       } finally {
       }
+
+      this.$router.push({path: `/products/${this.productId}`});
+
     },
     async fetchDeleteMyproductTag(id) {
       const response = await fetch(`http://localhost:8080/products/editTag/${id}`,{
