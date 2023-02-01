@@ -16,6 +16,8 @@ public interface ProductService {
 
 	Product update(ProductRegisterRequest request, Long id);
 	
-  void delete(Long id); 
+  void delete(Long id);
+	
+  void updateStatus(Long id, String status); 
 
 }

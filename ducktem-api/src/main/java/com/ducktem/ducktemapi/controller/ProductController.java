@@ -157,20 +157,24 @@ public class ProductController {
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id){
 		productservice.delete(id);
+		Product product = null;
+		// //tag랑 img도 삭제해야
+		// productImageService.deleteByProduct(id);
+		// productTagService.deleteByProduct(id);
 	}
 
 	// URL 고민해봐야... 
-	@PutMapping("")
-	public void updateStatus(){
-		productservice.updateStatus();
+	@PutMapping("{id}/{status}")
+	public void updateStatus(@PathVariable(name = "id") Long id, @PathVariable(name = "status") String status){
+		productservice.updateStatus(id, status);
 	}
 
-	@DeleteMapping("{imgId}")
+	@DeleteMapping("editImg/{imgId}")
 	public void deleteImage(@PathVariable Long id){
 		productImageService.delete(id);
 	}
 	
-	@DeleteMapping("{tagId}")
+	@DeleteMapping("editTag/{tagId}")
 	public void deleteTag(@PathVariable Long id){
 		productTagService.delete(id);
 	}

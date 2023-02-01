@@ -99,4 +99,21 @@ public class ProductServiceImpl implements ProductService {
 	public void delete(Long id) {
 		productRepository.deleteById(id);
 	}
+
+	@Override
+	@Transactional
+	public void updateStatus(Long id, String status){
+		Product product = productRepository.findById(id)
+			.orElseThrow(() -> new ProductException("잘못된 접근입니다."));
+
+		//수정중
+		if(status == "Reserve")
+			product.setSalesStatus(SalesStatus.Reserve);
+		else if(status == "Complete")
+			product.setSalesStatus(SalesStatus.Completion);
+		else if(status == "ON")
+			product.setSalesStatus(SalesStatus.ON);
+
+	}
+		
 }
