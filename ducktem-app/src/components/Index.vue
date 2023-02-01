@@ -22,9 +22,7 @@
             <img class="banner" :src="banner.img" v-if="banners[0]" />
           </div> -->
           <div class="inner">
-            <transition name="banner">
-              <img class="banner" :src="banners[index]" />
-            </transition>
+            <img class="banner" :src="banners[index]" />
           </div>
           <!-- <div class="inner">
             <img class="banner" :src="banners[1]" />
@@ -174,22 +172,4 @@ export default {
 
 <style scoped>
 @import '/css/index.css';
-
-.banner-enter-active {
-  animation: fade 0.5s;
-}
-
-.banner-leave-active {
-  animation: fade 0.5s reverse;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 </style>
