@@ -34,7 +34,7 @@ export default {
       if (this.id && this.password) {
         id = this.id; // 아이디
         password = this.password; // 비밀번호
-        this.$store.dispatch('save/save', params);
+        this.$store.dispatch('save', params);
       } else {
         alert('아이디 또는 비밀번호가 입력되지 않았습니다.');
         return false;

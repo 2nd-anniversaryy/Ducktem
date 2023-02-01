@@ -23,8 +23,7 @@ public class ImageUtil {
 
 	private static String fileSave(MultipartFile file, String path) {
 		UUID uuid = UUID.randomUUID();
-		System.out.println(file.getOriginalFilename());
-		if (file.getOriginalFilename() == null) {
+		if (file == null) {
 			return null;
 		}
 
