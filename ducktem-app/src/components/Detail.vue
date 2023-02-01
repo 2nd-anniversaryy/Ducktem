@@ -104,7 +104,6 @@ export default {
   },
   mounted() {
     this.fetchProductDetail();
-
   },
   methods: {
     async fetchProductDetail() {
@@ -132,7 +131,7 @@ export default {
       }
     },
     updateProduct() {
-      this.$router.push({path: `/update-product/${this.$route.query.id}`,query:{id:`${this.$route.query.id}`}});
+      this.$router.push({ path: `/update-product/${this.$route.query.id}`, query: { id: `${this.$route.query.id}` } });
     },
   },
   computed: {

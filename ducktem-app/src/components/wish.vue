@@ -62,7 +62,7 @@ export default {
   height: 22px;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .wish {
     width: 32px;
     height: 32px;
