@@ -130,7 +130,7 @@ export default {
         this.e1 = e;
       } finally {
       }
-      console.log(this.imgList);
+      // console.log(this.imgList);
     },
     updateProduct() {
       this.$router.push({path: `/update-product/${this.$route.query.id}`,query:{id:`${this.$route.query.id}`}});

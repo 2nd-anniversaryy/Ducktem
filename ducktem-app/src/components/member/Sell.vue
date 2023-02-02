@@ -348,9 +348,8 @@ export default {
         body: formData
       });
 
-      // const json = await response.json();
-      console.log(response.headers);
-
+      const id = await response.json();
+      this.$router.push({ name: 'detail', query: { id: id } });
 
     },
 
