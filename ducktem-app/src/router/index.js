@@ -7,9 +7,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      scrollBehavior() {
-        return { x: 0, y: 0 };
-      },
       path: '/',
       redirect: '/index',
       component: Layout,
@@ -75,6 +72,9 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue')
     // }
   ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });
 
 export default router;

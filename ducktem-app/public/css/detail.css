@@ -230,7 +230,6 @@
   .profile-container {
     grid-area: profileInfo;
     margin: 30px auto 0;
-    padding: 15px;
     width: 80%;
     display: grid;
     grid-template:
@@ -393,6 +392,6 @@
 @media (min-width: 1400px) {
   .detail-user-others {
     margin: 0 300px 50px;
-    font-size: 22px;
+    font-size: 25px;
   }
 }

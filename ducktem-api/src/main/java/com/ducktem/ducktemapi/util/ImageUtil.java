@@ -35,7 +35,7 @@ public class ImageUtil {
 			System.out.println(e.getMessage());
 		}
 
-		String fileUrl = Arrays.stream(path.split(File.separator))
+		String fileUrl = Arrays.stream(path.split("/"))
 			.filter(url -> url.contains("productimgs"))
 			.findAny()
 			.orElse("profileimgs");

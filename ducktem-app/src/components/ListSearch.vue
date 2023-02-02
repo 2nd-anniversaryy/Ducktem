@@ -33,31 +33,33 @@
       </section>
     </section>
     <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
-    <section style="
-        border: 1px solid black;
-        background-color: white;
-        border-radius: 20px;
-        width: 300px;
-        padding: 10px;
-        position: fixed;
-        bottom: 0px;
-        right: 0;
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      ">
-      <div style="text-align: center">구현끝나면삭제예정</div>
-      <div>
-        <div>대분류 : {{ this.productSuperCategoryValue }}</div>
-        <div>소분류 : {{ this.productCategoryValue }}</div>
-        <div>필터결과 : {{ this.filter }}</div>
-        <div>
-          <input placeholder="임시검색창" v-model="this.query" />
-          <input class="btn btn-default aaa" type="button" value="검색하기" @click.prevent="this.onSearch" />
-        </div>
-      </div>
-    </section>
+<!--    <section-->
+<!--      style="-->
+<!--        border: 1px solid black;-->
+<!--        background-color: white;-->
+<!--        border-radius: 20px;-->
+<!--        width: 300px;-->
+<!--        padding: 10px;-->
+<!--        position: fixed;-->
+<!--        bottom: 0px;-->
+<!--        right: 0;-->
+<!--        z-index: 999;-->
+<!--        display: flex;-->
+<!--        flex-direction: column;-->
+<!--        align-items: center;-->
+<!--      "-->
+<!--    >-->
+<!--      <div style="text-align: center">구현끝나면삭제예정</div>-->
+<!--      <div>-->
+<!--        <div>대분류 : {{ this.productSuperCategoryValue }}</div>-->
+<!--        <div>소분류 : {{ this.productCategoryValue }}</div>-->
+<!--        <div>필터결과 : {{ this.filter }}</div>-->
+<!--        <div>-->
+<!--          <input placeholder="임시검색창" v-model="this.query" />-->
+<!--          <input class="btn btn-default aaa" type="button" value="검색하기" @click.prevent="this.onSearch" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
     <!-- =========================================================================== -->
 
     <div class="option">
@@ -175,7 +177,6 @@ export default {
     },
 
     onSearch() {
-      console.log(this.$route.query.result);
       this.fetchProducts();
       this.searchQueryName = this.$route.query.result;
     },

@@ -96,12 +96,9 @@
   content: ' ✨';
 }
 
-#title1 {
-  margin: 30px 10px;
-}
-
+#title1,
 #title2 {
-  margin: 70px 10px 30px;
+  margin: 30px 10px;
 }
 
 .tag-sort {
@@ -214,12 +211,9 @@
     margin: 0 60px;
   } */
 
-  #title1 {
-    margin: 30px 30px;
-  }
-
+  #title1,
   #title2 {
-    margin: 70px 30px 30px;
+    margin: 30px 30px;
   }
 
   .category-image:nth-child(3) {
@@ -268,11 +262,8 @@
     margin: 0 300px;
   } */
 
-  #title1 {
-    margin: 30px 300px;
-  }
-
+  #title1,
   #title2 {
-    margin: 70px 300px 30px;
+    margin: 30px 300px;
   }
 }

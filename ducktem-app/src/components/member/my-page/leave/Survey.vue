@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="main-wrap">
-      <h1>{{ $store.state.id }}!!, 어찌 떠나려는 거야</h1>
+      <h1>{{ $login.state.id }}, 어찌 떠나려는 거야</h1>
 
       <ul>
         <li>
@@ -33,7 +33,7 @@
       <textarea name="" id="" placeholder="더 나은 덕템을 만들 수 있도록 도와주세요!"></textarea>
 
       <button @click="this.$router.push('/index')" class="btn btn-default">더 생각해볼래요</button>
-      <button @click.prevent="goToFinalCheck(reasonForLeave)" class="btn btn-cancel">확인</button>
+      <button @click="goToFinalCheck(reasonForLeave)" class="btn btn-cancel">확인</button>
     </section>
   </main>
 </template>

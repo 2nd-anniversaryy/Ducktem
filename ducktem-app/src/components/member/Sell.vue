@@ -61,6 +61,7 @@
                     </label>
                     <span v-if="this.isImageDelete[3]" class="img-delete" id="3" @click="imageDelete"></span>
                   </div>
+
                 </div>
 
                 <div class="img-count">

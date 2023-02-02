@@ -35,6 +35,7 @@
 
             <ul class="menu-extra">
               <li @click="goHelpCenter">헬프센터</li>
+              <li>1:1문의하기</li>
             </ul>
           </div>
           <!-- </transition> -->
@@ -61,8 +62,7 @@
     <div class="modal-background" @click.stop="searchbarOut" v-if="searchBarWrap == true">
       <section class="modal-box slide-bottom" @click.stop="">
         <div class="input-container">
-          <input class="effect-1" @keyup.enter="submit()" type="text" placeholder="상품을 검색해주세요."
-            v-model="searchProduct" />
+          <input class="effect-1" @keyup.enter="submit" type="text" placeholder="상품을 검색해주세요." />
           <span class="focus-border"></span>
         </div>
       </section>

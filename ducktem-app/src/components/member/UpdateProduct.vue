@@ -1,5 +1,38 @@
 <template>
   <main>
+    <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
+<!--    <section-->
+<!--        style="-->
+<!--        border: 1px solid black;-->
+<!--        background-color: white;-->
+<!--        border-radius: 20px;-->
+<!--        width: 300px;-->
+<!--        padding: 10px;-->
+<!--        position: fixed;-->
+<!--        bottom: 0px;-->
+<!--        right: 0;-->
+<!--        z-index: 999;-->
+<!--        display: flex;-->
+<!--        flex-direction: column;-->
+<!--        align-items: center;-->
+<!--        overflow-y: scroll;-->
+<!--      "-->
+<!--    >-->
+<!--      <div style="text-align: center">구현끝나면삭제예정</div>-->
+<!--      <div>-->
+
+<!--        <div>productId : {{this.productId}}</div><br>-->
+<!--        <div>myProductList.imgNames : {{this.myProductList.imgNames}}</div><br>-->
+<!--        <div>imageIndex : {{this.imageIndex}}</div><br>-->
+<!--        <div>imageCount : {{this.imageCount}}</div><br>-->
+<!--&lt;!&ndash;        <div>imageSrc : {{this.imageSrc}}</div><br>&ndash;&gt;-->
+<!--        <div>productId : {{this.productId}}</div><br>-->
+
+
+
+<!--      </div>-->
+<!--    </section>-->
+    <!-- =========================================================================== -->
 
     <div class="update-product-form-wrap">
     <div class="update-product-title">
@@ -17,7 +50,7 @@
           <div class="input-box"> <!-- v-for="i in this.imageInputs" -->
             <span class="thumbNail-title">대표 이미지</span>
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUpload"/>
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload"/>
               <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" >
             </label>
             <span v-if="this.isImageDelete[0]" class="img-delete thumbNail" id="0" @click="imageDelete"></span>
@@ -25,7 +58,7 @@
 
           <div class="input-box" >
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[1]" alt="" targetId="1" >
             </label>
             <span v-if="this.isImageDelete[1]" class="img-delete" id="1" @click="imageDelete"></span>
@@ -33,7 +66,7 @@
 
           <div class="input-box">
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[2]" alt="" targetId="2">
             </label>
             <span v-if="this.isImageDelete[2]" class="img-delete" id="2" @click="imageDelete"></span>
@@ -41,7 +74,7 @@
 
           <div class="input-box">
             <label>
-              <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"  @change="imageUpload">
+              <input class="d-none file-input" id="img"  type="file" accept="image/*"  @change="imageUpload">
               <img class="img-input " :src="this.imageSrc[3]"  alt="" targetId="3">
             </label>
             <span v-if="this.isImageDelete[3]" class="img-delete" id="3" @click="imageDelete"></span>
@@ -53,6 +86,8 @@
           <span class="img-num">{{this.imageCount}}</span> <span>/4</span>
         </div>
       </div>
+
+
 
       <div class="update-product-name">
         <div class="input-title">상품 제목</div>
@@ -71,9 +106,45 @@
 
       <div class="update-product-category">
         <div class="input-title" >카테고리</div>
-        <input type="text" class="input-default"  v-model="this.categoryResult" name="" id="" disabled/>
+<!--        <input type="text" class="input-default"  v-model="this.categoryResult" name="" id="" disabled/>-->
+<!--        <div>-->
+<!--          <p></p>-->
+<!--        </div>-->
         <div>
-          <p></p>
+<!--          <label for="category" class="input-title" >카테고리를 선택해주세요</label>-->
+          <div @click="superCategorySelect" class="input-default category-select category-input" >
+            {{ this.categoryResult }}
+          </div>
+          <input class="input-default category-select" v-model="this.categoryValue" id="category" name="category" type="hidden">
+
+          <!-- =====   카테고리 대분류 모달   ====== -->
+          <div v-if="superCategoryModal" class="supercategory-select ttt">
+            <div class="category-title">카테고리 선택</div>
+            <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
+
+            <div v-for="(s,index) in superCategoryList">
+              <input v-bind:value="s" v-bind:id="index+1" name="supercategory" type="radio" required  v-model="this.productSuperCategoryValue">
+              <label class="category-select" v-bind:for="index+1"  >{{ s.name }}</label>
+            </div>
+
+            <div class="btn btn-default next-btn" @click="superCategorySelected">다음</div>
+          </div>
+
+
+          <!--  =====   카테고리 소분류  모달  ====== -->
+          <div class="subcategory-select ttt" v-if="this.CategoryModal">
+            <div class="category-supercategory">{{ this.productSuperCategoryValue.name }}</div>
+            <div class="category-title">하위 카테고리 선택</div>
+            <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
+            <div v-for="c in categoryList">
+              <input v-bind:value="c" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required>
+              <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
+            </div>
+            <div class="btn btn-default next-btn final" @click="categorySelected">선택완료</div>
+          </div>
+
+
+
         </div>
       </div>
 
@@ -131,7 +202,7 @@
 
       <div class="update-product-btn">
         <input class="btn btn-default" type="submit" value="상품 삭제" />
-        <input class="btn btn-default" @click="fetchUpdateMyproduct($route.params)" type="submit" value="상품 수정" />
+        <input class="btn btn-default" @click="fetchUpdateMyproduct(this.productId)" type="submit" value="상품 수정" />
       </div>
     </form>
     </div>
@@ -149,11 +220,11 @@ export default {
       profileImage: null,
 
       //test
-      temp: {},
+      temp: null,
 
 
       //==================여기서부터 작업 시작
-      productId:'',
+      productId:null,
       myProductList: {},
       product:{name:'',price:'',description:'',deliveryType:'',category:'',condition:'',tagNames:[],images:[]},
       //======이미지 수정
@@ -166,6 +237,17 @@ export default {
       isImageDelete:[false,false,false,false],
       //카테고리
       categoryResult : '',
+
+      superCategoryList:[{name:"공식굿즈", id:1},{name:"비공식굿즈", id:2},{name:"대리티켓팅", id:3}],
+      categoryList:[],
+      superCategoryModal: false,
+      CategoryModal : false,
+      productSuperCategoryValue : '',
+      productCategoryValue: null,
+
+
+
+
       //== 상품 컨디션
       conditionList:[{name:"미개봉", id:1},{name:"거의새상품", id:2},{name:"사용감있는깨끗한상품", id:3},{name:"사용흔적이있는상품", id:4},{name:"하자가있는상품", id:5}],
       //태그
@@ -183,6 +265,7 @@ export default {
   },
   mounted() {
     // this.fetchGetMyInfo();
+    this.productId = this.$route.query.id;
     console.log(this.$route.query.id)
     this.fetchGetMyProduct(this.$route.query.id);
   },
@@ -202,38 +285,123 @@ export default {
       });
       const json = await response.json();
 
-      this.temp = json;
-      console.log(this.temp);
-
       this.myProductList = json;
+      console.log(this.myProductList);
+
+
       //==========화면에 보여주기 위한 코드==============
       //이미지 불러오기, 이미지 갯수 불러오기
-      for(let i=0;i<this.myProductList.imgNames.length;i++)
-        this.imageSrc[i] = this.myProductList.imgNames[i].imgUrl;
       this.imageCount = this.myProductList.imgNames.length
+      for(let i=0;i<this.myProductList.imgNames.length;i++) {
+        this.imageSrc[i] = this.myProductList.imgNames[i].imgUrl;
+        this.isImageDelete[i] = true
+        this.myProductList.imgNames[i]["indexId"] = i;
+      }
+
+
+
 
       //카테고리 결과 조합
       this.categoryResult = this.myProductList.superCategory + '>' + this.myProductList.subCategory;
 
+      //태그 갯수 불러오기
+      this.tagIndex = this.myProductList.tags.length;
+
+
     },
 
+//카테고리 대분류
+//     async fetchSuperCategory() {
+//       let myInfoForAuth;
+//       if (this.$store.state.tokenResponse.access) {
+//         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+//       }
+//       const response = await fetch('http://localhost:8080/categorys/super', {
+//         headers: {
+//           Authorization: myInfoForAuth,
+//         },
+//       });
+//       const json = await response.json();
+//       this.superCategoryList = json;
+//       await this.fetchCategory();
+//     },
+    //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
+    async fetchCategory() {
+
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue.id}`, {
+        headers: {
+          // Authorization: myInfoForAuth,
+        },
+      });
+      const json = await response.json();
+      this.categoryList = json;
+      // for (let i = 0; i < this.categoryList.length; i++) this.productCategoryValue.push(this.categoryList[i].id);
+      // await this.fetchProducts();
+    },
+
+
     async fetchUpdateMyproduct(id) {
+
+
       let formData = new FormData();
-      formData.append('nickName', this.myInfoList.nickName);
-      formData.append('intro', this.myInfoList.intro);
-      formData.append('email', this.myInfoList.email);
-      formData.append('profileUrl', this.profileImage);
+      formData.append('name',this.myProductList.name);
+      formData.append('price',this.myProductList.price);
+      formData.append('description',this.myProductList.description);
+      formData.append('deliveryType',this.myProductList.deliveryType);
+      formData.append('category',parseInt(this.productCategoryValue.id));
+      formData.append('condition',this.myProductList.condition);
+
+      for(let i in this.myProductList.tags){
+        console.log(this.myProductList.tags.name)
+        formData.append('tagNames',this.myProductList.tags[i].name);
+      }
+      for(let i of this.myProductList.imgNames) {
+
+        console.log(i)
+console.log(i.Files)
+        if(i.Files) {
+
+          console.log("새로 넣은 사진")
+          console.log(this.myProductList.imgNames)
+          console.log("=======================")
+          formData.append('files', i.Files);
+
+        }
+        if(!i.Files) {
+          console.log("원래 있던 사진")
+          console.log(i.imgUrl)
+          console.log("=======================")
+          formData.append('imgUrl', i.imgUrl);
+        }
+
+
+      }
+      this.$router.push({path: `/products/${this.productId}`});
 
       console.log(this.$store.state.tokenResponse.access);
       try {
         const response = await fetch(`http://localhost:8080/products/${id}`, {
           method: 'PUT',
           body: formData,
-        }).then(console.log(response));
+        })
+            // .then(console.log(response));
       } catch (e) {
         this.e = e;
       } finally {
       }
+
+
+
+    },
+    async fetchDeleteMyproductTag(id) {
+      const response = await fetch(`http://localhost:8080/products/editTag/${id}`,{
+        method:'DELETE',
+      })
+    },
+    async fetchDeleteMyproductImage(id) {
+      const response = await fetch(`http://localhost:8080/products/editImage/${id}`,{
+        method:'DELETE',
+      })
     },
     goToLeave() {
       this.$router.push('leave');
@@ -242,18 +410,24 @@ export default {
     //===이미지 수정
     imageUpload(e){
       if(this.imageCount<4){
+
+
+
+
         //-- 업로드된 이미지 저장
         let imageFile = e.target.files[0]
-        // this.product.images.push({id:this.imageCount,Files:imageFile});
-        this.myProductList.images.push({id: this.imageIndex, Files: imageFile}); //test코드
+        const url = URL.createObjectURL(imageFile)
+        this.myProductList.imgNames.push({indexId: this.imageCount, Files: imageFile, imgUrl: url }); //test코드=========
         //-- 업로드된 이미지 뿌려주기
 
-        const url = URL.createObjectURL(imageFile)
+
 
         this.imageSrc[this.imageCount] = url
         this.isImageDelete[this.imageCount] = true
         this.imageCount++;
         this.imageIndex++;
+
+        console.log(this.myProductList.imgNames)
       }
       else
         alert("상품은 4개까지만 등록이 가능합니다.")
@@ -263,25 +437,26 @@ export default {
 
 
     imageDelete(e){
-
-      let resultTag = this.myProductList.tagNames.find((tags)=> tags.id == e.target.id)
-      let resultTagIndex= this.myProductList.tagNames.indexOf(resultTag);
-      this.myProductList.tagNames.splice(resultTagIndex,1)
-      this.tagIndex--;
+      console.log(e.target.id)
 
 
-
-      let resultImage = this.myProductList.images.find((images)=> {
-        return images.id == e.target.id
+      let resultImage = this.myProductList.imgNames.find((images)=> {
+        return images.indexId == e.target.id
       })
-      let resultImageIndex= this.myProductList.images.indexOf(resultImage);
+      console.log(resultImage)
+      if(resultImage.id != null)
+          // this.fetchDeleteMyproductImage(id)//=========켜야됨!!!!!!!DB Delete!!!!!!!!!!!!!!!!!!!!!!!!
 
-      this.myProductList.images.splice(resultImageIndex,1);
+      console.log("내가 새로 입력한거")
+
+      let resultImageIndex= this.myProductList.imgNames.indexOf(resultImage);
+
+      this.myProductList.imgNames.splice(resultImageIndex,1);
       this.imageSrc.splice(resultImageIndex,1);
       this.imageSrc[3]=this.imageSrcDefault;
 
-      for(let i=0;i<this.myProductList.images.length;i++)
-        this.myProductList.images[i].id = i;
+      for(let i=0;i<this.myProductList.imgNames.length;i++)
+        this.myProductList.imgNames[i].indexId = i;
 
       for(let i=0;i<4;i++) {
         if(this.imageSrc[i] == this.imageSrcDefault)
@@ -290,6 +465,36 @@ export default {
 
       this.imageCount--;
       this.imageIndex--;
+
+    },
+    //===카테고리 함수
+    superCategorySelect(){
+      this.superCategoryModal = true;
+      console.log(this.productSuperCategoryValue)
+    },
+    modalClose(){
+      this.superCategoryModal = false;
+      this.CategoryModal = false;
+    },
+    superCategorySelected(){
+
+      if(this.productSuperCategoryValue != null){
+        this.fetchCategory()
+        this.CategoryModal = true;
+        this.superCategoryModal = false;
+      }
+    },
+
+    categorySelected(){
+      // this.productCategoryValue = this.product.category.name
+      if(this.productCategoryValue != null) {
+        this.productSuperCategoryValue = this.productSuperCategoryValue.name
+        this.myProductList.subCategory = this.productCategoryValue.id
+        this.CategoryModal = false;
+        this.categoryResult = this.productSuperCategoryValue + ' > ' + this.productCategoryValue.name;
+        console.log(this.myProductList.subCategory)
+        // this.product.category = this.product.category.id
+      }
 
     },
 
@@ -311,7 +516,7 @@ export default {
       }
 
       if(this.tagIndex < 5) {
-        this.myProductList.tagNames.push({id: this.tagIndex, name: this.newTag, state:false})
+        this.myProductList.tags.push({id: this.tagIndex, name: this.newTag, state:false})
         this.newTag = ''
         this.tagIndex++;
       }
@@ -319,14 +524,26 @@ export default {
         alert("태그는 5개까지만입력 가능합니다.")
       this.newTag = ''
 
-
+      console.log(this.myProductList.tags)
     },
 
     tagDelete(e){
-      let resultTag = this.myProductList.tagNames.find((tags)=> tags.id == e.target.id)
-      let resultTagIndex= this.myProductList.tagNames.indexOf(resultTag);
-      this.myProductList.tagNames.splice(resultTagIndex,1)
+
+      this.fetchDeleteMyproductTag(parseInt(e.target.id))//DB Delete!!!!!!!!!!!!!!!!!!!!!!!!
+      console.log(e)
+      console.log(e.target.id)
+
+      let resultTag = this.myProductList.tags.find((tags)=> {
+        console.log(tags)
+        console.log(tags.id)
+        return tags.id == e.target.id
+      })
+      console.log(resultTag)
+      let resultTagIndex= this.myProductList.tags.indexOf(resultTag);
+      this.myProductList.tags.splice(resultTagIndex,1)
       this.tagIndex--;
+
+      console.log(this.myProductList.tags)
     },
 
 

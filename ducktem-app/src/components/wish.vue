@@ -13,8 +13,6 @@ export default {
   },
   methods: {
     async checkClickHandler(productId) {
-      console.log(this.id);
-      console.log(productId);
       let myInfoForAuth;
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
