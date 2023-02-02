@@ -185,6 +185,35 @@ header {
   margin-bottom: 70px;
 }
 
+.log-in-font {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--color-strong);
+  background-color: #292d3e;
+  border: 1px solid var(--color-strong);
+  border-radius: 4px;
+  padding: 15px;
+  height: 32px;
+  font-size: 20px;
+
+  box-shadow: 0 0 4px #999;
+  outline: none;
+  background-position: center;
+  transition: background 0.8s;
+}
+.log-in-font:hover {
+  background: var(--color-strong) radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  color: white;
+}
+
+.log-in-font:active {
+  background-color: var(--color-strong);
+  background-size: 100%;
+  transition: background 0s;
+}
+
 .category-login a::after {
   content: '123';
   position: absolute;

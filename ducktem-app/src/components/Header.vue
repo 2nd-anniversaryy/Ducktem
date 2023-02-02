@@ -11,7 +11,7 @@
           <div class="menu-bar-category slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
               <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
-              <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
+              <div v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</div>
               <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
             <ul class="my-list" v-if="$store.state.id">
