@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductService {
 	ProductDetailResponse get(Long id);
-	List<ProductPreviewResponse> getList(Pageable pageable);
+	List<ProductPreviewResponse> getList();
 
 	Product add(ProductRegisterRequest request, String regMemberId);
 

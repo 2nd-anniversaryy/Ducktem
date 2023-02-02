@@ -1,6 +1,7 @@
 package com.ducktem.ducktemapi.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ import com.ducktem.ducktemapi.entity.Category;
 import com.ducktem.ducktemapi.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
-	Page<Product> findAllByOrderByIdDesc(Pageable pageable);
+	List<Product> findAllByOrderByIdDesc();
 
 	@Query("SELECT count(p) from Product p where p.name like :query  and p.category in :category")
 	Long countProductByNameLikeQuery(@Param("query") String query, @Param("category") List<Category> category);
