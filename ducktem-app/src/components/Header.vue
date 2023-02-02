@@ -11,7 +11,7 @@
           <div class="menu-bar-category slide-right" v-if="sideBarWrap == true">
             <div class="category-login">
               <a v-if="!$store.state.id" @click="goLogin">로그인/회원가입</a>
-              <a v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</a>
+              <div v-if="$store.state.id" class="log-in-font">{{ $store.state.nickname }}님 환영합니다.</div>
               <a v-if="$store.state.id" class="log-out" style="display: block" @click="logout">로그아웃</a>
             </div>
             <ul class="my-list" v-if="$store.state.id">
@@ -49,7 +49,6 @@
         <a @click.prevent="goListPage">비공식 굿즈</a>
         <a @click.prevent="goListPage">대리 티켓팅</a>
         <a @click.prevent="goHelpCenter">헬프센터</a>
-        <a>1:1 문의하기</a>
       </div>
 
       <div class="header-icon">
@@ -60,29 +59,14 @@
     </section>
 
     <!-- 검색 창 -->
-    <section class="search-wrap slide-bottom" v-if="searchBarWrap == true">
-      <div class="search-input-wrap">
-        <img class="search-input-back" src="/image/icon/icon-right.svg" alt="뒤로가기" />
+    <div class="modal-background" @click.stop="searchbarOut" v-if="searchBarWrap == true">
+      <section class="modal-box slide-bottom" @click.stop="">
         <div class="input-container">
-          <input class="effect-1" type="text" placeholder="상품을 검색해주세요." />
+          <input class="effect-1" @keyup.enter="submit" type="text" placeholder="상품을 검색해주세요." />
           <span class="focus-border"></span>
         </div>
-        <img class="search-input-icon" src="/image/icon/search.svg" alt="검색" />
-      </div>
-
-      <section class="latest-world-list-wrap">
-        <div class="latest-world-list-wrap-title-delete">
-          <div class="latest-world-list-title">내가 최근에 검색한 키워드</div>
-          <div class="latest-world-list-delete">모두 지우기</div>
-        </div>
-        <div class="latest-word-list">
-          <div class="btn btn-tag">
-            포카
-            <img src="/image/icon/icon-close.svg" class="latest-word-deletekey" />
-          </div>
-        </div>
       </section>
-    </section>
+    </div>
 
     <!-- 알람 창 -->
     <section class="alarm-container" v-if="alarmWrap == true">
@@ -160,6 +144,10 @@ export default {
       this.searchBarWrap = false;
       this.sideBarWrap = false;
     },
+    searchbarOut(e) {
+      this.searchBarWrap = false;
+      // e.target.
+    },
     // side bar
     sideBarOpen() {
       if (!this.sideBarWrap) {
@@ -219,4 +207,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.modal-box {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 30px;
+  width: 80%;
+  height: 40px;
+  text-align: center;
+  z-index: 500;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+</style>

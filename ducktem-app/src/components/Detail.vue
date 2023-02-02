@@ -41,7 +41,9 @@
       <!-- 상품 태그 -->
       <section class="product-tag-wrap">
         <ul class="detail-button">
-          <li v-for="tag in tags"><a class="btn btn-tag" href="">{{ tag.name }}</a></li>
+          <li v-for="tag in tags">
+            <a class="btn btn-tag" href="">{{ tag.name }}</a>
+          </li>
         </ul>
       </section>
 
@@ -67,7 +69,14 @@
       <section class="bottom-bar-wrap">
         <div class="bottom-bar">
           <div class="wish-img-wrap">
-            <Wish :wishStatus="detailProductInfo.wishStatus" :id="detailProductInfo.productId" />
+            <img v-if="myBottomWishStatus != 1" class="wish" @click.prevent="checkBottomWishClickHandler()" src="/image/icon/heart.svg" alt="찜" />
+            <img
+              v-if="myBottomWishStatus == 1"
+              class="wish checked"
+              @click.prevent="unCheckBottomWishClickHandler()"
+              src="/image/icon/icon-heart-red.svg"
+              alt="찜"
+            />
           </div>
           <div class="product-price-wrap">
             <span class="product-price">{{ detailProductInfo.price }} 원</span>
@@ -83,7 +92,6 @@
 
 <script>
 import ProductComponent from './ProductComponent.vue';
-import Wish from './wish.vue';
 export default {
   data() {
     return {
@@ -96,17 +104,55 @@ export default {
       sellProductSize: null,
       e1: false,
       e2: false,
+      myBottomWishStatus: '',
     };
   },
   components: {
     ProductComponent,
-    Wish,
   },
   mounted() {
     this.fetchProductDetail();
-
   },
   methods: {
+    async checkBottomWishClickHandler() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      } else {
+        alert('로그인이 필요한 서비스 입니다.');
+        this.$router.push('/login');
+      }
+      try {
+        const response = await fetch(`http://localhost:8080/wish/${this.$route.query.id}`, {
+          method: 'POST',
+          headers: {
+            Authorization: myInfoForAuth,
+          },
+        });
+      } catch (e) {
+        this.e = e;
+      } finally {
+        this.myBottomWishStatus = 1;
+      }
+    },
+    async unCheckBottomWishClickHandler() {
+      let myInfoForAuth;
+      if (this.$store.state.tokenResponse.access) {
+        myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+      }
+      try {
+        const response = await fetch(`http://localhost:8080/wish/${this.$route.query.id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: myInfoForAuth,
+          },
+        });
+      } catch (e) {
+        this.e = e;
+      } finally {
+        this.myBottomWishStatus = 0;
+      }
+    },
     async fetchProductDetail() {
       let myInfoForAuth;
       if (this.$store.state.tokenResponse.access) {
@@ -123,6 +169,7 @@ export default {
         this.sellProductSize = this.detailProductInfo.otherProductsSize;
         this.regMemberInfo = this.detailProductInfo.regMemberInfo;
         this.otherProductList = this.detailProductInfo.otherProducts;
+        this.myBottomWishStatus = this.detailProductInfo.wishStatus;
         this.imgList = this.detailProductInfo.imgNames;
         this.tags = this.detailProductInfo.tags;
         this.deliveryType = this.detailProductInfo.deliveryType;
@@ -133,7 +180,7 @@ export default {
       // console.log(this.imgList);
     },
     updateProduct() {
-      this.$router.push({path: `/update-product/${this.$route.query.id}`,query:{id:`${this.$route.query.id}`}});
+      this.$router.push({ path: `/update-product/${this.$route.query.id}`, query: { id: `${this.$route.query.id}` } });
     },
   },
   computed: {

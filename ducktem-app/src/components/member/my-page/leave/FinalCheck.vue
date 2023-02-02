@@ -19,7 +19,7 @@
       </div>
 
       <button @click="this.$router.push('/index')" class="btn btn-default">더 생각해볼래요</button>
-      <button @click.prevent="finalCheckBtnHandler" class="btn btn-cancel final-check-btn">확인</button>
+      <button @click.prevent="finalCheckBtnHandler(this.$store.state.id, this.$store.state.pwd)" class="btn btn-cancel final-check-btn">확인</button>
     </section>
 
     <div v-if="openLeaveCheckModalBox" class="modal-background">
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import leave from '@/store/leave';
-
 export default {
   data() {
     return {
@@ -42,21 +40,12 @@ export default {
     };
   },
   methods: {
-    async finalCheckBtnHandler() {
-      try {
-        this.params = leave.state;
-        const response = await fetch('http://localhost:8080/members', {
-          method: 'DELETE',
-          body: JSON.stringify(this.params),
-        });
-        const json = await response.json();
-        this.productList = json;
-      } catch (e) {
-        this.e = e;
-      } finally {
-        this.openLeaveCheckModalBox = true;
-        leave.commit('logout');
-      }
+    async finalCheckBtnHandler(id, pwd) {
+      let params = {
+        userId: id,
+        pwd: pwd,
+      };
+      this.$store.dispatch('delete', { params });
     },
     checkMyLeave() {
       this.openLeaveCheckModalBox = false;
