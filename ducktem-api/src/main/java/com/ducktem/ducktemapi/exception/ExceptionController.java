@@ -13,7 +13,7 @@ public class ExceptionController {
 		String msg = e.getLocalizedMessage();
 		return switch (msg) {
 			case "회원아이디가 존재하지 않습니다.", "비밀번호가 다릅니다." ->
-				new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_ACCEPTABLE);
+				new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NO_CONTENT);
 			default -> new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.CONFLICT);
 		};
 

@@ -17,13 +17,18 @@
 
           <div class="signup-container">
             <div>
+              <label class="required" for="uid">아이디</label>
+              <input id="uid" name="uid" type="text" v-model="userId" required placeholder="아이디를 입력해주세요." />
+            </div>
+
+            <div>
               <label class="required" for="name">이름</label>
               <input id="name" name="name" type="text" v-model="name" required autofocus placeholder="이름을 입력해주세요." />
             </div>
 
             <div>
-              <label class="required" for="uid">아이디</label>
-              <input id="uid" name="uid" type="text" v-model="userId" required placeholder="아이디를 입력해주세요." />
+              <label class="required" for="nickName">닉네임</label>
+              <input id="uid" name="nickName" type="text" v-model="nickName" required placeholder="닉네임을 입력해주세요." />
             </div>
 
             <div>
@@ -238,7 +243,7 @@ export default {
         phoneNumber: this.phoneNumber,
         email: this.email,
       };
-
+      console.log(params.nickName);
       this.$store.dispatch('signUp', params);
     },
   },

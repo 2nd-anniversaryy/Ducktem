@@ -19,7 +19,7 @@
       </div>
 
       <button @click="this.$router.push('/index')" class="btn btn-default">더 생각해볼래요</button>
-      <button @click.prevent="finalCheckBtnHandler(this.$store.id, this.$store.pwd)" class="btn btn-cancel final-check-btn">확인</button>
+      <button @click.prevent="finalCheckBtnHandler(this.$store.state.id, this.$store.state.pwd)" class="btn btn-cancel final-check-btn">확인</button>
     </section>
 
     <div v-if="openLeaveCheckModalBox" class="modal-background">
@@ -41,7 +41,13 @@ export default {
   },
   methods: {
     async finalCheckBtnHandler(id, pwd) {
-      this.$store.dispatch('delete', { id, pwd });
+      let params = {
+        userId: id,
+        pwd: pwd,
+      };
+      console.log(id);
+      console.log(pwd);
+      this.$store.dispatch('delete', { params });
     },
     checkMyLeave() {
       this.openLeaveCheckModalBox = false;
