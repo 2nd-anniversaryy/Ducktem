@@ -63,11 +63,8 @@ public class ProductImageServiceImpl implements ProductImageService {
 
 	@Override
 	@Transactional
-	public void update(MultipartFile[] files, List<String> imgUrl, Product product) {
-		imgUrl.stream().map(imageRepository::findByName).forEach(productImage -> {
-			if (productImage.isEmpty()) {
-				add(files, product);
-			}
-		});
+	public void update(MultipartFile file, Product product) {
+		imageRepository.save(
+			ProductImage.builder().product(product).thumbNail((byte)0).name(ImageUtil.productImgSave(file)).build());
 	}
 }

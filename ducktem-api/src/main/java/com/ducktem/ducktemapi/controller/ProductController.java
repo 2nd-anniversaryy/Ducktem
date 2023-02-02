@@ -51,9 +51,9 @@ public class ProductController {
 	private final SearchService searchService;
 
 	@GetMapping
-	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable,
-		Authentication authentication) {
-		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+	public List<ProductPreviewResponse> getList(Authentication authentication) {
+
+		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList();
 
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
@@ -150,12 +150,9 @@ public class ProductController {
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request,
-		@RequestPart MultipartFile[] files) {
-		System.out.println(request);
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request) {
 		Product product = productservice.update(request, id);
-		// productImageService.add(files, product);
-		productImageService.update(files, request.getImgUrl(),product);
+		productImageService.update(request.getFile(),product);
 		productTagService.add(request.getTagNames(), product);
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
@@ -171,13 +168,13 @@ public class ProductController {
 	// 아래 URL 고민해봐야...
 
 	@DeleteMapping("editImg/{imgId}")//이미지 삭제
-	public void deleteImage(@PathVariable Long imgId) {
-		productImageService.delete(imgId);
+	public void deleteImage(@PathVariable Long id) {
+		productImageService.delete(id);
 	}
 
 	@DeleteMapping("editTag/{tagId}")//태그 삭제
-	public void deleteTag(@PathVariable Long tagId) {
-		productTagService.delete(tagId);
+	public void deleteTag(@PathVariable Long id) {
+		productTagService.delete(id);
 	}
 
 	@PutMapping("{id}/{status}")//상품 상태 변경

@@ -3,8 +3,7 @@
     <section class="search-result-wrap">
       <h1 class="d-none">검색결과</h1>
       <div>
-        <span class="search-result">{{ this.searchQueryName }}</span
-        ><span>의 검색결과 {{ this.searchQueryCount }}건</span>
+        <span class="search-result">{{ this.searchQueryName }}</span><span>의 검색결과 {{ this.searchQueryCount }}건</span>
       </div>
     </section>
 
@@ -14,14 +13,8 @@
         <h1 class="d-none">대분류</h1>
 
         <span v-for="s in this.superCategoryList">
-          <input
-            v-bind:value="s.id"
-            v-model="this.productSuperCategoryValue"
-            type="radio"
-            name="superCategory"
-            v-bind:id="s.name"
-            @change="superCategorySelected"
-          />
+          <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory"
+            v-bind:id="s.name" @change="superCategorySelected" />
           <label v-bind:for="s.name">{{ s.name }}</label>
         </span>
       </section>
@@ -33,14 +26,8 @@
         <label class="btn btn-default aaa" for="All">전체보기</label>
 
         <span v-for="category in this.categoryList">
-          <input
-            v-bind:value="category.id"
-            v-model="this.productCategoryValue"
-            type="checkbox"
-            name="category"
-            v-bind:id="category.id"
-            @change="categorySelected"
-          />
+          <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
+            v-bind:id="category.id" @change="categorySelected" />
           <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
         </span>
       </section>
@@ -131,7 +118,10 @@ export default {
   },
 
   mounted() {
+    this.query = this.$route.query.result;
+    this.searchQueryName = this.$route.query.result;
     this.fetchSuperCategory();
+
   },
 
   methods: {
@@ -183,12 +173,12 @@ export default {
       const json = await response.json();
       this.products = json['productResult'];
       this.searchQueryCount = json['countResult'];
-      console.log(json);
+      // console.log(json);
     },
 
     onSearch() {
       this.fetchProducts();
-      this.searchQueryName = this.query;
+      this.searchQueryName = this.$route.query.result;
     },
 
     onfilter() {

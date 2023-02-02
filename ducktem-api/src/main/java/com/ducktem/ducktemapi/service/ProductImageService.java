@@ -16,5 +16,5 @@ public interface ProductImageService {
 
 	void delete(Long id);
 
-	void update(MultipartFile[] files, List<String> imgUrl ,Product product);
+	void update(MultipartFile file,Product product);
 }
