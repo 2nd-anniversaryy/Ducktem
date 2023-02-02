@@ -152,6 +152,7 @@ public class ProductController {
 	// @Transactional
 	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request,
 		@RequestPart MultipartFile[] files) {
+		System.out.println(request);
 		Product product = productservice.update(request, id);
 		// productImageService.add(files, product);
 		productImageService.update(files, request.getImgUrl(),product);

@@ -1,37 +1,37 @@
 <template>
   <main>
     <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
-    <section
-        style="
-        border: 1px solid black;
-        background-color: white;
-        border-radius: 20px;
-        width: 300px;
-        padding: 10px;
-        position: fixed;
-        bottom: 0px;
-        right: 0;
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-y: scroll;
-      "
-    >
-      <div style="text-align: center">구현끝나면삭제예정</div>
-      <div>
+<!--    <section-->
+<!--        style="-->
+<!--        border: 1px solid black;-->
+<!--        background-color: white;-->
+<!--        border-radius: 20px;-->
+<!--        width: 300px;-->
+<!--        padding: 10px;-->
+<!--        position: fixed;-->
+<!--        bottom: 0px;-->
+<!--        right: 0;-->
+<!--        z-index: 999;-->
+<!--        display: flex;-->
+<!--        flex-direction: column;-->
+<!--        align-items: center;-->
+<!--        overflow-y: scroll;-->
+<!--      "-->
+<!--    >-->
+<!--      <div style="text-align: center">구현끝나면삭제예정</div>-->
+<!--      <div>-->
 
-        <div>productId : {{this.productId}}</div><br>
-        <div>myProductList.imgNames : {{this.myProductList.imgNames}}</div><br>
-        <div>imageIndex : {{this.imageIndex}}</div><br>
-        <div>imageCount : {{this.imageCount}}</div><br>
-<!--        <div>imageSrc : {{this.imageSrc}}</div><br>-->
-        <div>productId : {{this.productId}}</div><br>
+<!--        <div>productId : {{this.productId}}</div><br>-->
+<!--        <div>myProductList.imgNames : {{this.myProductList.imgNames}}</div><br>-->
+<!--        <div>imageIndex : {{this.imageIndex}}</div><br>-->
+<!--        <div>imageCount : {{this.imageCount}}</div><br>-->
+<!--&lt;!&ndash;        <div>imageSrc : {{this.imageSrc}}</div><br>&ndash;&gt;-->
+<!--        <div>productId : {{this.productId}}</div><br>-->
 
 
 
-      </div>
-    </section>
+<!--      </div>-->
+<!--    </section>-->
     <!-- =========================================================================== -->
 
     <div class="update-product-form-wrap">
@@ -106,9 +106,45 @@
 
       <div class="update-product-category">
         <div class="input-title" >카테고리</div>
-        <input type="text" class="input-default"  v-model="this.categoryResult" name="" id="" disabled/>
+<!--        <input type="text" class="input-default"  v-model="this.categoryResult" name="" id="" disabled/>-->
+<!--        <div>-->
+<!--          <p></p>-->
+<!--        </div>-->
         <div>
-          <p></p>
+<!--          <label for="category" class="input-title" >카테고리를 선택해주세요</label>-->
+          <div @click="superCategorySelect" class="input-default category-select category-input" >
+            {{ this.categoryResult }}
+          </div>
+          <input class="input-default category-select" v-model="this.categoryValue" id="category" name="category" type="hidden">
+
+          <!-- =====   카테고리 대분류 모달   ====== -->
+          <div v-if="superCategoryModal" class="supercategory-select ttt">
+            <div class="category-title">카테고리 선택</div>
+            <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
+
+            <div v-for="(s,index) in superCategoryList">
+              <input v-bind:value="s" v-bind:id="index+1" name="supercategory" type="radio" required  v-model="this.productSuperCategoryValue">
+              <label class="category-select" v-bind:for="index+1"  >{{ s.name }}</label>
+            </div>
+
+            <div class="btn btn-default next-btn" @click="superCategorySelected">다음</div>
+          </div>
+
+
+          <!--  =====   카테고리 소분류  모달  ====== -->
+          <div class="subcategory-select ttt" v-if="this.CategoryModal">
+            <div class="category-supercategory">{{ this.productSuperCategoryValue.name }}</div>
+            <div class="category-title">하위 카테고리 선택</div>
+            <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
+            <div v-for="c in categoryList">
+              <input v-bind:value="c" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.productCategoryValue" required>
+              <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
+            </div>
+            <div class="btn btn-default next-btn final" @click="categorySelected">선택완료</div>
+          </div>
+
+
+
         </div>
       </div>
 
@@ -201,6 +237,17 @@ export default {
       isImageDelete:[false,false,false,false],
       //카테고리
       categoryResult : '',
+
+      superCategoryList:[{name:"공식굿즈", id:1},{name:"비공식굿즈", id:2},{name:"대리티켓팅", id:3}],
+      categoryList:[],
+      superCategoryModal: false,
+      CategoryModal : false,
+      productSuperCategoryValue : '',
+      productCategoryValue: null,
+
+
+
+
       //== 상품 컨디션
       conditionList:[{name:"미개봉", id:1},{name:"거의새상품", id:2},{name:"사용감있는깨끗한상품", id:3},{name:"사용흔적이있는상품", id:4},{name:"하자가있는상품", id:5}],
       //태그
@@ -256,11 +303,42 @@ export default {
 
       //카테고리 결과 조합
       this.categoryResult = this.myProductList.superCategory + '>' + this.myProductList.subCategory;
+
       //태그 갯수 불러오기
       this.tagIndex = this.myProductList.tags.length;
 
 
     },
+
+//카테고리 대분류
+//     async fetchSuperCategory() {
+//       let myInfoForAuth;
+//       if (this.$store.state.tokenResponse.access) {
+//         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
+//       }
+//       const response = await fetch('http://localhost:8080/categorys/super', {
+//         headers: {
+//           Authorization: myInfoForAuth,
+//         },
+//       });
+//       const json = await response.json();
+//       this.superCategoryList = json;
+//       await this.fetchCategory();
+//     },
+    //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
+    async fetchCategory() {
+
+      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue.id}`, {
+        headers: {
+          // Authorization: myInfoForAuth,
+        },
+      });
+      const json = await response.json();
+      this.categoryList = json;
+      // for (let i = 0; i < this.categoryList.length; i++) this.productCategoryValue.push(this.categoryList[i].id);
+      // await this.fetchProducts();
+    },
+
 
     async fetchUpdateMyproduct(id) {
 
@@ -270,18 +348,35 @@ export default {
       formData.append('price',this.myProductList.price);
       formData.append('description',this.myProductList.description);
       formData.append('deliveryType',this.myProductList.deliveryType);
-      formData.append('category',this.myProductList.subCategory);
+      formData.append('category',parseInt(this.productCategoryValue.id));
       formData.append('condition',this.myProductList.condition);
 
       for(let i in this.myProductList.tags){
-        formData.append('tagNames',this.myProductList.tags.name);
+        console.log(this.myProductList.tags.name)
+        formData.append('tagNames',this.myProductList.tags[i].name);
       }
-      for(let i in this.myProductList.imageNames) {
-        if(i.id != null)
-          formData.append('imgUrl',i.imgUrl);
+      for(let i of this.myProductList.imgNames) {
 
-        formData.append('files', this.myProductList.imageNames);
+        console.log(i)
+console.log(i.Files)
+        if(i.Files) {
+
+          console.log("새로 넣은 사진")
+          console.log(this.myProductList.imgNames)
+          console.log("=======================")
+          formData.append('files', i.Files);
+
+        }
+        if(!i.Files) {
+          console.log("원래 있던 사진")
+          console.log(i.imgUrl)
+          console.log("=======================")
+          formData.append('imgUrl', i.imgUrl);
+        }
+
+
       }
+      this.$router.push({path: `/products/${this.productId}`});
 
       console.log(this.$store.state.tokenResponse.access);
       try {
@@ -295,7 +390,7 @@ export default {
       } finally {
       }
 
-      this.$router.push({path: `/products/${this.productId}`});
+
 
     },
     async fetchDeleteMyproductTag(id) {
@@ -331,6 +426,8 @@ export default {
         this.isImageDelete[this.imageCount] = true
         this.imageCount++;
         this.imageIndex++;
+
+        console.log(this.myProductList.imgNames)
       }
       else
         alert("상품은 4개까지만 등록이 가능합니다.")
@@ -368,6 +465,36 @@ export default {
 
       this.imageCount--;
       this.imageIndex--;
+
+    },
+    //===카테고리 함수
+    superCategorySelect(){
+      this.superCategoryModal = true;
+      console.log(this.productSuperCategoryValue)
+    },
+    modalClose(){
+      this.superCategoryModal = false;
+      this.CategoryModal = false;
+    },
+    superCategorySelected(){
+
+      if(this.productSuperCategoryValue != null){
+        this.fetchCategory()
+        this.CategoryModal = true;
+        this.superCategoryModal = false;
+      }
+    },
+
+    categorySelected(){
+      // this.productCategoryValue = this.product.category.name
+      if(this.productCategoryValue != null) {
+        this.productSuperCategoryValue = this.productSuperCategoryValue.name
+        this.myProductList.subCategory = this.productCategoryValue.id
+        this.CategoryModal = false;
+        this.categoryResult = this.productSuperCategoryValue + ' > ' + this.productCategoryValue.name;
+        console.log(this.myProductList.subCategory)
+        // this.product.category = this.product.category.id
+      }
 
     },
 

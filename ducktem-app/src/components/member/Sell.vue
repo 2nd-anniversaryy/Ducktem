@@ -78,7 +78,7 @@
 
         </form>
               <!--    상품 제목 입력란입니다.    -->
-              <input type="file">
+
               <div>
                 <label class="input-title" for="title">상품 제목</label>
                 <input v-model="this.product.name" class="input-default" id="title" name="name" type="text" required placeholder="제목을 입력해 주세요.">
@@ -111,7 +111,7 @@
 
               <!--    카테고리 선택란입니다.    -->
 
-              <div>
+              <div >
                 <label for="category" class="input-title" >카테고리를 선택해주세요</label>
                 <div @click="superCategorySelect" class="input-default category-select category-input" >
                   {{ this.categoryResult }}
@@ -119,7 +119,7 @@
                 <input class="input-default category-select" v-model="this.categoryValue" id="category" name="category" type="hidden">
 
                 <!-- =====   카테고리 대분류 모달   ====== -->
-                <div v-if="superCategoryModal" class="supercategory-select">
+                <div v-if="superCategoryModal" class="supercategory-select ttt">
                   <div class="category-title">카테고리 선택</div>
                   <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
 
@@ -133,7 +133,7 @@
 
 
                 <!--  =====   카테고리 소분류  모달  ====== -->
-                <div class="subcategory-select " v-if="this.CategoryModal">
+                <div class="subcategory-select ttt" v-if="this.CategoryModal" >
                   <div class="category-supercategory">{{ this.productSuperCategoryValue.name }}</div>
                   <div class="category-title">하위 카테고리 선택</div>
                   <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose">
