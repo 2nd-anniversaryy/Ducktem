@@ -2,12 +2,12 @@
   <main>
     <section class="main-wrap">
       <section class="regist-prof-img-wrap">
-        <div>
-          <img v-if="!myInfoList.profileUrl" src="/image/profile-img.png" alt="" />
+        <div class="my-image">
+          <img v-if="!myInfoList.profileUrl" src="/image/icon/account-human.svg" alt="" />
           <img v-if="myInfoList.profileUrl" src="myInfoList.profileUrl" alt="" />
         </div>
         <div>
-          <input type="file" accept="image/*" alt="" name="profile-input" @change="changeMyProfile" />
+          <input type="file" accept="image/*" alt="" id="profile-input" @change="changeMyProfile" />
           <label for="profile-input"><img src="/image/빈-상품이미지.png" /></label>
         </div>
       </section>
