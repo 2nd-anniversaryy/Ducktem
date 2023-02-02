@@ -47,7 +47,7 @@ main {
 }
 
 .fade {
-  animation: fade 1.3s ease;
+  animation: fade 1s ease;
 }
 
 @keyframes fade {
