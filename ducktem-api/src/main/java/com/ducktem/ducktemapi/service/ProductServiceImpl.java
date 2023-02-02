@@ -41,9 +41,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public List<ProductPreviewResponse> getList(Pageable pageable) {
+	public List<ProductPreviewResponse> getList() {
 
-		return productRepository.findAllByOrderByIdDesc(pageable)
+		return productRepository.findAllByOrderByIdDesc()
+			.stream()
 				.map(ProductPreviewResponse::from)
 				.toList();
 	}

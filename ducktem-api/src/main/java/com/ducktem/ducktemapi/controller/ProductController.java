@@ -51,9 +51,9 @@ public class ProductController {
 	private final SearchService searchService;
 
 	@GetMapping
-	public List<ProductPreviewResponse> getList(@PageableDefault(size = 20) Pageable pageable,
-		Authentication authentication) {
-		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList(pageable);
+	public List<ProductPreviewResponse> getList(Authentication authentication) {
+
+		List<ProductPreviewResponse> ProductPreviewResponseList = productservice.getList();
 
 		if (authentication != null) {
 			List<WishListResponse> userWishList = wishListService.getList(authentication.getName());
@@ -150,11 +150,9 @@ public class ProductController {
 
 	@PutMapping("{id}")
 	// @Transactional
-	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request,
-		@RequestPart MultipartFile[] files) {
+	public ResponseEntity<Void> update(@PathVariable Long id, ProductUpdateRequest request) {
 		Product product = productservice.update(request, id);
-		// productImageService.add(files, product);
-		productImageService.update(files, request.getImgUrl(),product);
+		productImageService.update(request.getFile(),product);
 		productTagService.add(request.getTagNames(), product);
 
 		return ResponseEntity.created(URI.create("/products/" + product.getId().toString())).build();
