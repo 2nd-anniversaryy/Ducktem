@@ -12,7 +12,8 @@
         <h1>{{ regMemberInfo.nickName }}</h1>
         <div class="product-count-and-update-product">
           <span class="product-count">판매상품 {{ sellProductSize }}</span>
-          <span v-if="regMemberInfo.nickName == $store.state.nickname" class="update-product" @click="updateProduct">상품수정</span>
+          <span v-if="regMemberInfo.nickName == $store.state.nickname" class="update-product"
+            @click="updateProduct">상품수정</span>
         </div>
       </section>
 
@@ -61,7 +62,8 @@
       <section class="product-card-component">
         <h1 class="detail-user-others">이 판매자의 다른 물건</h1>
         <div class="product-flex">
-          <div class="product-wrap"><product-component :products="otherProductList" :pageName="true" @refresh="fetchProductDetail" /></div>
+          <div class="product-wrap"><product-component :products="otherProductList" :pageName="true"
+              @refresh="fetchProductDetail" /></div>
         </div>
       </section>
 
@@ -69,14 +71,10 @@
       <section class="bottom-bar-wrap">
         <div class="bottom-bar">
           <div class="wish-img-wrap">
-            <img v-if="myBottomWishStatus != 1" class="wish" @click.prevent="checkBottomWishClickHandler()" src="/image/icon/heart.svg" alt="찜" />
-            <img
-              v-if="myBottomWishStatus == 1"
-              class="wish checked"
-              @click.prevent="unCheckBottomWishClickHandler()"
-              src="/image/icon/icon-heart-red.svg"
-              alt="찜"
-            />
+            <img v-if="myBottomWishStatus != 1" class="wish" @click.prevent="checkBottomWishClickHandler()"
+              src="/image/icon/heart.svg" alt="찜" />
+            <img v-if="myBottomWishStatus == 1" class="wish checked" @click.prevent="unCheckBottomWishClickHandler()"
+              src="/image/icon/icon-heart-red.svg" alt="찜" />
           </div>
           <div class="product-price-wrap">
             <span class="product-price">{{ detailProductInfo.price }} 원</span>

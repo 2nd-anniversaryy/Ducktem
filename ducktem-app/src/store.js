@@ -64,7 +64,7 @@ const actions = {
       const error = new Error(responseData.message || '인증에 실패하였습니다.');
       throw error;
     }
-    await router.push('/index');
+    await router.push('/sign-up-ending');
     alert('회원가입되었습니다.');
     console.log(responseData);
   },
@@ -148,7 +148,7 @@ const actions = {
       })
       .catch((e) => {
         console.log(e);
-        console.log('로그인 서버 에러발생');
+        alert('회원 정보가 없거나 틀렸습니다.');
       });
   },
   logout({ commit }) {
