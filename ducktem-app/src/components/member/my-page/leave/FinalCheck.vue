@@ -45,8 +45,6 @@ export default {
         userId: id,
         pwd: pwd,
       };
-      console.log(id);
-      console.log(pwd);
       this.$store.dispatch('delete', { params });
     },
     checkMyLeave() {
