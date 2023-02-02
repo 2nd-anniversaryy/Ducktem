@@ -178,9 +178,9 @@
   font-weight: bold;
 }
 
-.wish-img-wrap img {
-  width: 20px;
-  height: 20px;
+.wish {
+  width: 25px;
+  height: 25px;
 }
 
 .btn-default {
@@ -366,9 +366,9 @@
     align-self: flex-start;
   }
 
-  .wish-img-wrap img {
-    width: 20px;
-    height: 20px;
+  .wish {
+    width: 35px;
+    height: 35px;
   }
 
   .chat-btn-wrap {

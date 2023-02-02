@@ -35,7 +35,6 @@
 
             <ul class="menu-extra">
               <li @click="goHelpCenter">헬프센터</li>
-              <li>1:1문의하기</li>
             </ul>
           </div>
           <!-- </transition> -->
@@ -62,7 +61,8 @@
     <div class="modal-background" @click.stop="searchbarOut" v-if="searchBarWrap == true">
       <section class="modal-box slide-bottom" @click.stop="">
         <div class="input-container">
-          <input class="effect-1" @keyup.enter="submit" type="text" placeholder="상품을 검색해주세요." />
+          <input class="effect-1" @keyup.enter="submit()" type="text" placeholder="상품을 검색해주세요."
+            v-model="searchProduct" />
           <span class="focus-border"></span>
         </div>
       </section>
@@ -130,12 +130,14 @@
 </template>
 
 <script>
+import ListSearch from './ListSearch.vue';
 export default {
   data() {
     return {
       sideBarWrap: false,
       searchBarWrap: false,
       alarmWrap: false,
+      searchProduct: null
     };
   },
   methods: {
@@ -177,6 +179,12 @@ export default {
         this.alarmWrap = false;
       }
     },
+    submit() {
+      this.$router.push({ path: '/list-search', query: { result: this.searchProduct } });
+      // this.$refs.ListSearch.onSearch();
+      this.searchProduct = null;
+      this.searchBarWrap = false;
+    }
   },
   computed: {
     goLogin() {

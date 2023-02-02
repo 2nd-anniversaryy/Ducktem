@@ -11,14 +11,23 @@
         </div>
 
         <div class="btn1">
-            <a class="btn btn-default" href="index.html">메인 페이지로 가기</a>
+            <a class="btn btn-default" href="index.html" @click.prevent="goLogin">로그인하러 가기</a>
         </div>
     </main>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
 
+        }
+    },
+    methods: {
+        goLogin() {
+            this.$router.push('/login');
+        }
+    },
 }
 </script>
 

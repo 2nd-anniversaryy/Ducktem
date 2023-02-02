@@ -74,21 +74,29 @@
 
           <li><img src="/image/뉴진스.jpg" alt="" /><span>뉴진스</span></li>
 
-          <li><img src="/image/아이브.webp" alt="" /><span>아이브</span></li>
+          <li><img src="/image/블랙핑크.jpg" alt="" /><span>블랙핑크</span></li>
 
-          <li><img src="/image/방탄소년단.jpg" alt="" /><span>BTS</span></li>
+          <li><img src="/image/트와이스.jpg" alt="" /><span>트와이스</span></li>
 
-          <li><img src="/image/르세라핌.jpg" alt="" /><span>르세라핌</span></li>
+          <li><img src="/image/여자아이들.jpg" alt="" /><span>(여자)아이들</span></li>
 
-          <li><img src="/image/뉴진스.jpg" alt="" /><span>뉴진스</span></li>
+          <li><img src="/image/오마이걸.jpg" alt="" /><span>오마이걸</span></li>
 
-          <li><img src="/image/아이브.webp" alt="" /><span>아이브</span></li>
+          <li><img src="/image/엔믹스.png" alt="" /><span>엔믹스</span></li>
 
-          <li><img src="/image/방탄소년단.jpg" alt="" /><span>BTS</span></li>
+          <li><img src="/image/프로미스나인.jpg" alt="" /><span>프로미스나인</span></li>
 
-          <li><img src="/image/르세라핌.jpg" alt="" /><span>르세라핌</span></li>
+          <li><img src="/image/EXO.jpg" alt="" /><span>EXO</span></li>
 
-          <li><img src="/image/뉴진스.jpg" alt="" /><span>뉴진스</span></li>
+          <li><img src="/image/NCT127.jpg" alt="" /><span>NCT127</span></li>
+
+          <li><img src="/image/몬스타엑스.jpg" alt="" /><span>몬스타엑스</span></li>
+
+          <li><img src="/image/케플러.jpg" alt="" /><span>케플러</span></li>
+
+          <li><img src="/image/TXT.jpeg" alt="" /><span>TXT</span></li>
+
+          <li><img src="/image/스테이시.png" alt="" /><span>스테이시</span></li>
         </ul>
       </section>
 

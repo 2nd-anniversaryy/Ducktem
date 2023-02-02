@@ -3,8 +3,7 @@
     <section class="search-result-wrap">
       <h1 class="d-none">검색결과</h1>
       <div>
-        <span class="search-result">{{ this.searchQueryName }}</span
-        ><span>의 검색결과 {{ this.searchQueryCount }}건</span>
+        <span class="search-result">{{ this.searchQueryName }}</span><span>의 검색결과 {{ this.searchQueryCount }}건</span>
       </div>
     </section>
 
@@ -14,14 +13,8 @@
         <h1 class="d-none">대분류</h1>
 
         <span v-for="s in this.superCategoryList">
-          <input
-            v-bind:value="s.id"
-            v-model="this.productSuperCategoryValue"
-            type="radio"
-            name="superCategory"
-            v-bind:id="s.name"
-            @change="superCategorySelected"
-          />
+          <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory"
+            v-bind:id="s.name" @change="superCategorySelected" />
           <label v-bind:for="s.name">{{ s.name }}</label>
         </span>
       </section>
@@ -33,21 +26,14 @@
         <label class="btn btn-default aaa" for="All">전체보기</label>
 
         <span v-for="category in this.categoryList">
-          <input
-            v-bind:value="category.id"
-            v-model="this.productCategoryValue"
-            type="checkbox"
-            name="category"
-            v-bind:id="category.id"
-            @change="categorySelected"
-          />
+          <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
+            v-bind:id="category.id" @change="categorySelected" />
           <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
         </span>
       </section>
     </section>
     <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
-    <section
-      style="
+    <section style="
         border: 1px solid black;
         background-color: white;
         border-radius: 20px;
@@ -60,8 +46,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-      "
-    >
+      ">
       <div style="text-align: center">구현끝나면삭제예정</div>
       <div>
         <div>대분류 : {{ this.productSuperCategoryValue }}</div>
@@ -131,7 +116,10 @@ export default {
   },
 
   mounted() {
+    this.query = this.$route.query.result;
+    this.searchQueryName = this.$route.query.result;
     this.fetchSuperCategory();
+
   },
 
   methods: {
@@ -183,12 +171,13 @@ export default {
       const json = await response.json();
       this.products = json['productResult'];
       this.searchQueryCount = json['countResult'];
-      console.log(json);
+      // console.log(json);
     },
 
     onSearch() {
+      console.log(this.$route.query.result);
       this.fetchProducts();
-      this.searchQueryName = this.query;
+      this.searchQueryName = this.$route.query.result;
     },
 
     onfilter() {
