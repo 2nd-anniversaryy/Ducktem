@@ -16,14 +16,14 @@
           <div>
             <span>{{ myInfo.intro }}</span>
           </div>
-          <div>
+          <!-- <div>
             <a class="btn btn-default keyword-alert-btn" @click.prevent="">키워드 알림</a>
-          </div>
+          </div> -->
         </section>
 
         <section class="title">
           <div class="selling-btn" @click="fetchMyProductList">판매중 {{ myProductList.length }}</div>
-          <div class="wish-list-btn" @click="fetchMyWishList">찜 상품 {{myWishList.length}}</div>
+          <div class="wish-list-btn" @click="fetchMyWishList">찜 상품 {{ myWishList.length }}</div>
         </section>
         <div class="product-flex">
           <section v-if="myProduct" class="product-wrap product-page">
@@ -90,8 +90,8 @@ export default {
       myInfo: [],
       myProductList: [],
       myWishList: [],
-      myProduct : true,
-      myWish : true,
+      myProduct: true,
+      myWish: true,
       e1: false,
       e2: false,
     };
