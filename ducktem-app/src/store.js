@@ -51,6 +51,9 @@ const actions = {
   async signUp(context, params) {
     const response = await fetch('http://localhost:8080/members/join', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', //보내는 형식
+      },
       body: JSON.stringify(params),
     });
 
@@ -61,7 +64,8 @@ const actions = {
       const error = new Error(responseData.message || '인증에 실패하였습니다.');
       throw error;
     }
-
+    await router.push('/index');
+    alert('회원가입되었습니다.');
     console.log(responseData);
   },
 
@@ -106,7 +110,6 @@ const actions = {
     const response = fetch(`http://localhost:8080/members`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json', //받는 형식
         'Content-Type': 'application/json', //보내는 형식
       },
       body: JSON.stringify(params),
