@@ -358,8 +358,8 @@ export default {
         body: formData,
       });
 
-      const json = await response.json();
-      console.log(json);
+      const id = await response.json();
+      this.$router.push({ name: 'detail', query: { id: id } });
     },
 
     // ====================     1번 페이지    ====================
