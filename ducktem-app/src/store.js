@@ -101,13 +101,8 @@ const actions = {
         alert('로그인 서버 에러발생');
       });
   },
-  delete({ commit }, { id, password }) {
-    let params = {
-      userId: id,
-      pwd: password,
-    };
-
-    const response = fetch(`http://localhost:8080/members`, {
+  async delete({ commit }, { params }) {
+    const response = await fetch(`http://localhost:8080/members`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', //보내는 형식
@@ -115,6 +110,7 @@ const actions = {
       body: JSON.stringify(params),
     })
       .then((response) => {
+        router.push('/index');
         commit('logout');
         alert('삭제되었습니다.');
       })
