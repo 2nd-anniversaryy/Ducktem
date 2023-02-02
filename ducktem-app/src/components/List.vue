@@ -6,14 +6,8 @@
         <h1 class="d-none">대분류</h1>
 
         <span v-for="s in this.superCategoryList">
-          <input
-            v-bind:value="s.id"
-            v-model="this.productSuperCategoryValue"
-            type="radio"
-            name="superCategory"
-            v-bind:id="s.name"
-            @change="superCategorySelected"
-          />
+          <input v-bind:value="s.id" v-model="this.productSuperCategoryValue" type="radio" name="superCategory"
+            v-bind:id="s.name" @change="superCategorySelected" />
           <label v-bind:for="s.name">{{ s.name }}</label>
         </span>
       </section>
@@ -25,42 +19,36 @@
         <label class="btn btn-default aaa" for="All">전체보기</label>
 
         <span v-for="category in this.categoryList">
-          <input
-            v-bind:value="category.id"
-            v-model="this.productCategoryValue"
-            type="checkbox"
-            name="category"
-            v-bind:id="category.id"
-            @change="categorySelected"
-          />
+          <input v-bind:value="category.id" v-model="this.productCategoryValue" type="checkbox" name="category"
+            v-bind:id="category.id" @change="categorySelected" />
           <label class="btn btn-default aaa" v-bind:for="category.id">{{ category.name }}</label>
         </span>
       </section>
     </section>
 
     <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
-    <section
-      style="
-        border: 1px solid black;
-        background-color: white;
-        border-radius: 20px;
-        width: 300px;
-        padding: 10px;
-        position: fixed;
-        bottom: 0px;
-        right: 0;
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      "
-    >
-      <div style="text-align: center">구현끝나면삭제예정</div>
-      <div>
-        <div>대분류 : {{ this.productSuperCategoryValue }}</div>
-        <div>소분류 : {{ this.productCategoryValue }}</div>
-      </div>
-    </section>
+    <!--    <section-->
+    <!--      style="-->
+    <!--        border: 1px solid black;-->
+    <!--        background-color: white;-->
+    <!--        border-radius: 20px;-->
+    <!--        width: 300px;-->
+    <!--        padding: 10px;-->
+    <!--        position: fixed;-->
+    <!--        bottom: 0px;-->
+    <!--        right: 0;-->
+    <!--        z-index: 999;-->
+    <!--        display: flex;-->
+    <!--        flex-direction: column;-->
+    <!--        align-items: center;-->
+    <!--      "-->
+    <!--    >-->
+    <!--      <div style="text-align: center">구현끝나면삭제예정</div>-->
+    <!--      <div>-->
+    <!--        <div>대분류 : {{ this.productSuperCategoryValue }}</div>-->
+    <!--        <div>소분류 : {{ this.productCategoryValue }}</div>-->
+    <!--      </div>-->
+    <!--    </section>-->
     <!-- =========================================================================== -->
 
     <div class="option">

@@ -32,7 +32,8 @@
                     <!-- v-for="i in this.imageInputs" -->
                     <span class="thumbNail-title">대표 이미지</span>
                     <label>
-                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required @change="imageUploadREAL" />
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" required
+                        @change="imageUploadREAL" />
                       <img class="img-input thumbNail" :src="this.imageSrc[0]" alt="" targetId="0" />
                     </label>
                     <span v-if="this.isImageDelete[0]" class="img-delete thumbNail" id="0" @click="imageDelete"></span>
@@ -40,7 +41,8 @@
 
                   <div class="input-box">
                     <label>
-                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" @change="imageUploadREAL" />
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"
+                        @change="imageUploadREAL" />
                       <img class="img-input" :src="this.imageSrc[1]" alt="" targetId="1" />
                     </label>
                     <span v-if="this.isImageDelete[1]" class="img-delete" id="1" @click="imageDelete"></span>
@@ -48,7 +50,8 @@
 
                   <div class="input-box">
                     <label>
-                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" @change="imageUploadREAL" />
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"
+                        @change="imageUploadREAL" />
                       <img class="img-input" :src="this.imageSrc[2]" alt="" targetId="2" />
                     </label>
                     <span v-if="this.isImageDelete[2]" class="img-delete" id="2" @click="imageDelete"></span>
@@ -56,11 +59,13 @@
 
                   <div class="input-box">
                     <label>
-                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*" @change="imageUploadREAL" />
+                      <input class="d-none file-input" id="img" name="files" type="file" accept="image/*"
+                        @change="imageUploadREAL" />
                       <img class="img-input" :src="this.imageSrc[3]" alt="" targetId="3" />
                     </label>
                     <span v-if="this.isImageDelete[3]" class="img-delete" id="3" @click="imageDelete"></span>
                   </div>
+
                 </div>
 
                 <div class="img-count">
@@ -71,34 +76,22 @@
             <!--    상품 제목 입력란입니다.    -->
             <div>
               <label class="input-title" for="title">상품 제목</label>
-              <input
-                v-model="this.product.name"
-                class="input-default"
-                id="title"
-                name="name"
-                type="text"
-                required
-                placeholder="제목을 입력해 주세요."
-              />
+              <input v-model="this.product.name" class="input-default" id="title" name="name" type="text" required
+                placeholder="제목을 입력해 주세요." />
             </div>
 
             <!--    상품 가격 입력란입니다.    -->
             <div class="price-container">
               <label class="input-title" for="price">상품 가격</label>
-              <input
-                v-model="this.product.price"
-                class="input-default inline"
-                id="price"
-                name="price"
-                type="number"
-                required
-                placeholder="가격을 입력해 주세요."
-              />
+              <input v-model="this.product.price" class="input-default inline" id="price" name="price" type="number"
+                required placeholder="가격을 입력해 주세요." />
               <span class="input-detail">원</span>
             </div>
 
             <div class="btn-container">
-              <router-link to="/"><div id="quit-reg" class="btn btn-cancel">취소</div></router-link>
+              <router-link to="/">
+                <div id="quit-reg" class="btn btn-cancel">취소</div>
+              </router-link>
               <div id="first-click" class="btn btn-default" @click="toggle1">다음</div>
             </div>
           </div>
@@ -117,15 +110,17 @@
               <div @click="superCategorySelect" class="input-default category-select category-input">
                 {{ this.categoryResult }}
               </div>
-              <input class="input-default category-select" v-model="this.categoryValue" id="category" name="category" type="hidden" />
+              <input class="input-default category-select" v-model="this.categoryValue" id="category" name="category"
+                type="hidden" />
 
               <!-- =====   카테고리 대분류 모달   ====== -->
-              <div v-if="superCategoryModal" class="supercategory-select">
+              <div v-if="superCategoryModal" class="supercategory-select ttt">
                 <div class="category-title">카테고리 선택</div>
                 <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose" />
 
                 <div v-for="(s, index) in superCategoryList">
-                  <input v-bind:value="s" v-bind:id="index + 1" name="supercategory" type="radio" required v-model="this.productSuperCategoryValue" />
+                  <input v-bind:value="s" v-bind:id="index + 1" name="supercategory" type="radio" required
+                    v-model="this.productSuperCategoryValue" />
                   <label class="category-select" v-bind:for="index + 1">{{ s.name }}</label>
                 </div>
 
@@ -133,12 +128,13 @@
               </div>
 
               <!--  =====   카테고리 소분류  모달  ====== -->
-              <div class="subcategory-select" v-if="this.CategoryModal">
-                <div class="category-supercategory">{{ this.productSuperCategoryValue.name }}</div>
+              <div class="subcategory-select ttt" v-if="this.CategoryModal">
+                <div class="category-supercategory ">{{ this.productSuperCategoryValue.name }}</div>
                 <div class="category-title">하위 카테고리 선택</div>
                 <img class="exit" src="/image/icon/icon-close.svg" alt="" @click="modalClose" />
                 <div v-for="c in categoryList">
-                  <input v-bind:value="c" v-bind:id="c.id" name="categoryId" type="radio" v-model="this.product.category" required />
+                  <input v-bind:value="c" v-bind:id="c.id" name="categoryId" type="radio"
+                    v-model="this.product.category" required />
                   <label class="category-select" v-bind:for="c.id">{{ c.name }}</label>
                 </div>
                 <div class="btn btn-default next-btn final" @click="categorySelected">선택완료</div>
@@ -148,15 +144,8 @@
             <!--    상품 상세 설명 입력란 입니다.    -->
             <div>
               <label for="description" class="input-title">상품설명</label>
-              <textarea
-                class="input-default input-description"
-                id="description"
-                name="description"
-                type="text"
-                required
-                placeholder="설명을 입력해 주세요."
-                v-model="this.product.description"
-              ></textarea>
+              <textarea class="input-default input-description" id="description" name="description" type="text" required
+                placeholder="설명을 입력해 주세요." v-model="this.product.description"></textarea>
             </div>
 
             <div class="btn-container">
@@ -177,14 +166,8 @@
               <div class="input-title">상품 컨디션</div>
               <div class="condition-box">
                 <sapn v-for="condition in conditionList">
-                  <input
-                    v-bind:value="condition.name"
-                    v-bind:id="condition.id"
-                    name="condition"
-                    v-model="this.product.condition"
-                    type="radio"
-                    required
-                  />
+                  <input v-bind:value="condition.name" v-bind:id="condition.id" name="condition"
+                    v-model="this.product.condition" type="radio" required />
                   <label class="btn reg-btn" v-bind:for="condition.id">{{ condition.name }}</label>
                 </sapn>
               </div>
@@ -194,19 +177,14 @@
             <div class="reg3-tag-container">
               <label for="tag" class="input-title">상품 태그</label>
               <div>
-                <input
-                  class="input-default tag-input"
-                  id="tag"
-                  name="tag-input"
-                  type="text"
-                  placeholder="태그를 입력해 주세요."
-                  v-model="this.newTag"
-                />
+                <input class="input-default tag-input" id="tag" name="tag-input" type="text" placeholder="태그를 입력해 주세요."
+                  v-model="this.newTag" />
                 <div class="btn btn-default btn-add" @click="addTag">추가</div>
               </div>
               <div class="tag-box">
                 <span v-for="t in this.product.tagNames">
-                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear(t)" @mouseleave="this.deleteDisappear(t)">
+                  <div class="btn btn-tag tag-default" @mouseover="this.deleteAppear(t)"
+                    @mouseleave="this.deleteDisappear(t)">
                     {{ t.name }}
                     <span v-if="t.state" class="tag-delete" :id="t.id" @click.prevent="tagDelete"></span>
                   </div>
@@ -233,15 +211,8 @@
 
             <div>
               <div v-for="d in this.deliveryTypeList">
-                <input
-                  v-bind:value="d.name"
-                  class=""
-                  v-bind:id="d.id"
-                  name="deliveryType"
-                  type="radio"
-                  v-model="this.product.deliveryType"
-                  required
-                />
+                <input v-bind:value="d.name" class="" v-bind:id="d.id" name="deliveryType" type="radio"
+                  v-model="this.product.deliveryType" required />
                 <label v-bind:for="d.id" class="delivery-label general-mail">
                   <span class="label-box">
                     <span class="delivery-icon">{{ d.logo }}</span>

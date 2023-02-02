@@ -33,7 +33,7 @@
       </section>
     </section>
     <!-- ====================     임시 검색창 입니다. 삭제 예정     ==================== -->
-    <section style="
+    <!-- <section style="
         border: 1px solid black;
         background-color: white;
         border-radius: 20px;
@@ -57,7 +57,7 @@
           <input class="btn btn-default aaa" type="button" value="검색하기" @click.prevent="this.onSearch" />
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- =========================================================================== -->
 
     <div class="option">
