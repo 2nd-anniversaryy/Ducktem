@@ -64,6 +64,7 @@ export default {
     },
     updateMyInfoBtnClickHandler() {
       this.fetchUpdateMyInfo();
+      this.$router.push('/my-page');
     },
     async fetchGetMyInfo() {
       try {

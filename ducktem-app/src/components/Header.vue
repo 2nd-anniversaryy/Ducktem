@@ -79,7 +79,7 @@
       <hr />
 
       <div class="date-top-margin">
-        <span class="alarm-update-date">00월 00일</span>
+        <span class="alarm-update-date">02월 02일</span>
         <span class="alarm-list-delete-all">모두 지우기</span>
       </div>
       <hr />
