@@ -10,13 +10,13 @@ public class ImageUtil {
 	private static final String localUrl = System.getProperty("user.dir") + "/ducktem-app/public";
 
 	public static String productImgSave(MultipartFile file) {
-		String productImgPath = localUrl + "/productimgs" + File.separator;
+		String productImgPath = localUrl + "/productimgs/";
 		return fileSave(file, productImgPath);
 
 	}
 
 	public static String profileImgSave(MultipartFile file) {
-		String profileImgPath = localUrl + "/profileimgs" + File.separator;
+		String profileImgPath = localUrl + "/profileimgs/";
 		return fileSave(file, profileImgPath);
 
 	}
