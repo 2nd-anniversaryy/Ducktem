@@ -1,6 +1,6 @@
 <template>
   <div class="product-container" v-for="product in this.products" @click="goDetailPage(product.productId, $event)">
-    <div><img v-bind:src="product.thumbNail" alt="product-img" /></div>
+    <div><img v-bind:src="product.thumbNail"/></div>
     <div class="price-wish">
       <span> {{ product.price }}원</span>
       <Wish :wishStatus="product.wishStatus" :id="product.productId" />

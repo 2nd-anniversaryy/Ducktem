@@ -100,7 +100,7 @@ export default {
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
-      const response = await fetch('http://localhost:8080/categorys/super', {
+      const response = await fetch('/categorys/super', {
         headers: {
           Authorization: myInfoForAuth,
         },
@@ -115,7 +115,7 @@ export default {
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
-      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue}`, {
+      const response = await fetch(`/categorys?s=${this.productSuperCategoryValue}`, {
         headers: {
           Authorization: myInfoForAuth,
         },
@@ -134,7 +134,7 @@ export default {
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
-      const response = await fetch(`http://localhost:8080/products/filter?c=${this.productCategoryValue}&f=${this.filter}`, {
+      const response = await fetch(`/products/filter?c=${this.productCategoryValue}&f=${this.filter}`, {
         headers: {
           Authorization: myInfoForAuth,
         },

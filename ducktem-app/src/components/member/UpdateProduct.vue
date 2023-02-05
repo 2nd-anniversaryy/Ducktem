@@ -284,7 +284,7 @@ export default {
       if (this.$store.state.tokenResponse.access) {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
-      const response = await fetch(`http://localhost:8080/products/${id}`, {
+      const response = await fetch(`/products/${id}`, {
         headers: {
           Authorization: myInfoForAuth,
         }
@@ -322,7 +322,7 @@ export default {
     //       if (this.$store.state.tokenResponse.access) {
     //         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
     //       }
-    //       const response = await fetch('http://localhost:8080/categorys/super', {
+    //       const response = await fetch('/categorys/super', {
     //         headers: {
     //           Authorization: myInfoForAuth,
     //         },
@@ -334,7 +334,7 @@ export default {
     //----- 카테고리 소분류 반환.(아래 카테고리별 상품목록 반환함수 실행)
     async fetchCategory() {
 
-      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue.id}`, {
+      const response = await fetch(`/categorys?s=${this.productSuperCategoryValue.id}`, {
         headers: {
           // Authorization: myInfoForAuth,
         },
@@ -380,7 +380,7 @@ export default {
 
       console.log(this.$store.state.tokenResponse.access);
       try {
-        const response = await fetch(`http://localhost:8080/products/${id}`, {
+        const response = await fetch(`/products/${id}`, {
           method: 'PUT',
           body: formData,
         })
@@ -394,12 +394,12 @@ export default {
 
     },
     async fetchDeleteMyproductTag(id) {
-      const response = await fetch(`http://localhost:8080/products/editTag/${id}`, {
+      const response = await fetch(`/products/editTag/${id}`, {
         method: 'DELETE',
       })
     },
     async fetchDeleteMyproductImage(id) {
-      const response = await fetch(`http://localhost:8080/products/editImage/${id}`, {
+      const response = await fetch(`/products/editImage/${id}`, {
         method: 'DELETE',
       })
     },

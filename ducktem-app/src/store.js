@@ -49,7 +49,7 @@ const mutations = {
 const actions = {
   // junhyun
   async signUp(context, params) {
-    const response = await fetch('http://localhost:8080/members/join', {
+    const response = await fetch('/members/join', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', //보내는 형식
@@ -75,7 +75,7 @@ const actions = {
       pwd: password,
     };
 
-    const response = fetch(`http://localhost:8080/members/confirm`, {
+    const response = fetch(`/members/confirm`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', //보내는 형식
@@ -102,7 +102,7 @@ const actions = {
       });
   },
   async delete({ commit }, { params }) {
-    const response = await fetch(`http://localhost:8080/members`, {
+    const response = await fetch(`/members`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', //보내는 형식
@@ -127,7 +127,7 @@ const actions = {
       pwd: password,
     };
 
-    const response = fetch(`http://localhost:8080/login`, {
+    const response = fetch(`/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json', //받는 형식

@@ -68,7 +68,7 @@ export default {
     },
     async fetchGetMyInfo() {
       try {
-        const response = await fetch('http://localhost:8080/members/me', {
+        const response = await fetch('/members/me', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },
@@ -89,7 +89,7 @@ export default {
 
       console.log(this.$store.state.tokenResponse.access);
       try {
-        const response = await fetch('http://localhost:8080/members', {
+        const response = await fetch('/members', {
           method: 'PUT',
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,

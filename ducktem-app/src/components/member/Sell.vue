@@ -300,7 +300,7 @@ export default {
   },
   methods: {
     async fetchCategory() {
-      const response = await fetch(`http://localhost:8080/categorys?s=${this.productSuperCategoryValue.id}`);
+      const response = await fetch(`/categorys?s=${this.productSuperCategoryValue.id}`);
       const json = await response.json();
       this.categoryList = json;
     },
@@ -320,7 +320,7 @@ export default {
         formData.append('files', this.product.images[i]['Files']);
       }
 
-      const response = await fetch(`http://localhost:8080/products`, {
+      const response = await fetch(`/products`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -330,6 +330,7 @@ export default {
       });
 
       const id = await response.json();
+      console.log
       this.$router.push({ name: 'detail', query: { id: id } });
     },
 

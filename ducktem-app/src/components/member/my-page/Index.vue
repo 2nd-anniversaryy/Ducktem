@@ -107,7 +107,7 @@ export default {
   methods: {
     async fetchMyInfo() {
       try {
-        const response = await fetch('http://localhost:8080/members/me', {
+        const response = await fetch('/members/me', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },
@@ -121,7 +121,7 @@ export default {
     },
     async fetchMyWishList() {
       try {
-        const response = await fetch('http://localhost:8080/products/wish', {
+        const response = await fetch('/products/wish', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },
@@ -137,7 +137,7 @@ export default {
     },
     async fetchMyProductList() {
       try {
-        const response = await fetch('http://localhost:8080/products/me', {
+        const response = await fetch('/products/me', {
           headers: {
             Authorization: 'Bearer ' + this.$store.state.tokenResponse.access,
           },

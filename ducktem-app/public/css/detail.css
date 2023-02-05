@@ -12,7 +12,7 @@
 .product-img {
   width: 100%;
   object-fit: cover;
-  max-height: 500px;
+  max-height: 400px;
 }
 
 /* 판매자 프로필 정보 */

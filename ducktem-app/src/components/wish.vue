@@ -23,7 +23,7 @@ export default {
         this.$router.push('/login');
       }
       try {
-        const response = await fetch(`http://localhost:8080/wish/${productId}`, {
+        const response = await fetch(`/wish/${productId}`, {
           method: 'POST',
           headers: {
             Authorization: myInfoForAuth,
@@ -41,7 +41,7 @@ export default {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
       try {
-        const response = await fetch(`http://localhost:8080/wish/${productId}`, {
+        const response = await fetch(`/wish/${productId}`, {
           method: 'DELETE',
           headers: {
             Authorization: myInfoForAuth,

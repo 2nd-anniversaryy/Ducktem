@@ -121,7 +121,7 @@ export default {
         this.$router.push('/login');
       }
       try {
-        const response = await fetch(`http://localhost:8080/wish/${this.$route.query.id}`, {
+        const response = await fetch(`/wish/${this.$route.query.id}`, {
           method: 'POST',
           headers: {
             Authorization: myInfoForAuth,
@@ -139,7 +139,7 @@ export default {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
       try {
-        const response = await fetch(`http://localhost:8080/wish/${this.$route.query.id}`, {
+        const response = await fetch(`/wish/${this.$route.query.id}`, {
           method: 'DELETE',
           headers: {
             Authorization: myInfoForAuth,
@@ -157,7 +157,7 @@ export default {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
       try {
-        const response = await fetch(`http://localhost:8080/products/${this.$route.query.id}`, {
+        const response = await fetch(`/products/${this.$route.query.id}`, {
           headers: {
             Authorization: myInfoForAuth,
           },

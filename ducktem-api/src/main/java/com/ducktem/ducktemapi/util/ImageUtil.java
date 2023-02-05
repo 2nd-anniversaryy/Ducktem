@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ImageUtil {
 	private static final String localUrl =
-		System.getProperty("user.dir") + File.separator + "ducktem-app" + File.separator + "public";
+		System.getProperty("user.dir")  + "/ducktem-app/" +  "public";
 
 	public static String productImgSave(MultipartFile file) {
 		String productImgPath = localUrl + "/productimgs/";
@@ -35,11 +35,10 @@ public class ImageUtil {
 			System.out.println(e.getMessage());
 		}
 
-		String fileUrl = Arrays.stream(path.split(File.separator))
+		String fileUrl = Arrays.stream(path.split("/"))
 			.filter(url -> url.contains("productimgs"))
 			.findAny()
 			.orElse("profileimgs");
-		System.out.println(File.separator + fileUrl + File.separator+ imgName);
-		return File.separator + fileUrl + File.separator+ imgName;
+		return "/" + fileUrl +"/" + imgName;
 	}
 }

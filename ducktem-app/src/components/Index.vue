@@ -141,7 +141,7 @@ export default {
         myInfoForAuth = 'Bearer ' + this.$store.state.tokenResponse.access;
       }
       try {
-        const response = await fetch('http://localhost:8080/products', {
+        const response = await fetch('/products', {
           headers: {
             Authorization: myInfoForAuth,
           },
